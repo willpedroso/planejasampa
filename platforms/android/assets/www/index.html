@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+   
+   http://www.apache.org/licenses/LICENSE-2.0
+   
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+   -->
+<html>
+   <head>
+      <!--
+         Customize this policy to fit your own app's needs. For more guidance, see:
+             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+         Some notes:
+             * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+             * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                 * Enable inline JS: add 'unsafe-inline' to default-src
+         -->
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+      <link rel="stylesheet" type="text/css" href="css/index.css">
+      <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+      <title>Planeja Sampa</title>
+   </head>
+   <body>
+      <!-- topo fixo -->
+      <div id="header">
+         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_chevron_left_black_48dp.png" alt="voltar"></button>
+         <div class="logo">
+            <img src="img/img_topo.png" alt="">
+            <p>PROGRAMA DE METAS 2013-2016</p>
+         </div>
+         <button id="bt_Configure" class="bt_menu"><img src="img/icons/ic_view_headline_black_36dp.png" alt="menu"></button>
+      </div>
+      <!-- fim do topo fixo -->
+      <div id="section">
+         <!-- inicio da tela 1  -->
+         <div id="div_metasStatus" style="display: initial">
+            <!-- barra subprefeitura -->
+            <div id="bt_Subprefeituras">
+               <div class="subpref">Subprefeitura</div>
+               <div id="listaSubprefeituras" class="distrito">
+                  <select dir="rtl" name="distritos" id="ulListaSubprefeituras">
+                     <option value="">Selecione</option>
+                     <option value="Aricanduva">Aricanduva</option>
+                     <option value="Vila Formosa">Vila Formosa</option>
+                     <option value="M'Boi Mirim">M'Boi Mirim</option>
+                     <option value="Butantã">Butantã</option>
+                     <option value="Mooca">Mooca</option>
+                     <option value="Campo Limpo">Campo Limpo</option>
+                     <option value="Parelheiros">Parelheiros</option>
+                     <option value="Capela do Socorro">Capela do Socorro</option>
+                     <option value="Penha">Penha</option>
+                     <option value="Casa Verde">Casa Verde</option>
+                     <option value="Perus">Perus</option>
+                     <option value="Cidade Ademar">Cidade Ademar</option>
+                     <option value="Pinheiros">Pinheiros</option>
+                     <option value="Cidade Tiradentes">Cidade Tiradentes</option>
+                     <option value="Pirituba/Jaraguá">Pirituba</option>
+                     <option value="Ermelino Matarazzo">Ermelino Matarazzo</option>
+                     <option value="Santana/Tucuruvi">Santana</option>
+                     <option value="Freguesia do Ó/Brasilândia">Freguesia </option>
+                     <option value="Santo Amaro">Santo Amaro</option>
+                     <option value="Guaianases">Guaianases</option>
+                     <option value="São Mateus">São Mateus</option>
+                     <option value="Ipiranga">Ipiranga</option>
+                     <option value="São Miguel Paulista">São Miguel Paulista</option>
+                     <option value="Itaim Paulista">Itaim Paulista</option>
+                     <option value="Sapopemba">Sapopemba</option>
+                     <option value="Itaquera">Itaquera</option>
+                     <option value="Sé">Sé</option>
+                     <option value="Jabaquara">Jabaquara</option>
+                     <option value="Vila Maria/Vila Guilherme">Vila Maria</option>
+                     <option value="Jaçanã/Tremembé Vila Mariana">Jaçanã/</option>
+                     <option value="Lapa">Lapa</option>
+                     <option value="Vila Prudente">Vila Prudente</option>
+                  </select>
+               </div>
+            </div>
+            <!-- fim da barra subprefeitura -->
+            <!--lista de metas por status -->
+            <div id="listaMetasStatus">
+               <div id="ulListaMetasStatus" class="metas_andamento">
+                  <!-- metas em andamento -->
+                  <!--  <a class="link_style" class="metas" href="#">
+                     <div id="metas_andamento">
+                         <div class="descricao_andamento">Metas em andamento</div>
+                         <div class="valor_andamento">102</div>
+                     </div>
+                     </a> 
+                      metas que ja beneficiam -->
+                  <!-- <a class="link_style" class="metas" href="#">
+                     <div id="metas_beneficiam">
+                         <div class="descricao_beneficiam">Metas que já beneficiam a população</div>
+                         <div class="valor_beneficiam">72</div>
+                     </div>
+                     </a> -->
+                  <!-- metas concluidas -->
+                  <!--  <a class="link_style" class="metas" href="#">
+                     <div id="metas_concluidas">
+                         <div class="descricao_concluidas">Metas concluídas</div>
+                         <div class="valor_concluidas">21</div>
+                     </div>
+                     </a> -->
+                  <!-- metas superadas -->
+                  <!-- <a class="link_style" class="metas" href="#">
+                     <div id="metas_superadas">
+                         <div class="descricao_superadas">Metas superdadas</div>
+                         <div class="valor_superadas">7</div>
+                     </div>
+                     </a>  -->
+               </div>
+            </div>
+            
+            <!-- fim da tela1 -->
+            <!-- inicio tela2 -->
+            <div id="div_listaMetas" style="display: none">
+               <div id="listaMetas" class="status_tela">
+                  Metas em andamento
+               </div>
+               <!-- barra subprefeitura -->
+               <div class="subprefeitura">
+                  <div class="subpref">Subprefeitura</div>
+                  <div class="distrito">
+                     <select dir="rtl" name="distritos" id="distritos">
+                        <option value="">Selecione</option>
+                        <option value="Aricanduva">Aricanduva</option>
+                        <option value="Vila Formosa">Vila Formosa</option>
+                        <option value="Campo Limpo">Campo Limpo</option>
+                        <option value="Parelheiros">Parelheiros</option>
+                        <option value="Capela do Socorro">Capela do Socorro</option>
+                        <option value="Penha">Penha</option>
+                        <option value="Casa Verde">Casa Verde</option>
+                        <option value="Perus">Perus</option>
+                        <option value="Sé">Sé</option>
+                        <option value="Vila Maria/Vila Guilherme">Vila Maria</option>
+                        <option value="Jaçanã/Tremembé Vila Mariana">Jaçanã/</option>
+                     </select>
+                  </div>
+               </div>
+               <!-- fim da barra subprefeitura -->
+               <!-- bloco de informações -->
+               <div class="num_meta">
+                  <ul id="ulListaMetas">
+                     <!-- <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="meta_valor">
+                            <h4>META 05</h4>
+                            <p>com benefício à população</p>
+                            <h1>51,0%</h1>
+                        </div>
+                        <div class="meta_discricao">
+                            <p>Garantir 1000.000 vagas do Programa Nacional de Acesso ao Ensino Técnico e Empregado (PRONATEC)</p>
+                        </div>
+                        </li> -->
+                  </ul>
+               </div>
+            </div>
+            <!-- fim da tela 2 --> 
+            <!-- inicio tela 3 -->
+            <div id="div_detalhesMeta" style="display: none">
+               <div class="status_tela">
+                  <div class="status">Metas em andamento</div>
+                  <div id="status_local">São Paulo</div>
+               </div>
+               <!-- barra indice de metas -->
+               <div class="subprefeitura">
+                  <div class="subpref">Metas</div>
+                  <div class="distrito">
+                     <select dir="rtl" name="metas" id="metas">
+                        <option value="">Meta</option>
+                        <option value="Meta 01">Meta 01</option>
+                        <option value="Meta 02">Meta 02</option>
+                        <option value="Meta 03">Meta 03</option>
+                        <option value="Meta 04">Meta 04</option>
+                        <option value="Meta 05">Meta 05</option>
+                        <option value="Meta 06">Meta 06</option>
+                        <option value="Meta 07">Meta 07</option>
+                        <option value="Meta 08">Meta 08</option>
+                        <option value="Meta 09">Meta 09</option>
+                        <option value="Meta 10">Meta 10</option>
+                     </select>
+                  </div>
+               </div>
+               <!-- fim da barra indice de metas  -->
+               <!-- bloco de informações -->
+               <div id="listaMetasDetalhes" style="display: none" class="list-style">
+                  <ul id="ulListaMetasDetalhes">
+                     <!--  <li class="border_bottom_gray">
+                        <div class="meta_valor_tela3">
+                            <h4>META 07</h4>
+                            <p>em andamento</p>
+                        </div>
+                        <div class="meta_discricao_tela3">
+                            <h1>51,0%</h1>
+                        </div>
+                        </li>
+                        <li>
+                            <h4>Beneficiar 228 mil novas familias com o programa Bolsa Familia</h4>
+                            <p>Desenvolvimento Social</p>
+                        
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <h4>OBJETIVO</h4>
+                            <p>Superar a extrema pobreza na cidade de São Paulo, elevando a renda, promovendo a inclusão produtiva e o acesso a serviços públicos para todos.</p>
+                        </div> 
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <h4>ARTICULAÇÃO</h4>
+                            <p>Resgate da cidadania nos territórios mais vulneráveis.</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <h4>TIPOS DE PROJETO</h4>
+                            <p>Novos serviços ou benefícios</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <h4>META 07</h4>
+                            <p><strong>348.472</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
+                            <p><strong>80.736</strong> Novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada</p>
+                        </div>
+                        
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <h4>ANDAMENTO QUALITATIVO</h4>
+                            <p>Para calcular o incremento bruto de beneficiários no Programa Bolsa Família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.</p>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="bg_gray">
+                            <div class="bg_gray2">
+                                <h4>PREVISTA</h4>
+                                <p>R$14.567.500,00</p>
+                            </div>
+                            <div class="bg_gray2">
+                                <h4>EXECUTADO</h4>
+                                <p>R$1.859.600,00</p>
+                            </div>
+                         </div>   
+                        </li> -->
+                  </ul>
+                  <!-- bloco links projetos -->
+                  <ul id="projetos">
+                  </ul>
+               </div>
+            </div>
+            <!-- fim da tela 3 -->
+            <!-- inicio tela 4 -->
+            <div id="div_detalhesProjeto" style="display: none">
+               <div  id="detalhesProjeto" class="status_tela">
+                  <ul id="ulDetalhesProjeto">
+                  </ul>
+                  <!--  <div class="status">Metas em andamento</div>
+                     <div class="status">São Paulo</div>
+                     <div id="status_local">Meta 02</div> -->
+               </div>
+               <!-- barra indice de metas -->
+               <!--  <div id="subprefeitura">
+                  <div class="subpref">Metas</div>
+                  <div class="distrito">
+                      <select dir="rtl" name="metas" id="metas">
+                          <option value="">Meta</option>
+                          <option value="Meta 01">Meta 01</option>
+                          <option value="Meta 02">Meta 02</option>
+                          <option value="Meta 03">Meta 03</option>
+                          <option value="Meta 04">Meta 04</option>
+                          <option value="Meta 05">Meta 05</option>
+                          <option value="Meta 06">Meta 06</option>
+                          <option value="Meta 07">Meta 07</option>
+                          <option value="Meta 08">Meta 08</option>
+                          <option value="Meta 09">Meta 09</option>
+                          <option value="Meta 10">Meta 10</option>
+                       </select>
+                  </div>
+                  </div> -->
+               <!-- fim da barra indice de metas  -->
+            </div>
+            <!-- bloco de informações -->
+            <!-- <div class="list-style">
+               <ul>
+                  <li>
+                     <h4>Projeto</h4>
+                     <p>Famílias beneficiadas com o Programa Bolsa Família</p>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>TIPO</h4>
+                        <p>Novos serviços ou benefícios</p>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>Status do projeto</h4>
+                        <h1 class="float_right">545,6%</h1>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>SUBPREFEITURAS ATENDIDAS</h4>
+                        <p>Aricanduva/Formosa/Carrão, Butantã, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasilândia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Jaçanã/Tremembé, Lapa, M'Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, São Mateus, São Miguel, Sapopemba, Sé, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente</p>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>Distrito</h4>
+                        <p>__</p>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>ACOMPANHAMENTO</h4>
+                        <h4>2013</h4>
+                        <p><strong>369.852</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
+                        <h4>2014</h4>
+                        <p><strong>698.991</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="bg_gray">
+                        <h4>FASES</h4>
+                        <ul class="list_projetos">
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Definição de Terreno (10%)</p>
+                              </div>
+                              <p class="text_center">CONCLUÍDA</p>
+                           </li>
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Projeto Básico (5%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">CONCLUÍDA</p>
+                              </div>
+                           </li>
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Garantia da fonte de financiamento (10%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">CONCLUÍDA</p>
+                              </div>
+                           </li>
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Licenciamento (5%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">EM ANDAMENTO</p>
+                              </div>
+                           </li>
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Licitação da obra (10%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">EM ANDAMENTO</p>
+                              </div>
+                           </li>
+                           <li>
+                              <div class="border_rigth_gray">
+                                 <p>Obras - Fase 1 (20%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">NÃO INICIADA</p>
+                              </div>
+                           </li>
+                           <li>
+                    -->           <!-- <div class="border_rigth_gray">
+                                 <p>Obras - Fase 2 (35%)</p>
+                              </div>
+                              <div>
+                                 <p class="text_center">NÃO INICIADA</p>
+                              </div> -->
+                     
+            <!-- <li>
+               <div class="bg_gray">
+                  <h4>ANDAMENTO QUALITATIVO</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+               </div>
+            </li>
+            <li>
+               <div class="bg_gray">
+                  <h4>EXECUÇÃO ORÇAMENTÁRIA</h4>
+                  <ul>
+                     <li>
+                        <h2>2013</h2>
+                        <p>__</p>
+                     </li>
+                     <li>
+                        <h2>2014</h2>
+                        <p>Em revisão</p>
+                     </li>
+                     <li>
+                        <h2>2015</h2>
+                        <p>__</p>
+                     </li>
+                     <li>
+                        <h2>2016</h2>
+                        <p>__</p>
+                     </li>
+                  </ul>
+               </div>
+            </li> -->
+         </ul>
+      </div>
+      <!-- fim da tela 4 -->
+      <!-- iniico da tela 5 -->
+      <div id="div_metasObjetivos" style="display: none">
+         <!-- bloco de informações -->
+         <!--  <div id="listaObjetivos" class="list-style list_objetivos"> -->
+         <!-- bloco links projetos -->
+         <ul id="ulListaObjetivos">
+         </ul>
+      </div>
+      <!-- fim da lista de objetivos -->
+      <!-- fim da tela 5 -->
+      <!-- inicio tela 6 -->    
+      <div id="div_configuracao" style="display: none">
+         <div class="menu_config list-style margin-top-45px">
+            <h2>Configuroções</h2>
+            <ul>
+               <li class="border_bottom_gray">
+                  <div id="atualizacaoDados">
+                     <p id="p1">Atualização dos dados</p>
+                  </div>
+               </li>
+               <li>
+                  <div id="div_atualizacao" style="display: none" class="content_p1 text_center border_bottom_gray">
+                     <h5 class="pad_b_10px">Clique no botão abaixo para atualizar os dados do aplicativo.</h5>
+                     <p><strong>Ultima atualização</strong></p>
+                     <div id="div_ultima_atualizacao"></div>
+                     <!-- <h5 class="pad_b_10px">25/5/2015 - 12:34</h5> -->
+                     <div>
+                        <button onclick="BANCODADOS.updateDataGoals(bt_didUpdate, bt_didNotUpdate, bt_failUpdate)" class="padding_10">
+                        Atualizar dados
+                        </button>
+                     </div>
+                     <div class="padding_10">
+                        <input type="checkbox" checked="" id="atualizacao_Automatica">Desejo recereber atualizações automáticas do aplicativo
+                     </div>
+                  </div>
+               </li>
+               <li class="border_bottom_gray">
+                  <div id="termosUso">
+                     <p id="p2">Termos de uso</p>
+                     <div id="div_termosUso" style="display: none" class="content_p2 text_center border_bottom_gray">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique ex vel massa faucibus, ut euismod ligula accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed ornare, ante lobortis accumsan lacinia, est nisi aliquam libero, vel consectetur lorem diam sed neque. Nam et fringilla massa, eget volutpat nulla. Vestibulum euismod volutpat semper. Phasellus tincidunt facilisis lectus, nec dapibus sem consequat non. Vestibulum feugiat, risus sit amet tincidunt faucibus, orci nulla fringilla felis, et viverra leo quam nec turpis. Mauris lectus massa, ullamcorper id faucibus et, pharetra eget ligula. Fusce id urna mauris.</p>
+                     </div>
+                  </div>
+               </li>
+               <li class="border_bottom_gray">
+                  <div id="desenvolvimento">
+                     <p id="p3">Desenvolvimento</p>
+                  </div>
+               </li>
+            </ul>
+            <div class="content_p3 text_center border_bottom_gray tela_hide">
+               <img src="img/logo_prodam.png" alt="logo_prodam" class="padding_10">
+               <p>Versão 1.0 - jul/2015 - Prodam</p>
+            </div>
+         </div>
+      </div>
+<!-- botoes do rodapé -->
+    <div id="div_footer" class="rodape_botoes" style="display: block">
+               <button id="bt_showMetasStatus" class="status_metas">
+               <img src="img/icons/ic_grade_black_24dp.png" alt=""> status das metas
+               </button>
+            
+               <button id="bt_showMetasObjetivos" class="Objetivos_metas">
+               <img src="img/icons/ic_my_location_black_24dp.png" alt="">objetivos das metas
+               </button>
+              
+            </div>
+            <!-- fim dos botoes do rodape -->        
+
+      <script type="text/javascript" src="cordova.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/BancoDados.js"></script>
+      <script type="text/javascript" src="js/UIS.js"></script>
+   </body>
+</html>

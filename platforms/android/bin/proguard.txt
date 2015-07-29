@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:8
+-keep class br.gov.prodam.MainActivity { <init>(...); }
+

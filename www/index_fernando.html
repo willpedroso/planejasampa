@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+<!--        <link href="css/estilos.css" rel="stylesheet" />-->
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <title>Hello World</title>
+    </head>
+
+    <body>
+        <!--
+        <div class="app">
+            <h1>PhoneGap</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Conectando...</p>
+                <p class="event received">Dispositivo Pronto</p>
+            </div>
+        </div>
+        -->
+        <!-- <div id="header">
+                <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_chevron_left_black_48dp.png" alt="voltar">
+                </button>
+
+                 <div class="logo">
+                        <img src="img/img_topo.png" alt="">
+                        <p>PROGRAMA DE METAS 2013-2016</p>
+                 </div>
+                <button id="bt_Configure" class="bt_menu"><img src="img/icons/ic_view_headline_black_36dp.png" alt="menu">
+                </button>
+        </div> -->
+        
+
+       <!--  <div id="section"> -->
+            <!--METAS POR STATUS--> <!-- TELA 1 -->
+            <div id="div_metasStatus" style="display: initial">
+                <div id="bt_Subprefeituras">Subprefeituras (selecione:)</div>
+                <div id="listaSubprefeituras" style="display: none">
+                    <ul id="ulListaSubprefeituras"></ul>
+                </div>
+
+            <!-- LISTA DE METAS POR STATUS -->
+                <div id="listaMetasStatus">Metas por status
+                    <ul id="ulListaMetasStatus">
+                    </ul>
+                </div>
+            </div>
+            <!-- FIM DA TELA1 -->
+
+
+            <!--METAS POR OBJETIVO--> <!-- TELA 5 --> 
+            <div id="div_metasObjetivos" style="display: none">
+                <div id="listaObjetivos">Metas por objetivo
+                    <ul id="ulListaObjetivos">
+                    </ul>
+                </div>
+            </div>
+            <!-- FIM DA TELA 5 -->
+
+
+            <!--LISTA DE METAS--> <!-- TELA 2 --> 
+            <div id="div_listaMetas" style="display: none">
+                <div id="listaMetas">Lista de metas
+                    <ul id="ulListaMetas">
+                    </ul>
+                </div>
+            </div>
+            <!-- FIM DA TELA 2 -->
+
+
+            <!--DETALHES DA META TELA 3-->
+            <div id="div_detalhesMeta" style="display: block">
+                <div class="subpref">Metas</div>
+                    <div class="distrito">
+                        <select dir="rtl" name="metas" id="metas">
+                            <option value="">Meta</option>
+                            <option value="Meta 01">Meta 01</option>
+                            <option value="Meta 02">Meta 02</option>
+                            <option value="Meta 03">Meta 03</option>
+                            <option value="Meta 04">Meta 04</option>
+                            <option value="Meta 05">Meta 05</option>
+                            <option value="Meta 06">Meta 06</option>
+                            <option value="Meta 07">Meta 07</option>
+                            <option value="Meta 08">Meta 08</option>
+                            <option value="Meta 09">Meta 09</option>
+                            <option value="Meta 10">Meta 10</option>
+                         </select>
+                    </div>
+
+
+                <div id="listaMetasDetalhes" style="display: none">
+                    <ul id="ulListaMetasDetalhes"></ul>
+                </div>
+                <div id="detalhesMeta">Detalhes da meta
+                    <ul id="ulDetalhesMeta">
+                    </ul>
+                </div>
+            </div>
+            <!-- FIM DA TELA 3 -->
+
+
+            <!--DETALHES DO PROJETO DA META TELA 4-->
+            <div id="div_detalhesProjeto" style="display: none">
+                <div id="detalhesProjeto">Detalhes do projeto da meta
+                    <ul id="ulDetalhesProjeto"></ul>
+                </div>
+            </div>
+            <!-- FIM DA TELA 4 -->
+
+
+            <!--CONFIGURAÇÕES--> <!-- TELA 6 -->
+            <div id="div_configuracao" style="display: none">
+                <div>Configurações</div>
+                <div id="atualizacaoDados">Atualização de dados</div>
+                <div id="div_atualizacao" style="display: none">
+                    <div>Clique no botão abaixo para atualizar os dados do aplicativo.</div>
+                    <div>Última atualização:</div>
+                    <div id="div_ultima_atualizacao"></div>
+                    <div>
+                        <button onclick="BANCODADOS.updateDataGoals(bt_didUpdate, bt_didNotUpdate, bt_failUpdate)">Atualizar dados</button>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="" id="atualizacao_Automatica" />Desejo receber atualizações automáticas do aplicativo<br />
+                    </div>
+                </div>
+                <div id="termosUso">Termos de uso</div>
+                <div id="div_termosUso" style="display: none">
+                    <div>texto de termos de uso</div>
+                </div>
+                <div id="desenvolvimento">Desenvolvimento</div>
+                <div id="div_desenvolvimento" style="display: none">
+                    <div>texto do desenvolvimento</div>
+                </div>
+            </div>
+            <!-- FIM DA TELA 6 -->
+
+
+        <!-- BOTOES DO RODAPÉ -->
+        </div>
+        <div id="div_footer" style="display: block">
+            <button id="bt_showMetasStatus">Status</button>
+            <button id="bt_showMetasObjetivos">Objetivos</button>
+        </div>
+
+        <!-- BLOQUEIO DE TELA PARA PROCESSOS LENTOS -->
+        <!--<div id="div_bloqueioTela" class="w-100-pct h-100-pct pos-fix bg-blk-transp-7 z-idx-102">-->
+        <div id="div_bloqueioTela" style="display: block">
+            <div id="cont_carrega_mapa">
+                <!--<h3 class="font-br txt-alg-c">-->
+                <h3>
+                    Aguarde, carregando dados
+                </h3>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/BancoDados.js"></script>
+        <script type="text/javascript" src="js/UIS.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+
+            document.addEventListener("deviceready", function () {
+                console.log("in deviceready");
+                UIS.configListeners();
+                UIS.pushDiv($("#div_metasStatus"));
+                initDB();
+            });
+            $(document).ready(function () {
+                console.log("in ready");
+            });
+
+            function checkConnections() {
+                console.log("checkConnections");
+                CheckGPSWifiPlugin.checkWifi(wifiok, wifiNotok);
+            }
+
+            function wifiok(data) {
+                console.log("wifi OK");
+                lgetDataGoals();
+            }
+
+            function wifiNotok(data) {
+                console.log("Wifi Not OK")
+            }
+
+            /********************* INICIALIZAÇÃO DO BANCO DE DADOS ************************/
+            function openDBSuccess() {
+                console.log("openDBSuccess");
+                // A inicialização do banco de dados ocorreu com sucesso
+                this.lgetDataGoals();
+            }
+
+            function openDBFail() {
+                console.log("openDBFail");
+                // Houve falha na inicialização do banco de dados
+            }
+
+            function initDB() {
+                console.log("initDB");
+                BANCODADOS.openDB(this.openDBSuccess, this.openDBFail);
+            }
+            /********************* INICIALIZAÇÃO DO BANCO DE DADOS ************************/
+            /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
+            function lgetDataGoals() {
+                console.log("Iniciando busca de dados do sistema...");
+                // Verifica atualização automática
+                if (atualizacao_Automatica.checked) {
+                    // Efetua a atualização dos dados
+                    alert("Verifica se há dados para atualizar");
+                    BANCODADOS.updateDataGoals(automatic_didUpdate, automatic_didNotUpdate, automatic_failUpdate);
+                }
+                else {
+                    // todo: Busca metas, revisar preenchimento das divs de metas por status, metas por objetivo e subprefeituras
+                    getGoals();
+                }
+            }
+
+            function getGoals() {
+                // Obtém as metas
+                console.log("Buscando metas")
+                BANCODADOS.initGetStatusGoals(true, null, getGoalsSuccess, getGoalsFail);
+            }
+
+            function getGoalsSuccess() {
+                console.log("getGoalsSuccess");
+                // As metas foram obtidas com sucesso
+            }
+
+            function getGoalsFail(err) {
+                console.log("getGoalsFail - Erro: " + err);
+                // todo: Houve falha na obtenção das metas
+                alert("Houve falha de leitura do banco de dados. Por favor, reinicie o aplicativo.");
+            }
+            /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
+            /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
+            function bt_didNotUpdate() {
+                console.log("bt_didNotUpdate");
+                alert("Os dados já estão atualizados.");
+            }
+
+            function bt_didUpdate() {
+                console.log("bt_didUpdate");
+                alert("Atualização efetuada com sucesso");
+                // Atualiza a data da última atualização
+                UIS.saveLastUpdateDate();
+            }
+
+            function bt_failUpdate() {
+                console.log("bt_failUpdate");
+                alert("Houve falha na atualização dos dados.");
+            }
+
+            function automatic_didNotUpdate() {
+                console.log("automatic_didNotUpdate");
+                alert("Os dados já estão atualizados.");
+                getGoals();
+            }
+
+            function automatic_didUpdate() {
+                console.log("automatic_didUpdate");
+                alert("Atualização efetuada com sucesso");
+                // Atualiza a data da última atualização
+                UIS.saveLastUpdateDate();
+            }
+
+            function automatic_failUpdate() {
+                console.log("automatic_failUpdate");
+                alert("Houve falha na atualização dos dados.");
+            }
+            /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
+        </script>
+    </body>
+</html>
