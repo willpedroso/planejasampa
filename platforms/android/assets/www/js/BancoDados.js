@@ -132,7 +132,7 @@ var BANCODADOS = {
     //      Andamento qualitativo;
     //      Execução orçamentária;
     getProjectDetails: function (idProject, cbSuc, cbFail) {
-        alert("getProjectDetails");
+        //alert("getProjectDetails");
         BANCODADOS.cbSuccess_f = cbSuc;
         BANCODADOS.cbFail_f = cbFail;
         // todo: corrigir comando sql
@@ -140,7 +140,7 @@ var BANCODADOS = {
     },
 
     getProjectDetailsSuccess: function (trans, res) {
-        alert("getProjectDetailsSuccess");
+        //alert("getProjectDetailsSuccess");
         var dados = [];
         // todo: Prepara os dados aqui ?
 
@@ -179,7 +179,7 @@ var BANCODADOS = {
     //      Valor executado da meta;
     //      Lista de projetos da meta;
     getGoalDetails: function (idGoal, cbSuc, cbFail) {
-        alert("getGoalDetails");
+        //alert("getGoalDetails");
         BANCODADOS.cbSuccess_f = cbSuc;
         BANCODADOS.cbFail_f = cbFail;
         // todo: revisar comando sql, faltando descrição do status, tipos de projeto e lista de projetos
@@ -201,7 +201,7 @@ var BANCODADOS = {
     },
 
     getGoalDetailsSuccess: function (trans, res) {
-        alert("getGoalDetailsSuccess");
+        //alert("getGoalDetailsSuccess");
  
         // Retorna
         BANCODADOS.cbSuccess_f(res);
@@ -225,14 +225,14 @@ var BANCODADOS = {
     // **********************************************************************************************************
     // Dados - lista contendo:
     getObjectivesGoalsList: function (idObjective, idPrefecture, cbSuc, cbFail) {
-        alert("getObjectivesGoalsList - idObjetive = " + idObjective);
+        //alert("getObjectivesGoalsList - idObjetive = " + idObjective);
         BANCODADOS.cbSuccess_f = cbSuc;
         BANCODADOS.cbFail_f = cbFail;
         BANCODADOS.sqlCmdDB("SELECT ID_META, NAME_META, STATUS_META, ACOMPANHAMENTO_META FROM GOALS WHERE NAME_OBJETIVO = ? ORDER BY ID_META", [idObjective], BANCODADOS.getStatusGoalsListSuccess, BANCODADOS.getStatusGoalsListFail);
     },
 
     getObjectivesGoalsListSuccess: function (trans, res) {
-        alert("getObjectivesGoalsListSuccess");
+       //alert("getObjectivesGoalsListSuccess");
         var dados = [];
 
         // Retorna
@@ -257,14 +257,14 @@ var BANCODADOS = {
     // **********************************************************************************************************
     // Dados - lista contendo:
     getStatusGoalsList: function (idStatus, idPrefecture, cbSuc, cbFail) {
-        alert("getStatusGoalsList");
+        //alert("getStatusGoalsList");
         BANCODADOS.cbSuccess_f = cbSuc;
         BANCODADOS.cbFail_f = cbFail;
         BANCODADOS.sqlCmdDB("SELECT ID_META, NAME_META, STATUS_META, ACOMPANHAMENTO_META FROM GOALS WHERE STATUS_META = ? ORDER BY ID_META", [idStatus], BANCODADOS.getStatusGoalsListSuccess, BANCODADOS.getStatusGoalsListFail);
     },
 
     getStatusGoalsListSuccess: function (trans, res) {
-        alert("getStatusGoalsListSuccess");
+       //alert("getStatusGoalsListSuccess");
         var dados = [];
 
         // Retorna
@@ -288,13 +288,13 @@ var BANCODADOS = {
     // Busca das subprefeituras
     // **********************************************************************************************************
     getPrefectures: function () {
-        alert("getPrefectures");
+       //alert("getPrefectures");
         // todo: revisar comando sql
         BANCODADOS.sqlCmdDB("SELECT idText, name FROM ProjectTypes ORDER BY name DESC", [], BANCODADOS.getPrefecturesSuccess, BANCODADOS.getPrefecturesFail);
     },
 
     getPrefecturesSuccess: function (trans, res) {
-        alert("getPrefecturesSuccess");
+        //alert("getPrefecturesSuccess");
         var dados = [];
         UIS.fillDivPrefectures(res);
 
@@ -320,12 +320,12 @@ var BANCODADOS = {
     // Busca de metas por objetivo
     // **********************************************************************************************************
     getObjectivesGoals: function () {
-        alert("getObjectivesGoals");
+        //alert("getObjectivesGoals");
         BANCODADOS.sqlCmdDB("SELECT NAME_OBJETIVO, COUNT(1) as QTD FROM GOALS GROUP BY NAME_OBJETIVO ORDER BY NAME_OBJETIVO ", [], BANCODADOS.getObjectivesGoalsSuccess, BANCODADOS.getObjectivesGoalsFail);
     },
 
     getObjectivesGoalsSuccess: function (trans, res) {
-        alert("getObjectivesGoalsSuccess");
+        //alert("getObjectivesGoalsSuccess");
         var dados = [];
         UIS.fillDivObjectivesGoals(res);
 
@@ -333,7 +333,7 @@ var BANCODADOS = {
     },
 
     getObjectivesGoalsFail: function (err) {
-        alert("getObjectivesGoalsFail: " + err);
+        //alert("getObjectivesGoalsFail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f(err);
         }
@@ -356,7 +356,7 @@ var BANCODADOS = {
     },
 
     getStatusGoals: function (entrada, idPrefecture) {
-        alert("getStatusGoals");
+        //alert("getStatusGoals");
         if (entrada == null) {
             entrada = false;
         }

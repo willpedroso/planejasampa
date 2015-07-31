@@ -103,7 +103,7 @@
                 // Verifica atualização automática
                 if (atualizacao_Automatica.checked) {
                     // Efetua a atualização dos dados
-                    alert("Verifica se há dados para atualizar");
+                    //alert("Verifica se há dados para atualizar");
                     BANCODADOS.updateDataGoals(automatic_didUpdate, automatic_didNotUpdate, automatic_failUpdate);
                 }
                 else {
@@ -132,12 +132,12 @@
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
             function bt_didNotUpdate() {
                 console.log("bt_didNotUpdate");
-                alert("Os dados já estão atualizados.");
+                //alert("Os dados já estão atualizados.");
             }
 
             function bt_didUpdate() {
                 console.log("bt_didUpdate");
-                alert("Atualização efetuada com sucesso");
+                //alert("Atualização efetuada com sucesso");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
@@ -149,13 +149,13 @@
 
             function automatic_didNotUpdate() {
                 console.log("automatic_didNotUpdate");
-                alert("Os dados já estão atualizados.");
+                //alert("Os dados já estão atualizados.");
                 getGoals();
             }
 
             function automatic_didUpdate() {
                 console.log("automatic_didUpdate");
-                alert("Atualização efetuada com sucesso");
+                //alert("Atualização efetuada com sucesso");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }

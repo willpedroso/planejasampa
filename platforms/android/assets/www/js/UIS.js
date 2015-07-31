@@ -37,6 +37,10 @@ var UIS = {
     atualizacao_Automatica: null,
     bt_Subprefeituras: null,
 
+    // touch - scroll
+    dragging: false,
+    bodyPM: null,
+
     // Texto para status de metas
     txtStatusMetas: [],
 
@@ -77,6 +81,8 @@ var UIS = {
 	    this.atualizacao_Automatica = $("#atualizacao_Automatica");
 	    this.bt_Subprefeituras = $("#bt_Subprefeituras");
 
+	    this.bodyPM = $("body");
+
         // Recupera a data da última atualização
 	    if (localStorage.getItem("lastUpdateDate") == null) {
 	        // Não há data da última atualização, deixa em branco
@@ -98,6 +104,19 @@ var UIS = {
 	        this.atualizacao_Automatica.prop("checked", localStorage.autoUpdate == 0 ? false : true);
         }
 
+        // controle de touchmove
+        this.bodyPM.bind("touchmove", (function () {
+        	// Marca dragging
+        	//alert("touchmove");
+        	this.dragging = true;
+        }).bind(this));
+
+        this.bodyPM.bind("touchstart", (function () {
+        	// Desmarca dragging
+        	//alert("touchstart");
+        	this.dragging = false;
+        }).bind(this));
+
         // Checkbox de atualização automática
 	    this.atualizacao_Automatica.bind("change", (function () {
 	        console.log("Checkbox onchange = " + UIS.atualizacao_Automatica.prop("checked"));
@@ -107,8 +126,8 @@ var UIS = {
 
         // Botão da combobox de subprefeituras
         // todo: apenas para testes
-	    this.bt_Subprefeituras.bind("touchend click", (function () {
-	        if (UIS.div_listaSubprefeituras.attr("style") == "display: block;") {
+	    this.bt_Subprefeituras.bind("touchend mouseup", (function () {
+	        if (UIS.div_listaSubprefeituras.attr("style") == "display: block") {
 	            // combobox aberta, fecha
 	            UIS.div_listaSubprefeituras.attr("style", "display: none");
 	        }
@@ -118,8 +137,8 @@ var UIS = {
 	    }).bind(this));
 
 	    // Botão voltar
-	    this.bt_Voltar.bind("touchend click", (function () {
-	        if (UIS.div_configuracao.attr("style") == "display: block;") {
+	    this.bt_Voltar.bind("touchend mouseup", (function () {
+	        if (UIS.div_configuracao.attr("style") == "display: block") {
 	            // Está na tela de configuração, esconde
 	            UIS.div_configuracao.attr("style", "display: none");
 	            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
@@ -137,27 +156,30 @@ var UIS = {
 	    }).bind(this));
 
 	    // Botão para visualização de metas por objetivo
-	    this.bt_showMetasObjetivos.bind("touchend click", (function () {
+	    this.bt_showMetasObjetivos.bind("touchend mouseup", (function () {
             UIS.div_metasStatus.attr("style", "display: none");
             UIS.div_metasObjetivos.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasObjetivos;
         }).bind(this));
 
         // Botão para visualização de metas por status
-	    this.bt_showMetasStatus.bind("touchend click", (function () {
+	    this.bt_showMetasStatus.bind("touchend mouseup", (function () {
 	        UIS.div_metasObjetivos.attr("style", "display: none");
 	        UIS.div_metasStatus.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasStatus;
         }).bind(this));
 
 	    // Botão para visualização das configurações
-	    this.bt_Configure.bind("touchend click", (function () {
-            if (UIS.div_configuracao.attr("style") == "display: none;") {
+	    this.bt_Configure.bind("touchend", (function () {
+	    	//alert("estado = " + UIS.div_configuracao.attr("style"));
+            if (UIS.div_configuracao.attr("style") == "display: none") {
+            	//alert("esta none");
                 // Apresenta div de configurações
                 UIS.div_configuracao.attr("style", "display: block");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
             }
             else {
+            	//alert("esta block")
                 // Esconde div de configuração
                 UIS.div_configuracao.attr("style", "display: none");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
@@ -173,8 +195,8 @@ var UIS = {
         }).bind(this));
 
 	    // Área de informações de atualização de dados
-	    this.atualizacaoDados.bind("touchend click", (function () {
-            if (UIS.div_atualizacao.attr("style") == "display: none;") {
+	    this.atualizacaoDados.bind("touchend mouseup", (function () {
+            if (UIS.div_atualizacao.attr("style") == "display: none") {
                 // Apresenta as informações de atualização de dados
                 UIS.div_atualizacao.attr("style", "display: block");
                 // Fecha as outras divs da tela de configuração
@@ -188,8 +210,9 @@ var UIS = {
         }).bind(this));
 
 	    // Área de termos de uso
-	    this.termosUso.bind("touchend click", (function () {
-	        if (UIS.div_termosUso.attr("style") == "display: none;") {
+	    this.termosUso.bind("touchend mouseup", (function () {
+	    	if(this.dragging == false) {
+	        if (UIS.div_termosUso.attr("style") == "display: none") {
 	            // Apresenta os termos de uso
 	            UIS.div_termosUso.attr("style", "display: block");
 	            // Fecha as outras divs da tela de configuração
@@ -200,11 +223,12 @@ var UIS = {
 	            // Esconde os termos de uso
 	            UIS.div_termosUso.attr("style", "display: none");
 	        }
+	   		}
 	    }).bind(this));
 
 	    // Área de desenvolvimento
-	    this.desenvolvimento.bind("touchend click", (function () {
-            if (UIS.div_desenvolvimento.attr("style") == "display: none;") {
+	    this.desenvolvimento.bind("touchend mouseup", (function () {
+            if (UIS.div_desenvolvimento.attr("style") == "display: none") {
                 // Apresenta informações de desenvolvimento
                 UIS.div_desenvolvimento.attr("style", "display: block");
                 // Fecha as outras divs da tela de configuração
@@ -218,29 +242,37 @@ var UIS = {
         }).bind(this));
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
-	    this.ul_ListaMetasStatus.bind("touchend click", (function (event) {
+	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por status");
-	        BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	        if(this.dragging == false) {
+	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	    	}
 	    }).bind(this));
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
-	    this.ul_listaObjetivos.bind("touchend click", (function (event) {
+	    this.ul_listaObjetivos.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
-	        BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	        if(this.dragging == false) {
+	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	    	}
 	    }).bind(this));
 
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
-	    this.ul_ListaMetas.bind("touchend click", (function (event) {
+	    this.ul_ListaMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
-	        BANCODADOS.getGoalDetails(event.target.getAttribute('idMeta'), UIS.showDetalhesMetas, null);
+	        if(this.dragging == false) {
+	        	BANCODADOS.getGoalDetails(event.target.getAttribute('idMeta'), UIS.showDetalhesMetas, null);
+	    	}
 	    }).bind(this));
 
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
-	    this.ul_DetalhesMeta.bind("touchend click", (function (event) {
+	    this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	        //alert("Detalhes da meta");
 	        ////alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
-	        BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
+	        if(this.dragging == false) {
+	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
+	    	}
 	    }).bind(this));
 	},
 
@@ -280,7 +312,7 @@ var UIS = {
                         "</p><p>Previsto: " + dados.rows.item(i).PREVISTO_META +
                         "</p><p>Executado: " + dados.rows.item(i).EXECUTADO_META +
                         "</p></div></li>";
-//	        //alert(nodes);
+		//alert(nodes);
 	    }
 //	    //alert(nodes);
 	    UIS.ul_DetalhesMeta.empty();
