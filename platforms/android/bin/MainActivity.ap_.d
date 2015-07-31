@@ -44,6 +44,11 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\img_topo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam_metas-01.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\bt_config.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\icon_objetivo_metas.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\icon_status_metas.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_arrow_back_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_autorenew_black_18dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_autorenew_black_24dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_autorenew_black_36dp.png \
@@ -91,6 +96,10 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_view_headline_black_24dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_view_headline_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_view_headline_black_48dp.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_chevron_left_black_24dp.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_chevron_left_black_48dp.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_view_headline_black_24dp.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_view_headline_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\BancoDados.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\index.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\jquery-2.1.4.min.js \

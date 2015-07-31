@@ -16,39 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-// var app = {
-//     // Application Constructor
-//     initialize: function() {
-//         this.bindEvents();
-//     },
-//     // Bind Event Listeners
-//     //
-//     // Bind any events that are required on startup. Common events are:
-//     // 'load', 'deviceready', 'offline', and 'online'.
-//     bindEvents: function() {
-//         document.addEventListener('deviceready', this.onDeviceReady, false);
-//     },
-//     // deviceready Event Handler
-//     //
-//     // The scope of 'this' is the event. In order to call the 'receivedEvent'
-//     // function, we must explicitly call 'app.receivedEvent(...);'
-//     onDeviceReady: function() {
-//         app.receivedEvent('deviceready');
-//     },
-//     // Update DOM on a Received Event
-//     receivedEvent: function(id) {
-//         var parentElement = document.getElementById(id);
-//         var listeningElement = parentElement.querySelector('.listening');
-//         var receivedElement = parentElement.querySelector('.received');
 
-//         listeningElement.setAttribute('style', 'display:none;');
-//         receivedElement.setAttribute('style', 'display:block;');
-
-//         console.log('Received Event: ' + id);
-//     }
-// };
-
-// app.initialize();
 
 
             //app.initialize();
@@ -103,7 +71,7 @@
                 // Verifica atualização automática
                 if (atualizacao_Automatica.checked) {
                     // Efetua a atualização dos dados
-                    alert("Verifica se há dados para atualizar");
+                    //alert("Verifica se há dados para atualizar");
                     BANCODADOS.updateDataGoals(automatic_didUpdate, automatic_didNotUpdate, automatic_failUpdate);
                 }
                 else {
@@ -132,12 +100,12 @@
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
             function bt_didNotUpdate() {
                 console.log("bt_didNotUpdate");
-                alert("Os dados já estão atualizados.");
+                //alert("Os dados já estão atualizados.");
             }
 
             function bt_didUpdate() {
                 console.log("bt_didUpdate");
-                alert("Atualização efetuada com sucesso");
+                //alert("Atualização efetuada com sucesso");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
@@ -149,13 +117,13 @@
 
             function automatic_didNotUpdate() {
                 console.log("automatic_didNotUpdate");
-                alert("Os dados já estão atualizados.");
+                //alert("Os dados já estão atualizados.");
                 getGoals();
             }
 
             function automatic_didUpdate() {
                 console.log("automatic_didUpdate");
-                alert("Atualização efetuada com sucesso");
+                //alert("Atualização efetuada com sucesso");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }

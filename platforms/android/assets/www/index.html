@@ -28,34 +28,34 @@
              * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                  * Enable inline JS: add 'unsafe-inline' to default-src
          -->
-      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
       <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
       <meta name="format-detection" content="telephone=no">
       <meta name="msapplication-tap-highlight" content="no">
       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
       <link rel="stylesheet" type="text/css" href="css/index.css">
+      <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
       <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
       <title>Planeja Sampa</title>
    </head>
    <body>
       <!-- topo fixo -->
       <div id="header">
-         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_chevron_left_black_48dp.png" alt="voltar"></button>
+         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_arrow_back_black_36dp.png" alt="voltar" width="24px" heigth="24px"></button>
          <div class="logo">
-            <img src="img/img_topo.png" alt="">
+            <img src="img/logo_prodam_metas-01.png" alt="">
             <p>PROGRAMA DE METAS 2013-2016</p>
          </div>
-         <button id="bt_Configure" class="bt_menu"><img src="img/icons/ic_view_headline_black_36dp.png" alt="menu"></button>
+         <button id="bt_Configure" class="bt_Configure"><img src="img/icons/bt_config.png" alt="menu" width="24px" heigth="24px"></button>
       </div>
       <!-- fim do topo fixo -->
-      <div id="section">
+      
          <!-- inicio da tela 1  -->
-         <div id="div_metasStatus" style="display: initial">
-            <!-- barra subprefeitura -->
-            <div id="bt_Subprefeituras">
+                     <!-- barra subprefeitura -->
+            <div id="bt_Subprefeituras" class="subprefeitura">
                <div class="subpref">Subprefeitura</div>
                <div id="listaSubprefeituras" class="distrito">
-                  <select dir="rtl" name="distritos" id="ulListaSubprefeituras">
+                  <select dir="rtl" name="distritos" >
                      <option value="">Selecione</option>
                      <option value="Aricanduva">Aricanduva</option>
                      <option value="Vila Formosa">Vila Formosa</option>
@@ -93,38 +93,33 @@
                </div>
             </div>
             <!-- fim da barra subprefeitura -->
-            
+         <div id="section">
+           <div id="div_metasStatus" style="display: initial"> 
             <!--lista de metas por status -->
             <div id="listaMetasStatus">
                <div id="ulListaMetasStatus" class="metas_andamento">
                   <!-- metas em andamento -->
-                  <!--  <a class="link_style" class="metas" href="#">
-                     <div id="metas_andamento">
-                         <div class="descricao_andamento">Metas em andamento</div>
-                         <div class="valor_andamento">102</div>
+                     <div idRegistro='2' class="metas_andamento">
+                         <div idRegistro='2' class="descricao_andamento">Metas em andamento</div>
+                         <div idRegistro='2' class="valor_andamento">102</div>
                      </div>
-                     </a> 
-                      metas que ja beneficiam -->
-                  <!-- <a class="link_style" class="metas" href="#">
-                     <div id="metas_beneficiam">
-                         <div class="descricao_beneficiam">Metas que já beneficiam a população</div>
-                         <div class="valor_beneficiam">72</div>
+                     <!--  metas que ja beneficiam  -->
+
+                     <div idRegistro='3' class="metas_beneficiam">
+                         <div idRegistro='3' class="descricao_beneficiam">Metas que já beneficiam a população</div>
+                         <div  idRegistro='3' class="valor_beneficiam">72</div>
                      </div>
-                     </a> -->
+
                   <!-- metas concluidas -->
-                  <!--  <a class="link_style" class="metas" href="#">
-                     <div id="metas_concluidas">
-                         <div class="descricao_concluidas">Metas concluídas</div>
-                         <div class="valor_concluidas">21</div>
+                     <div idRegistro='4' class="metas_concluidas">
+                         <div idRegistro='4' class="descricao_concluidas">Metas concluídas</div>
+                         <div idRegistro='4' class="valor_concluidas">21</div>
                      </div>
-                     </a> -->
                   <!-- metas superadas -->
-                  <!-- <a class="link_style" class="metas" href="#">
-                     <div id="metas_superadas">
-                         <div class="descricao_superadas">Metas superdadas</div>
-                         <div class="valor_superadas">7</div>
+                     <div  idRegistro='4' class="metas_superadas">
+                         <div  idRegistro='4' class="descricao_superadas">Metas superdadas</div>
+                         <div  idRegistro='4' class="valor_superadas">7</div>
                      </div>
-                     </a>  -->
                </div>
             </div>
           </div>  
@@ -535,12 +530,12 @@
     </div>  
 <!-- botoes do rodapé -->
     <div id="div_footer" class="rodape_botoes" style="display: block">
-               <button id="bt_showMetasStatus" class="status_metas">
-               <img src="img/icons/ic_grade_black_24dp.png" alt=""> status das metas
+               <button id="bt_showMetasStatus" class="status_metas bt_border_ativo">
+               <img src="img/icons/icon_status_metas.png" alt="status das mestas "  width="30px" heigth="30px"> status das metas
                </button>
             
                <button id="bt_showMetasObjetivos" class="Objetivos_metas">
-               <img src="img/icons/ic_my_location_black_24dp.png" alt="">objetivos das metas
+               <img src="img/icons/icon_objetivo_metas.png" alt="objetivos das metas"  width="30px" heigth="30px">objetivos das metas
                </button>
               
             </div>

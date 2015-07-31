@@ -157,6 +157,11 @@ var UIS = {
 
 	    // Botão para visualização de metas por objetivo
 	    this.bt_showMetasObjetivos.bind("touchend mouseup", (function () {
+	    	// insere borda de ativo
+	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
+	    	// remove a borda de ativo
+	    	UIS.bt_showMetasStatus.removeClass("bt_border_ativo");
+
             UIS.div_metasStatus.attr("style", "display: none");
             UIS.div_metasObjetivos.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasObjetivos;
@@ -164,6 +169,11 @@ var UIS = {
 
         // Botão para visualização de metas por status
 	    this.bt_showMetasStatus.bind("touchend mouseup", (function () {
+	    	// insere borda de ativo
+	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
+	    	// remove a borda de ativo
+	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
+
 	        UIS.div_metasObjetivos.attr("style", "display: none");
 	        UIS.div_metasStatus.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasStatus;
@@ -244,6 +254,7 @@ var UIS = {
 	    // Navegação da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por status");
+	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
 	    	}
@@ -339,7 +350,7 @@ var UIS = {
 	    //alert("fillDivStatusGoals");
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<div class='descricao_andamento' idRegistro='" + dados.rows.item(i).STATUS_META + "'>" + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META]+"</div>"+"<div class='valor_andamento'>" +  dados.rows.item(i).QTD + "</div>";
+	        nodes += "<div><div class='descricao_andamento' idRegistro='" + dados.rows.item(i).STATUS_META + "'>" + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META]+"</div>"+"<div class='valor_andamento'>" +  dados.rows.item(i).QTD + "</div></div>";
 	    }
 		//alert(nodes);
 	    UIS.ul_ListaMetasStatus.empty();

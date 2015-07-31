@@ -372,7 +372,7 @@ var BANCODADOS = {
     getStatusGoalsSuccess: function (trans, res) {
         console.log("getStatusGoalsSuccess");
         var dados = [];
-        UIS.fillDivStatusGoals(res);
+        //UIS.fillDivStatusGoals(res);
 
         BANCODADOS.getObjectivesGoals();
     },
