@@ -40,6 +40,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\__index.html \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\index.css \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\bg_status_ativo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\img_topo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo.png \

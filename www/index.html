@@ -41,7 +41,7 @@
    <body>
       <!-- topo fixo -->
       <div id="header">
-         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_arrow_back_black_36dp.png" alt="voltar" width="24px" heigth="24px"></button>
+         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_chevron_left_black_48dp.png" alt="voltar" width="24px" heigth="24px"></button>
          <div class="logo">
             <img src="img/logo_prodam_metas-01.png" alt="">
             <p>PROGRAMA DE METAS 2013-2016</p>
@@ -51,8 +51,9 @@
       <!-- fim do topo fixo -->
       <div id="section">
          <!-- inicio da tela 1  -->
+          <div id="div_metasStatus" style="display: initial"> 
                      <!-- barra subprefeitura -->
-            <div id="bt_Subprefeituras" class="subprefeitura">
+            <div id="bt_Subprefeituras" class="subprefeitura divide_meta">
                <div class="subpref">Subprefeitura</div>
                <div id="listaSubprefeituras" class="distrito">
                   <select dir="rtl" name="distritos" >
@@ -93,31 +94,31 @@
                </div>
             </div>
             <!-- fim da barra subprefeitura -->
-           <div id="div_metasStatus" style="display: initial"> 
+          
             <!--lista de metas por status -->
             <div id="listaMetasStatus">
-               <div id="ulListaMetasStatus" class="metas_andamento">
+               <div id="ulListaMetasStatus" >
                   <!-- metas em andamento -->
-                     <div idRegistro='2' class="metas_andamento">
-                         <div idRegistro='2' class="descricao_andamento">Metas em andamento</div>
-                         <div idRegistro='2' class="valor_andamento">102</div>
+                     <div idRegistro='2' class="metas_andamento divide_meta">
+                         <div idRegistro='2' class="descricao_andamento  cor_metas1">metas em andamento</div>
+                         <div idRegistro='2' class="valor_andamento cor_valor_meta">102</div>
                      </div>
                      <!--  metas que ja beneficiam  -->
 
-                     <div idRegistro='3' class="metas_beneficiam">
-                         <div idRegistro='3' class="descricao_beneficiam">Metas que já beneficiam a população</div>
-                         <div  idRegistro='3' class="valor_beneficiam">72</div>
+                     <div idRegistro='3' class="metas_beneficiam divide_meta">
+                         <div idRegistro='3' class="descricao_beneficiam  cor_metas1">metas que já beneficiam a população</div>
+                         <div  idRegistro='3' class="valor_beneficiam cor_valor_meta">72</div>
                      </div>
 
                   <!-- metas concluidas -->
-                     <div idRegistro='4' class="metas_concluidas">
-                         <div idRegistro='4' class="descricao_concluidas">Metas concluídas</div>
+                     <div idRegistro='4' class="metas_concluidas divide_meta">
+                         <div idRegistro='4' class="descricao_concluidas">metas concluídas</div>
                          <div idRegistro='4' class="valor_concluidas">21</div>
                      </div>
                   <!-- metas superadas -->
-                     <div  idRegistro='4' class="metas_superadas">
-                         <div  idRegistro='4' class="descricao_superadas">Metas superdadas</div>
-                         <div  idRegistro='4' class="valor_superadas">7</div>
+                     <div  idRegistro='4' class="metas_superadas divide_meta">
+                         <div  idRegistro='4' class="descricao_superadas  cor_metas1">metas superdadas</div>
+                         <div  idRegistro='4' class="valor_superadas cor_valor_meta">7</div>
                      </div>
                </div>
             </div>

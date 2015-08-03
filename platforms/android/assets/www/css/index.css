@@ -39,7 +39,7 @@ body{
  #header {
     position: fixed;
     width: 100%;
-    height: auto;
+    height: 55px;
     background-color: #fff;
     text-align: center;
     box-shadow:         0px 3px 7px 0px rgba(109, 109, 109, 0.50);
@@ -49,7 +49,6 @@ body{
 
 #nav {
     line-height: 30px;
-    background-color: #eeeeee;
     height: 470px;
     width: 40px;
     float: left;
@@ -62,7 +61,6 @@ body{
 
 #section {
     overflow: auto;
-    background-color: #eeeeee;
     width: 100%;
     float: left;
          
@@ -134,16 +132,15 @@ button{
     float: left;
     height: 45px;
     width: 100%;
-    background-color:#DBDBDB;
-
-
 }
 
 .subpref{
+    color: #b71c1c;
     float: left;
     width:35%;
     padding: 10px 0 10px 6%;
     height: 45px;
+    text-transform: uppercase;
 }
 
 .distrito{
@@ -159,13 +156,13 @@ button{
     padding-right: 20px;
     text-align: left;
     float: right;
-    color:#9E9E9E;
+    color:#212121;
     background: transparent;
     background-image: url(../img/icons/ic_expand_more_black_24dp.png); 
     background-repeat: no-repeat;
     background-position: right center;
     width: 165px;
-    font-size: 1.16em;
+    font-size: 1em;
     line-height: 1;
     border: 0;
     border-radius: 0;
@@ -177,57 +174,81 @@ button{
 
 /*classes tela 1*/
 
+.cor_metas1{
+    color: #212121;    
+}
+
+.cor_valor_meta{
+   color:#d5d5d5;
+}
 .metas_andamento{
+    float: left;
     width: 100%;
-    height: auto;
-    background-color: #CBC6C6;
-    overflow: auto;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 0 19px 0 0;
+}
+.padding_t_54{
+    padding-top: 54px;
 }
 
 .descricao_andamento{
-    width: 50%;
+    width: 32%;
     float: left;
     font-family: 'Roboto', sans-serif;
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: 500;
-    padding: 10% 0 0 5%;
+    padding-left:5%;
     line-height: 19px;
-    margin: 18px 0 0 0;
+    padding-top: 21px;
+ 
 }
 
 .valor_andamento{
+    width: 60%;
+    line-height: 93px;
     float: right;
     clear: right;
-    font-family: 'Roboto', sans-serif;
-    font-size: 4em;
-    font-weight: 800;
-    padding: 5% 15px 0 0;
+    font-family: 'Roboto condensed', sans-serif;
+    font-size: 7.2em;
+    white-space:normal;
+    font-weight: 600;
 }
 
+.divide_meta{
+    border-bottom: 2px solid #f5f5f5;
+}
 
 .metas_beneficiam{
-    overflow: auto;
+    float: left;
     width: 100%;
-    height: auto;
-    background-color: #DBDBDB;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 0 19px 0 0;
 }
 
 .descricao_beneficiam{
-    width: 50%;
+    width: 40%;
     float: left;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 500;
-    padding: 7% 0 10px 5%;
-    line-height: 25px;
+    padding-left:5%;
+    line-height: 19px;
+    padding-top: 10px;
 }
 
 .valor_beneficiam{
+    width: 42%;
+    line-height: 88px;
     float: right;
-    font-family: 'Roboto', sans-serif;
-    font-size:3.8em;
-    font-weight: 800;
-    padding: 8% 15px 0 0;
+    clear: right;
+    font-family: 'Roboto condensed', sans-serif;
+    font-size: 7.2em;
+    white-space:normal;
+    font-weight: 600;
 }
 
 .metas{
@@ -237,59 +258,72 @@ button{
 
 
 .metas_concluidas{
-    overflow: auto;
+    float: left;
     width: 100%;
-    height: auto;
-    background-color: #F2F2F2;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 0 19px 0 0;
 }
 
 .descricao_concluidas{
+    color: #f55b4f;
     width: 50%;
     float: left;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.6em;
+    font-size: 1.2em;
     font-weight: 500;
-    padding: 6% 0 0 5%;
-    line-height: 25px;
+    padding-left:5%;
+    line-height: 19px;
+    padding-top: 29px;
 }
 
 .valor_concluidas{
+    color: #f8d5d3;
+    width: 29%;
+    line-height: 73px;
     float: right;
-    font-family: 'Roboto', sans-serif;
-    font-size: 3em;
-    font-weight: 800;
-    height:100%;
-    padding: 4% 15px 0 0;
+    clear: right;
+    font-family: 'Roboto condensed', sans-serif;
+    font-size: 5.2rem;
+    white-space:normal;
+    font-weight: 600;
 }
 
 .metas_superadas{
-    overflow: auto;
+    float: left;
     width: 100%;
-    height: auto;
-    background-color: #fff;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    padding: 0 19px 0 0;
 }
 
 .descricao_superadas{
-    width: 50%;
+    width: 55%;
     float: left;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 500;
-    padding: 6% 0 0 5%;
-    line-height: 17px;
+    padding-left:5%;
+    line-height: 19px;
+    padding-top: 23px;
 }
 
 .valor_superadas{
+    width: 18%;
+    line-height: 66px;
     float: right;
-    font-family: 'Roboto', sans-serif;
-    font-size:3rem;
-    font-weight: 800;
-    height:100%;
-    padding: 6% 15px 0 0;
+    clear: right;
+    font-family: 'Roboto condensed', sans-serif;
+    font-size: 4.6rem;
+    white-space:normal;
+    font-weight: 600;
 }
 
 
 .rodape_botoes{
+    background-color: #f5f5f5;
     float: left;
     position: fixed;
     bottom: 0;
@@ -304,12 +338,12 @@ button{
 
 .status_metas {
     width: 50%;
-    height: 45px;
+    height: 100%;
     font-family: 'Montserrat', 'Roboto', sans-serif;
     float: left;
     font-size: 1.1em;
     font-weight: 500;
-    padding: 13px 0 0px 3%;
+    padding: 0 0 0 3%;
     line-height: 15px;
     text-align: left;
 }
@@ -322,19 +356,21 @@ button{
 }
 
 .bt_border_ativo{
-    border-bottom: 4px solid #b71c1c;
+   background-image: url(../img/bg_status_ativo.png);
+   background-position: bottom;
+   background-repeat: repeat-x;
 }
 
 .Objetivos_metas{
     float: right;
     width: 50%;
     border-left: 2px solid #eee;
-    height: 45px;
+    height: 100%;
     font-family: 'Montserrat', 'Roboto', sans-serif;
     float: left;
     font-size: 1.1em;
     font-weight: 500;
-    padding: 5px 0 0px 2%;
+    padding: 0 0 0 2%;
     text-align: left;
     line-height: 15px;
 }

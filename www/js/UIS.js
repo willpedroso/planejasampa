@@ -172,7 +172,7 @@ var UIS = {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
 	    	// remove a borda de ativo
-	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
+	    	UIS.bt_showMetasObjetivos.removeClass("bt_border_ativo");
 
 	        UIS.div_metasObjetivos.attr("style", "display: none");
 	        UIS.div_metasStatus.attr("style", "display: block");
