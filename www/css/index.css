@@ -17,6 +17,13 @@
  * under the License.
  */
 
+
+
+* {
+   -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+
  * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -54,9 +61,21 @@ body{
     float: left;
     padding: 5px;
 }
+#div_metasObjetivos{
+    padding: 64px 15px 0 15px;
+}
+
+
 #ulListaObjetivos{
-    padding: 75px 0 0 0;
+    /*width: 100%;
+    float: left;
+    padding: 61px 0 0 0;*/
     margin: 0;
+    padding: 0;
+}
+
+#ulListaObjetivos ul li{
+    width: 100%;
 }
 
 #section {
@@ -65,10 +84,38 @@ body{
     float: left;
          
 }
+.height_50px{
+     height: 50px;
+}
+.titulo_objetivo{
+    padding: 10px 0 0 0;
+    height: 50px;
+}
 
+.item_objetivo{
+    height: 50px;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 99% center;
+}
 
+.desc_objetivo{
+    padding-top: 15px;
+    float: left;
+    font-family: "roboto";
+    font-size: 1.1rem;
+    color: #515151;
+  
+}
 
+.valor_objetivo{
+    font-family: "roboto";
+    float: right;
+    font-size: 1.5rem;
+    color: #a1a1a1;
+    padding: 7px 30px 0 0;
 
+}
 
 .tela_show{
     display: block;
@@ -129,6 +176,7 @@ button{
 }
 
 .subprefeitura{
+    border-bottom: 2px solid #f5f5f5;
     float: left;
     height: 45px;
     width: 100%;
@@ -181,6 +229,10 @@ button{
 .cor_valor_meta{
    color:#d5d5d5;
 }
+
+.cor_3_red{
+    color: #b71c1c;
+}
 .metas_andamento{
     float: left;
     width: 100%;
@@ -192,6 +244,18 @@ button{
 .padding_t_54{
     padding-top: 54px;
 }
+
+
+.li_metas{
+    float: left;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    padding-left:5%;
+    line-height: 19px;
+ 
+}
+
 
 .descricao_andamento{
     width: 32%;
@@ -206,7 +270,7 @@ button{
 }
 
 .valor_andamento{
-    width: 60%;
+    width: 64%;
     line-height: 93px;
     float: right;
     clear: right;
@@ -383,24 +447,23 @@ button{
 }
 
 .status_tela{
+    font-family: "roboto regular";
+    color: #3b3b3b;
+    text-transform: uppercase;
     margin-top: 45px;
-    padding: 10px 0;
+    padding: 21px 0 10px 0;
     text-align: center;
     float: left;
     min-height: 45px;
     width: 100%;
-    background-color:#B8B8B8;
-    font-size: 1.6em;
+    background-color: #eee;
+    font-size: 1em;
 }
-/*
 
-.status_tela span{
-    font-size: 1.6em;}
-*/
 .num_meta{
     overflow: auto;
     width: 100%;
-    height: 100%;
+    height: auto;
   
 
 }
@@ -417,42 +480,57 @@ button{
 .num_meta ul li {
     float: left;
     width: 100%;
-    height: 155px;
+    height: auto;
     border-bottom: 1px solid #ccc;
-    background-image:url(../img/icons/ic_chevron_right_black_24dp.png); 
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
     background-position: center right;
     background-repeat: no-repeat;
     text-decoration: none;
     list-style: none;
-    padding: 0 auto;
-    margin: 0 auto;s
+    margin: 0 auto;
+    padding: 10px 5px;
 }
 
 .meta_valor{
     margin-top: 10px;
     float: left;
     text-align: center;
-    width: 30%;
+    width: 31%;
     border-right: 1px solid #ccc;
 }
 
+.meta_valor h4{
+    font-family: "roboto medium";
+    color: #b71c1c;
+    font-size: 1rem;
+}
+.meta_valor h1{
+    font-family: "roboto medium";
+    font-size: 1.8rem;
+    color: #515151;
+    padding-top: 15px;
+}
+
 .meta_valor p{
-    font-size: 0.83em;
+    color: #a1a1a1;
+    font-size: 0.9rem;
     margin: 0 auto;
-    padding: 10px 10px;
+    padding: 10px 0px;
     text-align: center;
 }
 
 .meta_discricao{
-    float: left;d
-    text-align: left;
-    width: 70%;
-    height: 100%;
+    float: left;
+    width: 65%;
+    height: auto;
+    padding: 0 0 0 13px;
+    line-height: 22px;
 }
+
 
 .meta_discricao p{
     font-size: 0.9em;
-    padding: 10px 50px 0 10px;
+    color: #a1a1a1
     
 }
 
@@ -473,15 +551,10 @@ button{
 }
 
 .list-style{
-    overflow: auto;
-    width: 100%;
-    height: 100%;
-   padding: 0;
-    float: left;
-    width: 100%;
-  
+    list-style-type: none;
 
 }
+
 .list-style h1, h2, h3, h4, h5, h6{
     margin: 0 auto;
 }

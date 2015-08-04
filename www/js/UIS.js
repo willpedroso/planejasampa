@@ -293,7 +293,14 @@ var UIS = {
 	    // Preenche os dados e apresenta
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
+//	        nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
+            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+            			dados.rows.item(i).ID_META + 
+            			"'><h4>META " + 
+            			dados.rows.item(i).ID_META + 
+            			"</h4><p>com benefício à população</p><h1>51,0%</h1></div><div class='meta_discricao'><p>" + 
+            			dados.rows.item(i).NAME_META + 
+            			"</p></div></li>";
         }
 //	    //alert(nodes);
 	    UIS.ul_ListaMetas.empty();
@@ -363,7 +370,11 @@ var UIS = {
 	    //alert("fillDivObjectivesGoals");
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<li><div idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" + "Qtd = " + dados.rows.item(i).QTD + " - Objetivo = " + dados.rows.item(i).NAME_OBJETIVO + "</div></li>";
+	    	// nodes += "<li class='list-style list_objetivos'><div class='list_objetivos_itens' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" + "Qtd = " + dados.rows.item(i).QTD + " - Objetivo = " + dados.rows.item(i).NAME_OBJETIVO + "</div></li>";
+	        nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" +
+	        		 	"<div class='desc_objetivo'>" + dados.rows.item(i).NAME_OBJETIVO + "</div>" +
+	        		 	"<div class='valor_objetivo'>" + dados.rows.item(i).QTD + "</div>" +
+	        		 "</div>";
 	    }
 	    //alert(nodes);
 	    UIS.ul_listaObjetivos.empty();
