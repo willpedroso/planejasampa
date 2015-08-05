@@ -291,26 +291,38 @@ var UIS = {
 	showListaMetas: function(dados) {
 	    //alert("showListaMetas");
 	    // Preenche os dados e apresenta
-		var nodes = "";
-		var idDaMeta ="";
-		for (var i = 0; i < dados.rows.length; i++) {
-			idDaMeta = dados.rows.item(i).ID_META;
-			nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
-						idDaMeta + 
-						"'><h4 idMeta='"+
-						idDaMeta+
-						"'>META " + 
-						idDaMeta + 
-						"</h4><p idMeta='"+
-						idDaMeta+
-						"'>com benefício à população</p><h1 idMeta='"+
-						idDaMeta+
-						"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+
-						idDaMeta+
-						"'>" + 
-						dados.rows.item(i).NAME_META + 
-						"</p></div></li>";
-       	}
+	    // var nodes = "";
+	    // for (var i = 0; i < dados.rows.length; i++) {
+	        // nodes += "<li class='descricao_andamento'><div idMeta='" + 
+	        // 			dados.rows.item(i).ID_META + 
+	        // 			"'>" + 
+	        // 			dados.rows.item(i).NAME_META + 
+	        // 			"</div></li>";
+            // nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+            // 			dados.rows.item(i).ID_META + 
+            // 			"'><h4>META " + 
+            // 			dados.rows.item(i).ID_META + 
+            // 			"</h4><p>com benefício à população</p><h1>51,0%</h1>" +
+            // 			"</div><div class='meta_discricao'><p>" + 
+            // 			dados.rows.item(i).NAME_META + 
+            // 			"</p></div></li>";
+
+
+			 var nodes = "";
+			   var idDaMeta ="";
+			   for (var i = 0; i < dados.rows.length; i++) {
+			       //nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
+			           
+			       idDaMeta = dados.rows.item(i).ID_META;
+
+			           nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+			           	idDaMeta + 
+			           	"'><h4 idMeta='"+idDaMeta+"'>META " + 
+			           	idDaMeta + 
+			           	"</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+			            dados.rows.item(i).NAME_META + 
+			           	"</p></div></li>";
+       }
         
 	    //alert(nodes);
 	    UIS.ul_ListaMetas.empty();

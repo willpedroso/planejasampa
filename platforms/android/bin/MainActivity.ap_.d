@@ -105,6 +105,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\index.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\jquery-2.1.4.min.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS.js \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS_0ld.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\cordova-plugin-whitelist \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\io.litehelpers.cordova.sqlite \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\cordova-plugin-whitelist\whitelist.js \
