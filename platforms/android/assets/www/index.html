@@ -28,7 +28,7 @@
              * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                  * Enable inline JS: add 'unsafe-inline' to default-src
          -->
-      <meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
       <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
       <meta name="format-detection" content="telephone=no">
       <meta name="msapplication-tap-highlight" content="no">
@@ -41,7 +41,9 @@
    <body>
       <!-- topo fixo -->
       <div id="header">
-         <button id="bt_Voltar" class="bt_voltar"><img src="img/icons/ic_chevron_left_black_48dp.png" alt="voltar" width="24px" heigth="24px"></button>
+         <button id="bt_Voltar" class="bt_voltar">
+
+         </button>
          <div class="logo">
             <img src="img/logo_prodam_metas-01.png" alt="">
             <p>PROGRAMA DE METAS 2013-2016</p>
@@ -100,14 +102,14 @@
                <div id="ulListaMetasStatus" >
                   <!-- metas em andamento -->
                      <div idRegistro='2' class="metas_andamento divide_meta">
-                         <div idRegistro='2' class="descricao_andamento  cor_metas1">metas em andamento</div>
+                         <div idRegistro='2' class="descricao_andamento  gray_4">metas em andamento</div>
                          <div idRegistro='2' class="valor_andamento cor_valor_meta">102</div>
                      </div>
                      <!--  metas que ja beneficiam  -->
 
                      <div idRegistro='3' class="metas_beneficiam divide_meta">
-                         <div idRegistro='3' class="descricao_beneficiam  cor_metas1">metas que já beneficiam a população</div>
-                         <div  idRegistro='3' class="valor_beneficiam cor_valor_meta">72</div>
+                         <div idRegistro='3' class="descricao_beneficiam  gray_4">metas que já beneficiam a população</div>
+                         <div  idRegistro='3' class="valor_beneficiam gray_2">72</div>
                      </div>
 
                   <!-- metas concluidas -->
@@ -117,8 +119,8 @@
                      </div>
                   <!-- metas superadas -->
                      <div  idRegistro='4' class="metas_superadas divide_meta">
-                         <div  idRegistro='4' class="descricao_superadas  cor_metas1">metas superdadas</div>
-                         <div  idRegistro='4' class="valor_superadas cor_valor_meta">7</div>
+                         <div  idRegistro='4' class="descricao_superadas  gray_4">metas superdadas</div>
+                         <div  idRegistro='4' class="valor_superadas gray_2">7</div>
                      </div>
                </div>
             </div>
@@ -127,7 +129,7 @@
             <!-- fim da tela1 -->
             <!-- inicio tela2 -->
             <div id="div_listaMetas" style="display: none">
-               <div id="listaMetas" class="status_tela">
+               <div id="listaMetas" class="status_tela gray_4">
                   Metas em andamento
                </div>
                <!-- barra subprefeitura -->
@@ -161,53 +163,62 @@
             <!-- fim da tela 2 --> 
             <!-- inicio tela 3 -->
             <div id="div_detalhesMeta" style="display: none">
-               <div class="status_tela">
-                  <div class="status">Metas em andamento</div>
-                  <div id="status_local">São Paulo</div>
+               <div class=" cor-cz-1 container-tit-subtit">
+                  <div class="box-titulo line-cz gray_3">Metas em andamento</div>
+                  <div id="status_local " class="cor-cz-2 w-100-pct box-subtitulo line-cz">São Paulo</div>
                </div>
                <!-- barra indice de metas -->
                <div class="subprefeitura">
                   <div class="subpref">Metas</div>
                   <div class="distrito">
                      <select dir="rtl" name="metas" id="metas">
-                        <option value="">Meta</option>
-                        <option value="Meta 01">Meta 01</option>
-                        <option value="Meta 02">Meta 02</option>
-                        <option value="Meta 03">Meta 03</option>
-                        <option value="Meta 04">Meta 04</option>
-                        <option value="Meta 05">Meta 05</option>
-                        <option value="Meta 06">Meta 06</option>
-                        <option value="Meta 07">Meta 07</option>
-                        <option value="Meta 08">Meta 08</option>
-                        <option value="Meta 09">Meta 09</option>
-                        <option value="Meta 10">Meta 10</option>
+                        <option value="">META</option>
+                        <option value="Meta 01">META 01</option>
+                        <option value="Meta 02">META 02</option>
+                        <option value="Meta 03">META 03</option>
+                        <option value="Meta 04">META 04</option>
+                        <option value="Meta 05">META 05</option>
+                        <option value="Meta 06">META 06</option>
+                        <option value="Meta 07">META 07</option>
+                        <option value="Meta 08">META 08</option>
+                        <option value="Meta 09">META 09</option>
+                        <option value="Meta 10">META 10</option>
                      </select>
                   </div>
                </div>
                <!-- fim da barra indice de metas  -->
                <!-- bloco de informações -->
+                  
+<!-- SAITO -->
                   <ul id="ulDetalhesMeta">
                   
                   </ul>
+<!-- SAITO -->                  
                   <!-- bloco links projetos -->
                   <ul id="projetos">
                   </ul>
                </div>
             </div>
             <!-- fim da tela 3 -->
-            <!-- inicio tela 4 -->
+<!-- inicio tela 4 -->
             <div id="div_detalhesProjeto" style="display: none">
-               <div  id="detalhesProjeto" class="status_tela">
+               <div  id="detalhesProjeto" class=" ">
                   <ul id="ulDetalhesProjeto">
-                    <div class="dropbox_status">
+
+                     <div class=" cor-cz-1 container-tit-subtit2 ">
+                      <div class="box-titulo line-cz">METAS JÁ BENEFICIAM POPULAÇÃO</div>
+                      <div class="box-titulo line-cz">São Paulo</div>
+                      <div id="status_local " class="cor-cz-2 w-100-pct box-subtitulo line-cz">Meta</div>
+                    </div>
+                    <!--<div class="dropbox_status">
                     <p class="border_bottom_gray gray_1 font_12pt">METAS JÁ BENEFICIAM POPULAÇÃO</p>
                     <p class="border_bottom_gray gray_2 font_12pt">São Paulo</p>
                     <p class="gray_2 font_12pt">Meta 02</p>
-                </div>
+                </div>-->
 
             <!-- bloco de informações -->
-            <div class="list-style">
-                <ul>
+            <div class="list-style reset-marg reset-padd">
+                <ul class="lista_fake">
                     <li>
                       <div class="titulo_projetos">
                             <h3 class=" cor_3_red uppercase">Projeto</h3>
@@ -217,7 +228,7 @@
                     <li>
                         <div class="box_info">
                             <h4 class="cor_3_red">TIPO</h4>
-                            <p class="padding_t_10 gray_1">Novos serviços ou benefícios</p>
+                            <p class="padding_t_10 gray_3">Novos serviços ou benefícios</p>
                         </div> 
                     </li>
                     <li>
@@ -229,13 +240,13 @@
                     <li>
                         <div class="box_info">
                             <h4 class="cor_3_red">SUBPREFEITURAS ATENDIDAS</h4>
-                            <p class="padding_t_10 gray_1">Aricanduva/Formosa/Carrão, Butantã, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasilândia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Jaçanã/Tremembé, Lapa, M'Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, São Mateus, São Miguel, Sapopemba, Sé, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente</p>
+                            <p class="padding_t_10 gray_3">Aricanduva/Formosa/Carrão, Butantã, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasilândia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Jaçanã/Tremembé, Lapa, M'Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, São Mateus, São Miguel, Sapopemba, Sé, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente</p>
                         </div>
                     </li>
                     <li>
                         <div class="box_info">
                             <h4 class="cor_3_red uppercase">Distrito</h4>
-                            <p class="padding_t_10 gray_1">__</p>
+                            <p class="padding_t_10 gray_3">__</p>
                         </div>
                         
                     </li>
@@ -243,10 +254,10 @@
                         <div class="box_info">
                             <h4 class="cor_3_red">ACOMPANHAMENTO</h4>
                             <h4 class="cor_3_red padding_t_10">2013</h4>
-                            <p class="padding_t_10 gray_1"><strong>369.852</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
+                            <p class="padding_t_10 gray_3"><strong>369.852</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
 
                             <h4 class="cor_3_red padding_t_10">2014</h4>
-                            <p class="padding_t_10 gray_1"><strong>698.991</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
+                            <p class="padding_t_10 gray_3"><strong>698.991</strong>Famílias beneficiadas com o Programa Bolsa Família</p>
                         </div>
                     </li>
                     <li>
@@ -254,70 +265,70 @@
                             <h4 class="cor_3_red">FASES</h4>
                             <ul classe="list_projetos">
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Definição de Terreno (10%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Definição de Terreno (10%)</p>
                                     </div>
-                                      <p class="text_center gray_1">CONCLUÍDA</p>
+                                      <p class="text_center gray_3">CONCLUÍDA</p>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Projeto Básico (5%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Projeto Básico (5%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">CONCLUÍDA</p>
+                                      <p class="text_center gray_3">CONCLUÍDA</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Garantia da fonte de financiamento (10%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Garantia da fonte de financiamento (10%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">CONCLUÍDA</p>
+                                      <p class="text_center gray_3">CONCLUÍDA</p>
                                     </div>
                                     <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Licenciamento (5%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Licenciamento (5%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">EM ANDAMENTO</p>
+                                      <p class="text_center gray_3">EM ANDAMENTO</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Licitação da obra (10%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Licitação da obra (10%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">EM ANDAMENTO</p>
+                                      <p class="text_center gray_3">EM ANDAMENTO</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Obras - Fase 1 (20%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Obras - Fase 1 (20%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">NÃO INICIADA</p>
+                                      <p class="text_center gray_3">NÃO INICIADA</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Obras - Fase 2 (35%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Obras - Fase 2 (35%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">NÃO INICIADA</p>
+                                      <p class="text_center gray_3">NÃO INICIADA</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="border_rigth_gray">
-                                        <p class="gray_3">Estruturação para funcionamento (5%)</p>
+                                    <div class="border_rigth">
+                                        <p class="gray_4">Estruturação para funcionamento (5%)</p>
                                     </div>
                                     <div>
-                                      <p class="text_center gray_1">NÃO INICIADA</p>
+                                      <p class="text_center gray_3">NÃO INICIADA</p>
                                     </div>
                                 </li>
                             </ul>
                              <li>
                                 <div class="box_info">
-                                    <h4 class="cor_3_red">ANDAMENTO QUALITATIVO</h4>
+                                    <h4 class="cor_3_red pad_b_10px">ANDAMENTO QUALITATIVO</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
                                 </div>
                             </li>
@@ -327,19 +338,19 @@
                                    <ul>
                                     <li>
                                         <h4 class="cor_3_red">2013</h4>
-                                        <p class="padding_t_10 gray_1">__</p>
+                                        <p class="padding_t_10 gray_3">__</p>
                                     </li>    
                                     <li>
                                         <h4 class="cor_3_red">2014</h4>
-                                        <p class="padding_t_10 gray_1">Em revisão</p>
+                                        <p class="padding_t_10 gray_3">Em revisão</p>
                                     </li>
                                     <li>    
                                         <h4 class="cor_3_red">2015</h4>
-                                        <p class="padding_t_10 gray_1">__</p>
+                                        <p class="padding_t_10 gray_3">__</p>
                                     </li>
                                     <li>
                                        <h4 class="cor_3_red">2016</h4>
-                                        <p class="padding_t_10 pad_b_10px gray_1">__</p>
+                                        <p class="padding_t_10 pad_b_10px gray_3">__</p>
                                     </li>
                                    </ul> 
                                 </div>
@@ -347,6 +358,7 @@
                         </div>
                     </ul>
             </div>  
+          </div>  
                
       <!-- fim da tela 4 -->
       <!-- iniico da tela 5 -->
@@ -362,8 +374,8 @@
       <!-- fim da lista de objetivos -->
       <!-- fim da tela 5 -->
       <!-- inicio tela 6 -->    
-      <div id="div_configuracao" style="display: none">
-         <div class="menu_config list-style margin-top-45px">
+      <div id="div_configuracao" class="padding_t_80" style="display: none">
+         <div class="menu_config list-style">
             <h2>Configuroções</h2>
             <ul>
                <li class="border_bottom_gray">
@@ -410,11 +422,11 @@
     </div>  
 <!-- botoes do rodapé -->
     <div id="div_footer" class="rodape_botoes" style="display: block">
-               <button id="bt_showMetasStatus" class="status_metas bt_border_ativo">
+               <button id="bt_showMetasStatus" class="status_metas bt_border_ativo gray_4">
                <img src="img/icons/icon_status_metas.png" alt="status das mestas "  width="30px" heigth="30px"> status das metas
                </button>
             
-               <button id="bt_showMetasObjetivos" class="Objetivos_metas">
+               <button id="bt_showMetasObjetivos" class="Objetivos_metas gray_4">
                <img src="img/icons/icon_objetivo_metas.png" alt="objetivos das metas"  width="30px" heigth="30px">objetivos das metas
                </button>
               

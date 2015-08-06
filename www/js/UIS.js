@@ -25,6 +25,7 @@ var UIS = {
     ul_ListaMetasStatus: null,
     ul_ListaMetas: null,
     ul_DetalhesMeta: null,
+    ul_listaProjetosDeMetas:null,
 
     // Ações
     bt_showMetasObjetivos: null,
@@ -70,6 +71,9 @@ var UIS = {
 	    this.ul_listaObjetivos = $("#ulListaObjetivos");
 	    this.ul_ListaMetasStatus = $("#ulListaMetasStatus");
 	    this.ul_DetalhesMeta = $("#ulDetalhesMeta");
+	    this.ul_listaProjetosDeMetas = $("#listaProjetosDeMetas li");
+
+	    console.log("****",this.ul_listaProjetosDeMetas)
 
 	    this.bt_showMetasObjetivos = $("#bt_showMetasObjetivos");
 	    this.bt_showMetasStatus = $("#bt_showMetasStatus");
@@ -129,10 +133,10 @@ var UIS = {
 	    this.bt_Subprefeituras.bind("touchend mouseup", (function () {
 	        if (UIS.div_listaSubprefeituras.attr("style") == "display: block") {
 	            // combobox aberta, fecha
-	            UIS.div_listaSubprefeituras.attr("style", "display: none");
+	            //UIS.div_listaSubprefeituras.attr("style", "display: none");
 	        }
 	        else {
-	            UIS.div_listaSubprefeituras.attr("style", "display: block");
+	            //UIS.div_listaSubprefeituras.attr("style", "display: block");
 	        }
 	    }).bind(this));
 
@@ -255,6 +259,8 @@ var UIS = {
 	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
+	        console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
+	        
 	        if(this.dragging == false) {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
 	    	}
@@ -271,7 +277,7 @@ var UIS = {
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas");
-	        //alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
+	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
 	        if(this.dragging == false) {
 	        	BANCODADOS.getGoalDetails(event.target.getAttribute('idMeta'), UIS.showDetalhesMetas, null);
 	    	}
@@ -279,11 +285,18 @@ var UIS = {
 
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
+	    //this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Detalhes da meta");
 	        ////alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
-	        if(this.dragging == false) {
-	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
-	    	}
+	        
+	        console.log("++++++ this.ul_DetalhesMeta.bind")
+
+//==>>	        
+			UIS.pushDiv(UIS.div_detalhesProjeto);
+
+	        //if(this.dragging == false) {
+	        //	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
+	    	//}
 	    }).bind(this));
 	},
 
@@ -291,28 +304,22 @@ var UIS = {
 	showListaMetas: function(dados) {
 	    //alert("showListaMetas");
 	    // Preenche os dados e apresenta
-		var nodes = "";
-		var idDaMeta ="";
-		for (var i = 0; i < dados.rows.length; i++) {
-			idDaMeta = dados.rows.item(i).ID_META;
-			nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
-						idDaMeta + 
-						"'><h4 idMeta='"+
-						idDaMeta+
-						"'>META " + 
-						idDaMeta + 
-						"</h4><p idMeta='"+
-						idDaMeta+
-						"'>com benefício à população</p><h1 idMeta='"+
-						idDaMeta+
-						"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+
-						idDaMeta+
-						"'>" + 
-						dados.rows.item(i).NAME_META + 
-						"</p></div></li>";
-       	}
-        
-	    //alert(nodes);
+	    var nodes = "";
+	    var idDaMeta ="";
+	    for (var i = 0; i < dados.rows.length; i++) {
+	        //nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
+            
+	        idDaMeta = dados.rows.item(i).ID_META;
+
+            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+            			idDaMeta + 
+            			"'><h4 idMeta='"+idDaMeta+"'>META " + 
+            			idDaMeta + 
+            			"</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+            			dados.rows.item(i).NAME_META + 
+            			"</p></div></li>";
+        }
+//	    //alert(nodes);
 	    UIS.ul_ListaMetas.empty();
 	    UIS.ul_ListaMetas.append(nodes);
 	    UIS.pushDiv(UIS.div_listaMetas);
@@ -324,7 +331,7 @@ var UIS = {
 	    // Preenche os dados e apresenta
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<li><div idProjeto='" + dados.rows.item(i).ID_META + "'>" +
+	       /* nodes += "<li><div idProjeto='" + dados.rows.item(i).ID_META + "'>" +
                         "<p>Meta: " + dados.rows.item(i).ID_META +
                         "</p><p>Status: " + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META] +
                         "</p><p>Percentual: " + dados.rows.item(i).ACOMPANHAMENTO_META +
@@ -339,12 +346,55 @@ var UIS = {
                         "</p><p>QP6: " + dados.rows.item(i).QP6_META +
                         "</p><p>Previsto: " + dados.rows.item(i).PREVISTO_META +
                         "</p><p>Executado: " + dados.rows.item(i).EXECUTADO_META +
-                        "</p></div></li>";
+                        "</p></div></li>";*/
+
+                        nodes+="<li class='overfl-hdd'>"+
+                        "<div class='col-50-l  marg-b-16'><span class='header-verm'>META "+dados.rows.item(i).ID_META+"</span><br /><span class='cor_cz87'>COM BENEFÍCIO À POPULAÇÃO</span></div><div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>100%</div>"+	
+                       "<div class='hspacer-line '></div>"+
+                        "<p class='clear-bth marg-t-16'><span class='gray_4'>"+dados.rows.item(i).NAME_META+"</span></p></li>"+	
+                        "<li class='cor_cz'><span class='header-verm font-15'>OBJETIVO</span><br />"+dados.rows.item(i).NAME_OBJETIVO+"</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>ARTICULAÇÃO</span><br />"+dados.rows.item(i).NAME_ARTICULACAO+"</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />Novos serviços ou benefícios</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>ANDAMENTO QUANTITATIVO</span><br /><span class='txt-b cor_cz40'>348.472</span> famílias beneficiadas com o programa Bolsa Família<div class='hspacer-line marg-t-16 marg-b-16'></div><span class='txt-b cor_cz40'>80.736</span> novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada</li>"+
+                        
+                        "<li  class='overfl-hdd'>"+
+                        "<span class='header-verm font-15'>ANDAMENTO QUALITATIVO</span><br />Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
+                        "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
+                        "<span class='header-verm font-15'>PREVISTO</span><br />"+dados.rows.item(i).PREVISTO_META+
+                        "</div>"+
+                        "<div class='col-50-r overfl-hdd bg-cor_czf5 padd-10'>"+
+                        "<span class='header-verm font-15'>EXECUTADO</span><br />"+dados.rows.item(i).EXECUTADO_META+
+                        "</div>	"+
+                        "</li>"+
+                        "<li>"+
+                        "<br /><span class='header-verm font-15'>PROJETOS</span><br />"+
+                        "<ul id='listaProjetosDeMetas'>"+
+                        "<li class='border-t'>Projeto 1"+
+                        "</li>"+
+                        "<li>Projeto 2"+
+                        "</li>"+
+                        "<li>Projeto 3"+
+                        "</li>"+
+                        "<li>Projeto 4"+
+                        "</li>"+
+                         "<li>Projeto 5"+
+                        "</li>"+
+                         "<li>Projeto 6"+
+                        "</li>"+
+                        "</ul>"+
+                        "</li>";
+
+
+
 		//alert(nodes);
 	    }
 //	    //alert(nodes);
 	    UIS.ul_DetalhesMeta.empty();
 	    UIS.ul_DetalhesMeta.append(nodes);
+
+	    //movescroll para o top
+	   $('body').scrollTop(0);
+
 	    UIS.pushDiv(UIS.div_detalhesMeta);
 	},
 
@@ -359,6 +409,9 @@ var UIS = {
 	    ////alert(nodes);
 	    $("#ulDetalhesProjeto").empty();
 	    $("#ulDetalhesProjeto").append(nodes);
+
+	    //movescroll para o top
+	    $('body').scrollTop(0);
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 

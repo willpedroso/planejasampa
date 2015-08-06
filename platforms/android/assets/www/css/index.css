@@ -63,7 +63,7 @@ body, p{
     padding: 5px;
 }
 #div_metasObjetivos{
-    padding: 64px 15px 0 15px;
+    padding: 70px 15px 0 15px;
 }
 
 
@@ -94,7 +94,7 @@ body, p{
 }
 
 .item_objetivo{
-    height: 50px;
+    height: 55px;
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
     background-repeat: no-repeat;
     background-position: 99% center;
@@ -114,7 +114,7 @@ body, p{
     float: right;
     font-size: 1.5rem;
     color: #a1a1a1;
-    padding: 7px 30px 0 0;
+    padding: 14px 40px 0 0;
 
 }
 
@@ -137,6 +137,7 @@ button{
 
 
 .bt_voltar{
+    margin-top: 10px;
     border: 0;
     background: none;
     display: block;
@@ -144,6 +145,11 @@ button{
     width: 15%;
     padding-top: 15px;
     height: 40px;
+    background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');
+    background-size: 24px 24px;
+    background-position: center center;
+    background-repeat: no-repeat;
+
 }
 
 .logo{
@@ -224,7 +230,7 @@ button{
 /*classes tela 1*/
 
 .cor_metas1{
-    color: #212121;    
+    color: #333;    
 }
 
 .cor_valor_meta{
@@ -265,14 +271,14 @@ button{
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
-    line-height: 19px;
+    line-height: 22px;
     padding-top: 21px;
  
 }
 
 .valor_andamento{
-    width: 64%;
-    line-height: 93px;
+    width: 63%;
+    line-height: 90px;
     float: right;
     clear: right;
     font-family: 'Roboto condensed', sans-serif;
@@ -301,12 +307,12 @@ button{
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
-    line-height: 19px;
+    line-height: 22px;
     padding-top: 10px;
 }
 
 .valor_beneficiam{
-    width: 42%;
+    width: 44%;
     line-height: 88px;
     float: right;
     clear: right;
@@ -320,7 +326,9 @@ button{
     color: #000;
 }
 
-
+.line-height_22px{
+     line-height: 22px;
+}
 
 .metas_concluidas{
     float: left;
@@ -339,14 +347,14 @@ button{
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
-    line-height: 19px;
+    line-height: 22px;
     padding-top: 29px;
 }
 
 .valor_concluidas{
     color: #f8d5d3;
-    width: 29%;
-    line-height: 73px;
+    width: 30%;
+    line-height: 67px;
     float: right;
     clear: right;
     font-family: 'Roboto condensed', sans-serif;
@@ -371,7 +379,7 @@ button{
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
-    line-height: 19px;
+    line-height: 22px;
     padding-top: 23px;
 }
 
@@ -449,15 +457,16 @@ button{
 
 .status_tela{
     font-family: "roboto regular";
-    color: #3b3b3b;
-    
-    margin-top: 55px;
+    margin-top: 57px;
     text-align: center;
     float: left;
-    min-height: 45px;
+    min-height: 37px;
     width: 100%;
-    background-color: #fff;
+    background-color: #eeeeee;
     font-size: 1em;
+    text-transform: uppercase;
+    line-height: 2.4;
+    border-bottom: 1px solid #d1d1d1;
 }
 
 .num_meta{
@@ -488,27 +497,25 @@ button{
     text-decoration: none;
     list-style: none;
     margin: 0 auto;
-    padding: 10px 5px;
+    padding: 20px 16px 20px 16px;
 }
 
 .meta_valor{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     float: left;
     text-align: center;
-    width: 31%;
-    border-right: 1px solid #ccc;
+    width: 35%;
+    padding-right: 16px;
 }
 
 .meta_valor h4{
     font-family: "roboto medium";
     color: #b71c1c;
-    font-size: 1rem;
+    font-size: 16px;
 }
 .meta_valor h1{
     font-family: "roboto medium";
     font-size: 1.8rem;
-    color: #515151;
-    padding-top: 15px;
 }
 
 .meta_valor p{
@@ -523,8 +530,10 @@ button{
     float: left;
     width: 65%;
     height: auto;
-    padding: 0 0 0 13px;
+    padding: 0 16px 0 16px;
     line-height: 22px;
+    min-height: 96px;
+    border-left: 1px solid #ccc; 
 }
 
 
@@ -679,11 +688,10 @@ button{
 
 
 
-.border_rigth_gray{
+.border_rigth{
     width: 170px;
     float: left;
     padding-right: 10px;
-    border-right: 1px solid #ccc;
 }
 
 .padding-right_20px{
@@ -697,6 +705,11 @@ button{
 .padding_t_10{
     padding: 10px 0 0 0;
 }
+
+.padding_t_80{
+    padding: 80px 0 0 0;
+}
+
 .padding_10{
     padding: 10px;
 }
@@ -788,7 +801,6 @@ text-align: center;
 
 .titulo_projetos p{
     text-align: left;
-    padding: 18px 0;
     font-size: 1rem;
     color: #212121;
     margin: 0;
@@ -808,15 +820,19 @@ text-align: center;
     font-size: 3.8rem;
     color: #3e3e3e;
 }
+/*cor da fontes*/
 
 .gray_1{
-    color: #9a9a9a;
+    color: #d8d8d8;
 }
 .gray_2{
-    color: #606060;
+    color: #c6c6c6;
 }
 .gray_3{
-     color: #3e3e3e;
+     color: #878787;
+}
+.gray_4{
+     color: #3c3c3c;
 }
 
 .font_12pt{
@@ -827,4 +843,290 @@ text-align: center;
 }
 .uppercase{
     text-transform: uppercase;
+}
+
+
+
+
+
+
+/*CLASSES METAS EM ANDAMENTO*/
+
+ul#ulDetalhesMeta {
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+ul#ulDetalhesMeta li{
+    color:#949494;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    line-height: 1.6;
+}
+
+.header-verm{
+    font-family: "roboto medium";
+    color: #b71c1c;
+    text-transform: uppercase;
+    font-size: 21px;
+    font-weight: bold;
+
+}
+
+.font-15{
+    font-size: 15px;
+}
+
+.font-1_1-em{
+    font-size: 1.1em;
+}
+
+.font-1_2-em{
+    font-size: 1.2em;
+}
+
+.font-1_8-em{
+    font-size: 1.8em;
+}
+
+.font-2-em{
+    font-size: 2em;
+}
+
+.font-3-em{
+    font-size: 3em;
+}
+
+.font-4-em{
+    font-size: 4em;
+}
+
+.font-b{
+    font-weight: bold;
+}
+
+.lettr-spacing-tit-pct{
+    line-height: 1;
+    letter-spacing: -3px;
+
+}
+
+.cor_cz87{
+    color: #878787;
+}
+
+.cor_cz40{
+    color:#404040;
+}
+.cor_cz3e{
+    color:#3e3e3e;
+}
+.bg-cor_czf5{
+    background-color:#f5f5f5;
+}
+
+
+.txt-upper{
+     text-transform: uppercase;
+}
+
+.col-50-l{
+    float: left;
+    width: 48%;
+    height: auto;
+    margin-right:4px;
+    
+    
+}
+.col-50-r{
+    float: right;
+    width: 48%;
+    height: auto;
+    margin-left:4px;
+   
+    
+}
+
+.txt-algn-c{
+     text-align: center;
+}
+.overfl-hdd{
+    overflow: hidden;
+} 
+.line-cz{
+    border-bottom: 1px solid #878787;
+}
+
+.border-t{
+    border-top: 1px solid #d3d3d3;
+}
+
+.clear-bth{
+    clear:both;
+}
+
+.padd-10{
+    padding: 10px;
+}
+
+.marg-t-16{
+    margin-top: 16px !important;    
+}
+.marg-b-16{
+    margin-bottom: 16px !important;    
+}
+.marg-l-16{
+    margin-left: 16px !important;    
+}
+.marg-r-16{
+    margin-right: 16px !important;    
+}
+.txt-b{
+    font-weight: bold;
+}
+
+.hspacer-line{
+    clear:both;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height:1px;
+    border: 0;
+    border-bottom: 1px solid #d1d1d1;
+
+}
+
+.line-cz{
+ border-bottom: 1px solid #d1d1d1;
+}
+
+
+.container-tit-subtit{
+    clear: both;
+    overflow: hidden;
+    font-family: "roboto regular";
+    color: #3b3b3b;
+    text-transform: uppercase;
+    margin-top: 54px;
+    padding: 0;
+    text-align: center;
+    float: left;
+    min-height: 45px;
+    width: 100%;
+    background-color: #eee;
+    font-size: 1em;
+}
+
+.box-titulo{
+     background-color: #f5f5f5;
+     height: 44px;
+     line-height: 2.8;
+     margin:0 16px 0 16px;
+
+}
+.box-subtitulo{
+    background-color: #eeeeee;
+    height:38px;
+    line-height: 2.4;
+}
+
+
+/*cons de fundo dos titulos e subtitulos*/
+.cor-cz-1{
+    background-color: #f5f5f5;
+}
+
+.cor-cz-2{
+    background-color: #eeeeee;
+}
+
+.w-100-pct{
+    width:100% !important;
+}
+
+
+ul#listaProjetosDeMetas{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul#listaProjetosDeMetas li{
+    width: 100%;
+    height: auto;
+    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+    background-position: center right;
+    background-repeat: no-repeat;
+    list-style: none;
+    margin: 0 ;
+}
+
+/*SOBREPOSTO*/
+
+.subprefeitura {
+border-bottom: 1px solid #d1d1d1;
+
+float: left;
+height: 57px;
+width: 100%;
+}
+
+
+.subpref {
+color: #b71c1c;
+float: left;
+width: 35%;
+padding: 20px 0 10px 16px;
+height: 45px;
+text-transform: uppercase;
+}
+
+.distrito {
+margin: 0 auto;
+float: right;
+width: 65%;
+height: 45px;
+padding: 12px 15px 0 0;
+}
+
+/*
+COISAS DO WILL
+
+ */
+
+ul.lista_fake {
+     margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.lista_fake li{
+color:#949494;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    line-height: 1.6;
+}
+.reset-marg{
+    margin: 0 !important;
+}
+.reset-padd{
+    padding: 0 !important;
+}
+
+.container-tit-subtit2{
+    clear: both;
+    overflow: hidden;
+    font-family: "roboto regular";
+    color: #3b3b3b;
+    text-transform: uppercase;
+    margin-top: 54px;
+    padding: 0;
+    text-align: center;
+    float: left;
+    min-height: 45px;
+    width: 100%;
+    /*background-color: #eee;*/
+    font-size: 1em;
 }
