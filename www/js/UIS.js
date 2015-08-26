@@ -209,7 +209,8 @@ var UIS = {
         }).bind(this));
 
 	    // Área de informações de atualização de dados
-	    this.atualizacaoDados.bind("touchend mouseup", (function () {
+	    this.atualizacaoDados.bind("touchend", (function () {
+            if(this.dragging == false) {
             if (UIS.div_atualizacao.attr("style") == "display: none") {
                 // Apresenta as informações de atualização de dados
                 UIS.div_atualizacao.attr("style", "display: block");
@@ -220,11 +221,11 @@ var UIS = {
             else {
                 // Esconde as informações de atualização de dados
                 UIS.div_atualizacao.attr("style", "display: none");
-            }
+            }}
         }).bind(this));
 
 	    // Área de termos de uso
-	    this.termosUso.bind("touchend mouseup", (function () {
+	    this.termosUso.bind("touchend", (function () {
 	    	if(this.dragging == false) {
 	        if (UIS.div_termosUso.attr("style") == "display: none") {
 	            // Apresenta os termos de uso
@@ -241,7 +242,8 @@ var UIS = {
 	    }).bind(this));
 
 	    // Área de desenvolvimento
-	    this.desenvolvimento.bind("touchend mouseup", (function () {
+	    this.desenvolvimento.bind("touchend", (function () {
+            if(this.dragging == false) {
             if (UIS.div_desenvolvimento.attr("style") == "display: none") {
                 // Apresenta informações de desenvolvimento
                 UIS.div_desenvolvimento.attr("style", "display: block");
@@ -252,7 +254,7 @@ var UIS = {
             else {
                 // Esconde informações de desenvolvimento
                 UIS.div_desenvolvimento.attr("style", "display: none");
-            }
+            }}
         }).bind(this));
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
@@ -284,20 +286,47 @@ var UIS = {
 	    }).bind(this));
 
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
-	    this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
+	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	    //this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Detalhes da meta");
 	        ////alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	        
-	        console.log("++++++ this.ul_DetalhesMeta.bind")
+	      //  console.log("++++++ this.ul_DetalhesMeta.bind")
 
 //==>>	        
-			UIS.pushDiv(UIS.div_detalhesProjeto);
+			//UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        //if(this.dragging == false) {
 	        //	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
 	    	//}
-	    }).bind(this));
+	    //}).bind(this));
+	},
+
+	fakeShowHideConfiguracoes:function(){
+		
+		console.log("++++ FAKE!!!")
+
+
+		if (UIS.div_configuracao.attr("style") == "display: none") {
+            	//alert("esta none");
+                // Apresenta div de configurações
+                UIS.div_configuracao.attr("style", "display: block");
+                UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
+            }
+            else {
+            	//alert("esta block")
+                // Esconde div de configuração
+                UIS.div_configuracao.attr("style", "display: none");
+                UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+                // Verifica se houve atualização de dados
+                if (BANCODADOS.bUpdated) {
+                   // BANCODADOS.bUpdated = false;
+                    // Houve atualização de dados, volta para a tela de metas por status
+                   // console.log("Dados atualizados. Volta para a tela de metas por status");
+                   // UIS.resetDivStack();
+                    
+                }
+            }
 	},
 
     // Mostra lista de metas
@@ -369,17 +398,17 @@ var UIS = {
                         "<li>"+
                         "<br /><span class='header-verm font-15'>PROJETOS</span><br />"+
                         "<ul id='listaProjetosDeMetas'>"+
-                        "<li class='border-t'>Projeto 1"+
+                        "<li class='border-t' onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 1"+
                         "</li>"+
-                        "<li>Projeto 2"+
+                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 2"+
                         "</li>"+
-                        "<li>Projeto 3"+
+                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 3"+
                         "</li>"+
-                        "<li>Projeto 4"+
+                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 4"+
                         "</li>"+
-                         "<li>Projeto 5"+
+                         "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 5"+
                         "</li>"+
-                         "<li>Projeto 6"+
+                         "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 6"+
                         "</li>"+
                         "</ul>"+
                         "</li>";
@@ -411,6 +440,13 @@ var UIS = {
 	    $("#ulDetalhesProjeto").append(nodes);
 
 	    //movescroll para o top
+	    $('body').scrollTop(0);
+	    UIS.pushDiv(UIS.div_detalhesProjeto);
+	},
+
+	fakeshowDetalhesProjeto: function (){
+		console.log("FAKE SHOW");
+		//movescroll para o top
 	    $('body').scrollTop(0);
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
