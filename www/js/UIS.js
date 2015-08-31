@@ -27,7 +27,7 @@ var UIS = {
     ul_DetalhesMeta: null,
     ul_listaProjetosDeMetas:null,
 
-    // AÁıes
+    // A√ß√µes
     bt_showMetasObjetivos: null,
     bt_showMetasStatus: null,
     bt_Voltar: null,
@@ -48,10 +48,10 @@ var UIS = {
 
     configListeners: function () {
         // Texto para status de metas
-        this.txtStatusMetas[1] = "Metas n„o iniciadas";
+        this.txtStatusMetas[1] = "Metas n√£o iniciadas";
         this.txtStatusMetas[2] = "Metas em andamento";
-        this.txtStatusMetas[3] = "Metas em andamento com benefÌcios ‡ populaÁ„o";
-        this.txtStatusMetas[4] = "Metas concluÌdas";
+        this.txtStatusMetas[3] = "Metas em andamento com benef√≠cios √† popula√ß√£o";
+        this.txtStatusMetas[4] = "Metas conclu√≠das";
         this.txtStatusMetas[5] = "Metas superadas";
 
         this.div_metasObjetivos = $("#div_metasObjetivos");
@@ -87,19 +87,19 @@ var UIS = {
 
 	    this.bodyPM = $("body");
 
-        // Recupera a data da ˙ltima atualizaÁ„o
+        // Recupera a data da √∫ltima atualiza√ß√£o
 	    if (localStorage.getItem("lastUpdateDate") == null) {
-	        // N„o h· data da ˙ltima atualizaÁ„o, deixa em branco
-	        console.log("N„o h· data da ˙ltima atualizaÁ„o");
+	        // N√£o h√° data da √∫ltima atualiza√ß√£o, deixa em branco
+	        console.log("N√£o h√° data da √∫ltima atualiza√ß√£o");
 	    }
 	    else {
-	        console.log("Data da ˙ltima atualizaÁ„o = " + localStorage.lastUpdateDate);
+	        console.log("Data da √∫ltima atualiza√ß√£o = " + localStorage.lastUpdateDate);
 	        this.div_ultima_atualizacao.html(localStorage.lastUpdateDate);
         }
 
-        // Recupera flag de atualizaÁ„o autom·tica
+        // Recupera flag de atualiza√ß√£o autom√°tica
 	    if (localStorage.getItem("autoUpdate") == null) {
-            console.log("N„o h· flag autoUpdate")
+            console.log("N√£o h√° flag autoUpdate")
 	        this.atualizacao_Automatica.prop("checked", false);
 	        localStorage.setItem("autoUpdate", 0);
 	    }
@@ -121,14 +121,14 @@ var UIS = {
         	this.dragging = false;
         }).bind(this));
 
-        // Checkbox de atualizaÁ„o autom·tica
+        // Checkbox de atualiza√ß√£o autom√°tica
 	    this.atualizacao_Automatica.bind("change", (function () {
 	        console.log("Checkbox onchange = " + UIS.atualizacao_Automatica.prop("checked"));
 	        // Armazena o estado do flag
 	        localStorage.setItem("autoUpdate", UIS.atualizacao_Automatica.prop("checked") == false ? 0 : 1);
 	    }).bind(this));
 
-        // Bot„o da combobox de subprefeituras
+        // Bot√£o da combobox de subprefeituras
         // todo: apenas para testes
 	    this.bt_Subprefeituras.bind("touchend mouseup", (function () {
 	        if (UIS.div_listaSubprefeituras.attr("style") == "display: block") {
@@ -140,16 +140,16 @@ var UIS = {
 	        }
 	    }).bind(this));
 
-	    // Bot„o voltar
+	    // Bot√£o voltar
 	    this.bt_Voltar.bind("touchend mouseup", (function () {
 	        if (UIS.div_configuracao.attr("style") == "display: block") {
-	            // Est· na tela de configuraÁ„o, esconde
+	            // Est√° na tela de configura√ß√£o, esconde
 	            UIS.div_configuracao.attr("style", "display: none");
 	            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
-	            // Verifica se houve atualizaÁ„o de dados
+	            // Verifica se houve atualiza√ß√£o de dados
                 if (BANCODADOS.bUpdated) {
                     BANCODADOS.bUpdated = false;
-                    // Houve atualizaÁ„o de dados, volta para a tela de metas por status
+                    // Houve atualiza√ß√£o de dados, volta para a tela de metas por status
                     UIS.resetDivStack();
                 }
                 return;
@@ -159,48 +159,69 @@ var UIS = {
 	        UIS.popDiv();
 	    }).bind(this));
 
-	    // Bot„o para visualizaÁ„o de metas por objetivo
+	    // Bot√£o para visualiza√ß√£o de metas por objetivo
 	    this.bt_showMetasObjetivos.bind("touchend mouseup", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
 	    	// remove a borda de ativo
 	    	UIS.bt_showMetasStatus.removeClass("bt_border_ativo");
+            //anima transi√ß√£o
+            UIS.div_metasObjetivos.addClass("container_show");
+            UIS.div_metasObjetivos.addClass("mostrar");
+            UIS.div_metasObjetivos.removeClass("container_hide");
+            UIS.div_metasObjetivos.removeClass("esconder");
 
-            UIS.div_metasStatus.attr("style", "display: none");
-            UIS.div_metasObjetivos.attr("style", "display: block");
+            UIS.div_metasStatus.removeClass("container_show");
+            UIS.div_metasStatus.removeClass("mostrar");
+            UIS.div_metasStatus.addClass("container_hide");
+            UIS.div_metasStatus.addClass("esconder");
+            //mostra a div
+            //UIS.div_metasStatus.attr("style", "display: none");
+            //UIS.div_metasObjetivos.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasObjetivos;
         }).bind(this));
 
-        // Bot„o para visualizaÁ„o de metas por status
+        // Bot√£o para visualiza√ß√£o de metas por status
 	    this.bt_showMetasStatus.bind("touchend mouseup", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
-	    	// remove a borda de ativo
+            //anima transi√ß√£o 
+            UIS.div_metasStatus.addClass("mostrar");
+            UIS.div_metasStatus.addClass("container_show");
+            UIS.div_metasStatus.removeClass("container_hide");
+            UIS.div_metasStatus.removeClass("esconder");
+
+            UIS.div_metasObjetivos.addClass("container_hide");
+            UIS.div_metasObjetivos.addClass("esconder");
+            UIS.div_metasObjetivos.removeClass("container_show");
+	    	UIS.div_metasObjetivos.removeClass("mostrar");
+
+            // remove a borda de ativo            
 	    	UIS.bt_showMetasObjetivos.removeClass("bt_border_ativo");
 
-	        UIS.div_metasObjetivos.attr("style", "display: none");
-	        UIS.div_metasStatus.attr("style", "display: block");
+	        //UIS.div_metasObjetivos.attr("style", "display: none");
+	       // UIS.div_metasStatus.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasStatus;
         }).bind(this));
 
-	    // Bot„o para visualizaÁ„o das configuraÁıes
+	    // Bot√£o para visualiza√ß√£o das configura√ß√µes
 	    this.bt_Configure.bind("touchend", (function () {
 	    	//alert("estado = " + UIS.div_configuracao.attr("style"));
             if (UIS.div_configuracao.attr("style") == "display: none") {
             	//alert("esta none");
-                // Apresenta div de configuraÁıes
+                // Apresenta div de configura√ß√µes
                 UIS.div_configuracao.attr("style", "display: block");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
             }
             else {
             	//alert("esta block")
-                // Esconde div de configuraÁ„o
+                // Esconde div de configura√ß√£o
                 UIS.div_configuracao.attr("style", "display: none");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
-                // Verifica se houve atualizaÁ„o de dados
+                // Verifica se houve atualiza√ß√£o de dados
                 if (BANCODADOS.bUpdated) {
                     BANCODADOS.bUpdated = false;
-                    // Houve atualizaÁ„o de dados, volta para a tela de metas por status
+                    // Houve atualiza√ß√£o de dados, volta para a tela de metas por status
                     console.log("Dados atualizados. Volta para a tela de metas por status");
                     UIS.resetDivStack();
                     console.log("clicou")
@@ -208,29 +229,29 @@ var UIS = {
             }
         }).bind(this));
 
-	    // ¡rea de informaÁıes de atualizaÁ„o de dados
+	    // √Årea de informa√ß√µes de atualiza√ß√£o de dados
 	    this.atualizacaoDados.bind("touchend", (function () {
             if(this.dragging == false) {
             if (UIS.div_atualizacao.attr("style") == "display: none") {
-                // Apresenta as informaÁıes de atualizaÁ„o de dados
+                // Apresenta as informa√ß√µes de atualiza√ß√£o de dados
                 UIS.div_atualizacao.attr("style", "display: block");
-                // Fecha as outras divs da tela de configuraÁ„o
+                // Fecha as outras divs da tela de configura√ß√£o
                 UIS.div_termosUso.attr("style", "display: none");
                 UIS.div_desenvolvimento.attr("style", "display: none");
             }
             else {
-                // Esconde as informaÁıes de atualizaÁ„o de dados
+                // Esconde as informa√ß√µes de atualiza√ß√£o de dados
                 UIS.div_atualizacao.attr("style", "display: none");
             }}
         }).bind(this));
 
-	    // ¡rea de termos de uso
+	    // √Årea de termos de uso
 	    this.termosUso.bind("touchend", (function () {
 	    	if(this.dragging == false) {
 	        if (UIS.div_termosUso.attr("style") == "display: none") {
 	            // Apresenta os termos de uso
 	            UIS.div_termosUso.attr("style", "display: block");
-	            // Fecha as outras divs da tela de configuraÁ„o
+	            // Fecha as outras divs da tela de configura√ß√£o
 	            UIS.div_atualizacao.attr("style", "display: none");
 	            UIS.div_desenvolvimento.attr("style", "display: none");
 	        }
@@ -241,23 +262,23 @@ var UIS = {
 	   		}
 	    }).bind(this));
 
-	    // ¡rea de desenvolvimento
+	    // √Årea de desenvolvimento
 	    this.desenvolvimento.bind("touchend", (function () {
             if(this.dragging == false) {
             if (UIS.div_desenvolvimento.attr("style") == "display: none") {
-                // Apresenta informaÁıes de desenvolvimento
+                // Apresenta informa√ß√µes de desenvolvimento
                 UIS.div_desenvolvimento.attr("style", "display: block");
-                // Fecha as outras divs da tela de configuraÁ„o
+                // Fecha as outras divs da tela de configura√ß√£o
                 UIS.div_termosUso.attr("style", "display: none");
                 UIS.div_atualizacao.attr("style", "display: none");
             }
             else {
-                // Esconde informaÁıes de desenvolvimento
+                // Esconde informa√ß√µes de desenvolvimento
                 UIS.div_desenvolvimento.attr("style", "display: none");
             }}
         }).bind(this));
 
-	    // NavegaÁ„o da tela de metas por status para a tela de lista de metas
+	    // Navega√ß√£o da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
@@ -267,7 +288,7 @@ var UIS = {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
 	    	}
 	    }).bind(this));
-	    // NavegaÁ„o da tela de metas por objetivo para a tela de lista de metas
+	    // Navega√ß√£o da tela de metas por objetivo para a tela de lista de metas
 	    this.ul_listaObjetivos.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
@@ -276,7 +297,7 @@ var UIS = {
 	    	}
 	    }).bind(this));
 
-	    // NavegaÁ„o da tela de lista de metas para a tela de detalhes da meta
+	    // Navega√ß√£o da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
@@ -285,7 +306,7 @@ var UIS = {
 	    	}
 	    }).bind(this));
 
-	    // NavegaÁ„o da tela de detalhes da meta para a tela de detalhes de um projeto
+	    // Navega√ß√£o da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	    //this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
 	        //alert("Detalhes da meta");
@@ -309,19 +330,19 @@ var UIS = {
 
 		if (UIS.div_configuracao.attr("style") == "display: none") {
             	//alert("esta none");
-                // Apresenta div de configuraÁıes
+                // Apresenta div de configura√ß√µes
                 UIS.div_configuracao.attr("style", "display: block");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
             }
             else {
             	//alert("esta block")
-                // Esconde div de configuraÁ„o
+                // Esconde div de configura√ß√£o
                 UIS.div_configuracao.attr("style", "display: none");
                 UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
-                // Verifica se houve atualizaÁ„o de dados
+                // Verifica se houve atualiza√ß√£o de dados
                 if (BANCODADOS.bUpdated) {
                    // BANCODADOS.bUpdated = false;
-                    // Houve atualizaÁ„o de dados, volta para a tela de metas por status
+                    // Houve atualiza√ß√£o de dados, volta para a tela de metas por status
                    // console.log("Dados atualizados. Volta para a tela de metas por status");
                    // UIS.resetDivStack();
                     
@@ -344,7 +365,7 @@ var UIS = {
             			idDaMeta + 
             			"'><h4 idMeta='"+idDaMeta+"'>META " + 
             			idDaMeta + 
-            			"</h4><p idMeta='"+idDaMeta+"'>com benefÌcio ‡ populaÁ„o</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+            			"</h4><p idMeta='"+idDaMeta+"'>com benef√≠cio √† popula√ß√£o</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
             			dados.rows.item(i).NAME_META + 
             			"</p></div></li>";
         }
@@ -366,7 +387,7 @@ var UIS = {
                         "</p><p>Percentual: " + dados.rows.item(i).ACOMPANHAMENTO_META +
                         "</p><p>Nome: " + dados.rows.item(i).NAME_META +
                         "</p><p>Objetivo: " + dados.rows.item(i).NAME_OBJETIVO +
-                        "</p><p>ArticulaÁ„o: " + dados.rows.item(i).NAME_ARTICULACAO +
+                        "</p><p>Articula√ß√£o: " + dados.rows.item(i).NAME_ARTICULACAO +
                         "</p><p>QP1: " + dados.rows.item(i).QP1_META +
                         "</p><p>QP2: " + dados.rows.item(i).QP2_META +
                         "</p><p>QP3: " + dados.rows.item(i).QP3_META +
@@ -378,16 +399,16 @@ var UIS = {
                         "</p></div></li>";*/
 
                         nodes+="<li class='overfl-hdd'>"+
-                        "<div class='col-50-l  marg-b-16'><span class='header-verm'>META "+dados.rows.item(i).ID_META+"</span><br /><span class='cor_cz87'>COM BENEFÕCIO ¿ POPULA«√O</span></div><div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>100%</div>"+	
+                        "<div class='col-50-l  marg-b-16'><span class='header-verm'>META "+dados.rows.item(i).ID_META+"</span><br /><span class='cor_cz87'>COM BENEF√çCIO √Ä POPULA√á√ÉO</span></div><div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>100%</div>"+	
                        "<div class='hspacer-line '></div>"+
                         "<p class='clear-bth marg-t-16'><span class='gray_4'>"+dados.rows.item(i).NAME_META+"</span></p></li>"+	
                         "<li class='cor_cz'><span class='header-verm font-15'>OBJETIVO</span><br />"+dados.rows.item(i).NAME_OBJETIVO+"</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>ARTICULA«√O</span><br />"+dados.rows.item(i).NAME_ARTICULACAO+"</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />Novos serviÁos ou benefÌcios</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>ANDAMENTO QUANTITATIVO</span><br /><span class='txt-b cor_cz40'>348.472</span> famÌlias beneficiadas com o programa Bolsa FamÌlia<div class='hspacer-line marg-t-16 marg-b-16'></div><span class='txt-b cor_cz40'>80.736</span> novas famÌlias beneficiadas com o Programa Bolsa FamÌlia - Concess„o acumulada</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>ARTICULA√á√ÉO</span><br />"+dados.rows.item(i).NAME_ARTICULACAO+"</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />Novos servi√ßos ou benef√≠cios</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>ANDAMENTO QUANTITATIVO</span><br /><span class='txt-b cor_cz40'>348.472</span> fam√≠lias beneficiadas com o programa Bolsa Fam√≠lia<div class='hspacer-line marg-t-16 marg-b-16'></div><span class='txt-b cor_cz40'>80.736</span> novas fam√≠lias beneficiadas com o Programa Bolsa Fam√≠lia - Concess√£o acumulada</li>"+
                         
                         "<li  class='overfl-hdd'>"+
-                        "<span class='header-verm font-15'>ANDAMENTO QUALITATIVO</span><br />Para calcular o incremento bruto de benefici·rios no Programa Bolsa famÌlia, devemos utilizar como referÍncia o marco zero (janeiro de 2013) e subtrair os demais perÌodos de levantamento da informaÁ„o. Para termos o total de inclus„o, soma-se os incrementos.<br/><br/>"+
+                        "<span class='header-verm font-15'>ANDAMENTO QUALITATIVO</span><br />Para calcular o incremento bruto de benefici√°rios no Programa Bolsa fam√≠lia, devemos utilizar como refer√™ncia o marco zero (janeiro de 2013) e subtrair os demais per√≠odos de levantamento da informa√ß√£o. Para termos o total de inclus√£o, soma-se os incrementos.<br/><br/>"+
                         "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
                         "<span class='header-verm font-15'>PREVISTO</span><br />"+dados.rows.item(i).PREVISTO_META+
                         "</div>"+
@@ -499,7 +520,7 @@ var UIS = {
 	        UIS.array_Divs[i].attr("style", "display: none");
 	    }
 	    UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
-	    // Verifica se deve mostrar botıes para seleÁ„o de tipos de lista de metas
+	    // Verifica se deve mostrar bot√µes para sele√ß√£o de tipos de lista de metas
 	    if (UIS.array_Divs.length == 1) {
 	        UIS.div_footer.attr("style", "display: block");
 	    }
@@ -531,7 +552,7 @@ var UIS = {
 	    UIS.showDiv();
 	},
 
-    // Salva data e hora da ˙ltima atualizaÁ„o de dados
+    // Salva data e hora da √∫ltima atualiza√ß√£o de dados
 	saveLastUpdateDate: function () {
 	    console.log("saveLastUpdateDate");
 	    var now = new Date();
@@ -547,7 +568,7 @@ var UIS = {
 	    // Invert a string
 	    var strInvertida = "";
 	    for (var i = strValor.length - 1; i >= 0; i--) strInvertida += strValor[i];
-	    // Insere vÌrgula e pontos dos milhares
+	    // Insere v√≠rgula e pontos dos milhares
 	    var retString = "";
 	    var proximoPonto = 5;
 	    for (var i = 0; i < strInvertida.length; i++) {

@@ -47,8 +47,8 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-Medium.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-MediumItalic.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-Regular.ttf \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\00_Tabs_20150630_objetivos.psd \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background2.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\bg_status_ativo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\chave.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\config-exclamacao.png \

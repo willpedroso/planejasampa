@@ -92,7 +92,11 @@ body, p{
     padding: 10px 0 0 0;
     height: 50px;
 }
+.titulo_objetivo h2{
+    padding: 0;
+    margin: 0;
 
+}
 .item_objetivo{
     height: 55px;
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
@@ -1293,4 +1297,26 @@ ul.list_interna_proj li{
 }
 
 
+/*classes animações*/
 
+
+.container_hide{
+    margin-left: 130%;
+    -webkit-transition: all 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: all 0.5s;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.container_show{
+     margin-left: 0;
+    -webkit-transition: all 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: all 0.5s;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.esconder{
+        display: none;
+    }
+.mostrar{
+       display: block;
+    }
