@@ -260,6 +260,7 @@ var UIS = {
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
+
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
@@ -352,7 +353,9 @@ var UIS = {
 //	    //alert(nodes);
 	    UIS.ul_ListaMetas.empty();
 	    UIS.ul_ListaMetas.append(nodes);
-	    UIS.pushDiv(UIS.div_listaMetas);
+
+        showTela(div_listaMetas);
+	    //UIS.pushDiv(UIS.div_listaMetas);
 	},
 
     // Mostra detalhes da meta
@@ -424,8 +427,9 @@ var UIS = {
 
 	    //movescroll para o top
 	   $('body').scrollTop(0);
+       showTela(div_detalhesMeta);
 
-	    UIS.pushDiv(UIS.div_detalhesMeta);
+	    //UIS.pushDiv(UIS.div_detalhesMeta);
 	},
 
     // Mostra detalhes do projeto da meta
@@ -442,7 +446,8 @@ var UIS = {
 
 	    //movescroll para o top
 	    $('body').scrollTop(0);
-	    UIS.pushDiv(UIS.div_detalhesProjeto);
+         showTela(div_detalhesProjeto);
+	   // UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 
 	fakeshowDetalhesProjeto: function (){
@@ -520,14 +525,14 @@ var UIS = {
 
     // Insere uma div na pilha
 	pushDiv: function (obj) {
-	    console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
+	    //console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
 	    UIS.array_Divs.push(obj);
 	    UIS.showDiv();
 	},
 
     // Remove uma div da pilha
 	popDiv: function () {
-	    console.log("popDiv: array_Divs.length = " + UIS.array_Divs.length);
+	    //console.log("popDiv: array_Divs.length = " + UIS.array_Divs.length);
 	    UIS.array_Divs.pop().attr("style", "display: none");
 	    UIS.showDiv();
 	},
@@ -567,4 +572,27 @@ var UIS = {
 	    return strValor;
 	}
 };
+
+//animação telas
+
+var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'; 
+
+    function showTela(tela){
+
+        $(tela).removeClass('hideme');
+        $(tela).removeClass('box-escondido');
+        $(tela).addClass('box-ativo');
+        $(tela).addClass('showme').one(transitionsevents,function(){
+        });
+    } 
+
+    function voltar(tela){
+
+        $(tela).removeClass('showme');
+        $(tela).addClass('hideme').one(transitionsevents,function(){
+            $(tela).removeClass('box-ativo');
+            $(tela).addClass('box-escondido');
+        });
+        
+    }
 

@@ -117,7 +117,9 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_view_headline_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\BancoDados.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\index.js \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\jquery-1.11.3.min.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\jquery-2.1.4.min.js \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\jquery-migrate-1.2.1.min.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS.js____ \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS_0ld.js \
