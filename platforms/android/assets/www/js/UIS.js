@@ -165,19 +165,10 @@ var UIS = {
 	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
 	    	// remove a borda de ativo
 	    	UIS.bt_showMetasStatus.removeClass("bt_border_ativo");
-            //anima transição
-            UIS.div_metasObjetivos.addClass("container_show");
-            UIS.div_metasObjetivos.addClass("mostrar");
-            UIS.div_metasObjetivos.removeClass("container_hide");
-            UIS.div_metasObjetivos.removeClass("esconder");
 
-            UIS.div_metasStatus.removeClass("container_show");
-            UIS.div_metasStatus.removeClass("mostrar");
-            UIS.div_metasStatus.addClass("container_hide");
-            UIS.div_metasStatus.addClass("esconder");
             //mostra a div
-            //UIS.div_metasStatus.attr("style", "display: none");
-            //UIS.div_metasObjetivos.attr("style", "display: block");
+            UIS.div_metasStatus.attr("style", "display: none");
+            UIS.div_metasObjetivos.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasObjetivos;
         }).bind(this));
 
@@ -185,22 +176,11 @@ var UIS = {
 	    this.bt_showMetasStatus.bind("touchend mouseup", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
-            //anima transição 
-            UIS.div_metasStatus.addClass("mostrar");
-            UIS.div_metasStatus.addClass("container_show");
-            UIS.div_metasStatus.removeClass("container_hide");
-            UIS.div_metasStatus.removeClass("esconder");
-
-            UIS.div_metasObjetivos.addClass("container_hide");
-            UIS.div_metasObjetivos.addClass("esconder");
-            UIS.div_metasObjetivos.removeClass("container_show");
-	    	UIS.div_metasObjetivos.removeClass("mostrar");
-
             // remove a borda de ativo            
 	    	UIS.bt_showMetasObjetivos.removeClass("bt_border_ativo");
 
-	        //UIS.div_metasObjetivos.attr("style", "display: none");
-	       // UIS.div_metasStatus.attr("style", "display: block");
+	        UIS.div_metasObjetivos.attr("style", "display: none");
+	        UIS.div_metasStatus.attr("style", "display: block");
             UIS.array_Divs[0] = UIS.div_metasStatus;
         }).bind(this));
 
