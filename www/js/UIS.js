@@ -141,9 +141,13 @@ var UIS = {
 	    }).bind(this));
 
 	    // Botão voltar
-	    this.bt_Voltar.bind("touchend mouseup", (function () {
+	    this.bt_Voltar.bind("touchend", (function () {
+             console.log("click voltar");
+             voltar();
 	        if (UIS.div_configuracao.attr("style") == "display: block") {
-	            // Está na tela de configuração, esconde
+	          
+
+                // Está na tela de configuração, esconde
 	            UIS.div_configuracao.attr("style", "display: none");
 	            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
 	            // Verifica se houve atualização de dados
@@ -156,11 +160,14 @@ var UIS = {
 	        }
 	        if (UIS.array_Divs.length == 1)
 	            return;
-	        UIS.popDiv();
+
+            
+
+	        //UIS.popDiv();
 	    }).bind(this));
 
 	    // Botão para visualização de metas por objetivo
-	    this.bt_showMetasObjetivos.bind("touchend mouseup", (function () {
+	    this.bt_showMetasObjetivos.bind("touchend", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasObjetivos.addClass("bt_border_ativo");
 	    	// remove a borda de ativo
@@ -173,7 +180,7 @@ var UIS = {
         }).bind(this));
 
         // Botão para visualização de metas por status
-	    this.bt_showMetasStatus.bind("touchend mouseup", (function () {
+	    this.bt_showMetasStatus.bind("touchend", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
             // remove a borda de ativo            
@@ -259,7 +266,7 @@ var UIS = {
         }).bind(this));
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
-	    this.ul_ListaMetasStatus.bind("touchend mouseup", (function (event) {
+	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
 
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
@@ -270,7 +277,7 @@ var UIS = {
 	    	}
 	    }).bind(this));
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
-	    this.ul_listaObjetivos.bind("touchend mouseup", (function (event) {
+	    this.ul_listaObjetivos.bind("touchend", (function (event) {
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
@@ -279,7 +286,7 @@ var UIS = {
 	    }).bind(this));
 
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
-	    this.ul_ListaMetas.bind("touchend mouseup", (function (event) {
+	    this.ul_ListaMetas.bind("touchend", (function (event) {
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
 	        if(this.dragging == false) {
@@ -355,7 +362,7 @@ var UIS = {
 	    UIS.ul_ListaMetas.append(nodes);
 
         showTela(div_listaMetas);
-	    //UIS.pushDiv(UIS.div_listaMetas);
+	    UIS.pushDiv(UIS.div_listaMetas);
 	},
 
     // Mostra detalhes da meta
@@ -429,7 +436,7 @@ var UIS = {
 	   $('body').scrollTop(0);
        showTela(div_detalhesMeta);
 
-	    //UIS.pushDiv(UIS.div_detalhesMeta);
+	   UIS.pushDiv(UIS.div_detalhesMeta);
 	},
 
     // Mostra detalhes do projeto da meta
@@ -446,14 +453,14 @@ var UIS = {
 
 	    //movescroll para o top
 	    $('body').scrollTop(0);
-         showTela(div_detalhesProjeto);
-	   // UIS.pushDiv(UIS.div_detalhesProjeto);
+        showTela(div_detalhesProjeto);
+	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 
 	fakeshowDetalhesProjeto: function (){
 		console.log("FAKE SHOW");
 		//movescroll para o top
-	    $('body').scrollTop(0);
+        showTela(div_detalhesProjeto);
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 
@@ -527,7 +534,7 @@ var UIS = {
 	pushDiv: function (obj) {
 	    //console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
 	    UIS.array_Divs.push(obj);
-	    UIS.showDiv();
+	   //UIS.showDiv();
 	},
 
     // Remove uma div da pilha
@@ -578,6 +585,7 @@ var UIS = {
 var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'; 
 
     function showTela(tela){
+        console.log("showTela", UIS.array_Divs.length -1);
 
         $(tela).removeClass('hideme');
         $(tela).removeClass('box-escondido');
@@ -586,13 +594,38 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         });
     } 
 
-    function voltar(tela){
+    function voltar(){
+        console.log("voltar", UIS.array_Divs.length -1);
+        //tela para voltar
+        if (UIS.array_Divs.length == 1)
+                return;
 
-        $(tela).removeClass('showme');
-        $(tela).addClass('hideme').one(transitionsevents,function(){
-            $(tela).removeClass('box-ativo');
-            $(tela).addClass('box-escondido');
+        //excluir tela atual da lista
+        
+        UIS.array_Divs[UIS.array_Divs.length -1].removeClass('showme');
+        UIS.array_Divs[UIS.array_Divs.length -1].addClass('hideme').one(transitionsevents,function(){
+        UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
+        UIS.array_Divs[UIS.array_Divs.length -1].addClass('box-escondido');
+
+        UIS.array_Divs.pop();
+        console.log("removeu")
         });
+
+        //    function voltar(){
+        // console.log("entrou", UIS.array_Divs.length -2);
+        // //tela para voltar
+        // UIS.array_Divs[UIS.array_Divs.length -2];
+
+        // //excluir tela atual da lista
+        // UIS.array_Divs.pop();
+        // console.log("removeu")
+
+        // UIS.array_Divs[UIS.array_Divs.length -2].removeClass('showme');
+        // UIS.array_Divs[UIS.array_Divs.length -2].addClass('hideme').one(transitionsevents,function(){
+        // UIS.array_Divs[UIS.array_Divs.length -2].removeClass('box-ativo');
+        // UIS.array_Divs[UIS.array_Divs.length -2].addClass('box-escondido');
+        // });
+        
         
     }
 
