@@ -123,6 +123,8 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS.js____ \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS_0ld.js \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS_2.js \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\UIS___3.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\cordova-plugin-whitelist \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\io.litehelpers.cordova.sqlite \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins\cordova-plugin-whitelist\whitelist.js \

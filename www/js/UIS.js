@@ -45,6 +45,11 @@ var UIS = {
     // Texto para status de metas
     txtStatusMetas: [],
 
+    touchEndEvent:null,
+
+    //flag que avisa se a animacao esta rodando
+    animandovoltar:false,
+
 
     configListeners: function () {
         // Texto para status de metas
@@ -73,7 +78,7 @@ var UIS = {
 	    this.ul_DetalhesMeta = $("#ulDetalhesMeta");
 	    this.ul_listaProjetosDeMetas = $("#listaProjetosDeMetas li");
 
-	    console.log("****",this.ul_listaProjetosDeMetas)
+	    //console.log("****",this.ul_listaProjetosDeMetas)
 
 	    this.bt_showMetasObjetivos = $("#bt_showMetasObjetivos");
 	    this.bt_showMetasStatus = $("#bt_showMetasStatus");
@@ -84,27 +89,28 @@ var UIS = {
 	    this.desenvolvimento = $("#desenvolvimento");
 	    this.atualizacao_Automatica = $("#atualizacao_Automatica");
 	    this.bt_Subprefeituras = $("#bt_Subprefeituras");
+        this.touchEndEvent = ('ontouchstart' in window ? 'touchend' : 'mouseup');
 
 	    this.bodyPM = $("body");
 
         // Recupera a data da última atualização
 	    if (localStorage.getItem("lastUpdateDate") == null) {
 	        // Não há data da última atualização, deixa em branco
-	        console.log("Não há data da última atualização");
+	        //console.log("Não há data da última atualização");
 	    }
 	    else {
-	        console.log("Data da última atualização = " + localStorage.lastUpdateDate);
+	        //console.log("Data da última atualização = " + localStorage.lastUpdateDate);
 	        this.div_ultima_atualizacao.html(localStorage.lastUpdateDate);
         }
 
         // Recupera flag de atualização automática
 	    if (localStorage.getItem("autoUpdate") == null) {
-            console.log("Não há flag autoUpdate")
+            //console.log("Não há flag autoUpdate")
 	        this.atualizacao_Automatica.prop("checked", false);
 	        localStorage.setItem("autoUpdate", 0);
 	    }
 	    else {
-	        console.log("autoUpdate armazenado = " + localStorage.autoUpdate);
+	        //console.log("autoUpdate armazenado = " + localStorage.autoUpdate);
 	        this.atualizacao_Automatica.prop("checked", localStorage.autoUpdate == 0 ? false : true);
         }
 
@@ -123,7 +129,7 @@ var UIS = {
 
         // Checkbox de atualização automática
 	    this.atualizacao_Automatica.bind("change", (function () {
-	        console.log("Checkbox onchange = " + UIS.atualizacao_Automatica.prop("checked"));
+	        //console.log("Checkbox onchange = " + UIS.atualizacao_Automatica.prop("checked"));
 	        // Armazena o estado do flag
 	        localStorage.setItem("autoUpdate", UIS.atualizacao_Automatica.prop("checked") == false ? 0 : 1);
 	    }).bind(this));
@@ -141,25 +147,35 @@ var UIS = {
 	    }).bind(this));
 
 	    // Botão voltar
-	    this.bt_Voltar.bind("touchend", (function () {
-             console.log("click voltar");
-             voltar();
-	        if (UIS.div_configuracao.attr("style") == "display: block") {
-	          
+	    this.bt_Voltar.bind(this.touchEndEvent, (function () {
+             //console.log("click voltar");
+             
+            //so dispara o click se a animacao da voltar estiver completa
 
-                // Está na tela de configuração, esconde
-	            UIS.div_configuracao.attr("style", "display: none");
-	            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
-	            // Verifica se houve atualização de dados
-                if (BANCODADOS.bUpdated) {
-                    BANCODADOS.bUpdated = false;
-                    // Houve atualização de dados, volta para a tela de metas por status
-                    UIS.resetDivStack();
+            if(!UIS.animandovoltar){
+
+    	        if (UIS.div_configuracao.attr("style") == "display: block") {
+    	          
+
+                    // Está na tela de configuração, esconde
+    	            UIS.div_configuracao.attr("style", "display: none");
+    	            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+    	            // Verifica se houve atualização de dados
+                    if (BANCODADOS.bUpdated) {
+                        BANCODADOS.bUpdated = false;
+                        // Houve atualização de dados, volta para a tela de metas por status
+                        UIS.resetDivStack();
+                    }
+                    return;
+    	        }
+    	        
+                if (UIS.array_Divs.length == 1){
+    	            return;
+                }else{
+                    voltar();
                 }
-                return;
-	        }
-	        if (UIS.array_Divs.length == 1)
-	            return;
+
+            }
 
             
 
@@ -209,9 +225,9 @@ var UIS = {
                 if (BANCODADOS.bUpdated) {
                     BANCODADOS.bUpdated = false;
                     // Houve atualização de dados, volta para a tela de metas por status
-                    console.log("Dados atualizados. Volta para a tela de metas por status");
+                    //console.log("Dados atualizados. Volta para a tela de metas por status");
                     UIS.resetDivStack();
-                    console.log("clicou")
+                    //console.log("clicou")
                 }
             }
         }).bind(this));
@@ -270,7 +286,7 @@ var UIS = {
 
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
-	        console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
+	        //console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
 	        
 	        if(this.dragging == false) {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
@@ -285,10 +301,14 @@ var UIS = {
 	    	}
 	    }).bind(this));
 
+//==>>  
+
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend", (function (event) {
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
+            event.stopImmediatePropagation();
+
 	        if(this.dragging == false) {
 	        	BANCODADOS.getGoalDetails(event.target.getAttribute('idMeta'), UIS.showDetalhesMetas, null);
 	    	}
@@ -300,9 +320,9 @@ var UIS = {
 	        //alert("Detalhes da meta");
 	        ////alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	        
-	      //  console.log("++++++ this.ul_DetalhesMeta.bind")
+	      //  //console.log("++++++ this.ul_DetalhesMeta.bind")
 
-//==>>	        
+        
 			//UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        //if(this.dragging == false) {
@@ -313,7 +333,7 @@ var UIS = {
 
 	fakeShowHideConfiguracoes:function(){
 		
-		console.log("++++ FAKE!!!")
+		//console.log("++++ FAKE!!!")
 
 
 		if (UIS.div_configuracao.attr("style") == "display: none") {
@@ -331,7 +351,7 @@ var UIS = {
                 if (BANCODADOS.bUpdated) {
                    // BANCODADOS.bUpdated = false;
                     // Houve atualização de dados, volta para a tela de metas por status
-                   // console.log("Dados atualizados. Volta para a tela de metas por status");
+                   // //console.log("Dados atualizados. Volta para a tela de metas por status");
                    // UIS.resetDivStack();
                     
                 }
@@ -433,7 +453,7 @@ var UIS = {
 	    UIS.ul_DetalhesMeta.append(nodes);
 
 	    //movescroll para o top
-	   $('body').scrollTop(0);
+	   //$('body').scrollTop(0);
        showTela(div_detalhesMeta);
 
 	   UIS.pushDiv(UIS.div_detalhesMeta);
@@ -458,7 +478,7 @@ var UIS = {
 	},
 
 	fakeshowDetalhesProjeto: function (){
-		console.log("FAKE SHOW");
+		//console.log("FAKE SHOW");
 		//movescroll para o top
         showTela(div_detalhesProjeto);
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
@@ -474,7 +494,7 @@ var UIS = {
 		//alert(nodes);
 	    UIS.ul_ListaMetasStatus.empty();
 	    UIS.ul_ListaMetasStatus.append(nodes);
-	   console.log(dados.rows.length)
+	   //console.log(dados.rows.length)
 	},
 
     // Preenche os dados na div de metas por objetivo
@@ -507,7 +527,7 @@ var UIS = {
 
     // Controle de divs
 	showDiv: function () {
-	    console.log("showDiv: array_Divs.length = " + UIS.array_Divs.length);
+	    //console.log("showDiv: array_Divs.length = " + UIS.array_Divs.length);
 	    for (var i = 0; i < UIS.array_Divs.length - 1; i++) {
 	        UIS.array_Divs[i].attr("style", "display: none");
 	    }
@@ -523,7 +543,7 @@ var UIS = {
 
     // Reseta a pilha e apresenta div de metas por status
 	resetDivStack: function () {
-	    console.log("resetDivStack");
+	    //console.log("resetDivStack");
 	    while (UIS.array_Divs.length) {
 	        UIS.array_Divs.pop().attr("style", "display: none");
 	    }
@@ -532,21 +552,37 @@ var UIS = {
 
     // Insere uma div na pilha
 	pushDiv: function (obj) {
-	    //console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
-	    UIS.array_Divs.push(obj);
+	    ////console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
+	    
+        console.log("==>>pushDIV:",obj.attr("id"))   
+        var id2check = obj.attr("id");
+        var divexists = false;
+        
+        for(var i =0; i< UIS.array_Divs.length; i++){
+            if(UIS.array_Divs[i].attr("id ") == id2check){
+                divexists = true;
+                break;
+            }
+        }
+
+
+        if (!divexists){
+            UIS.array_Divs.push(obj);
+        }
+        
 	   //UIS.showDiv();
 	},
 
     // Remove uma div da pilha
 	popDiv: function () {
-	    //console.log("popDiv: array_Divs.length = " + UIS.array_Divs.length);
+	    ////console.log("popDiv: array_Divs.length = " + UIS.array_Divs.length);
 	    UIS.array_Divs.pop().attr("style", "display: none");
 	    UIS.showDiv();
 	},
 
     // Salva data e hora da última atualização de dados
 	saveLastUpdateDate: function () {
-	    console.log("saveLastUpdateDate");
+	    //console.log("saveLastUpdateDate");
 	    var now = new Date();
 	    var mes = (now.getMonth() + 1) < 10 ? "0" + (now.getMonth() + 1) : now.getMonth();
         var minuto = now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
@@ -585,40 +621,53 @@ var UIS = {
 var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'; 
 
     function showTela(tela){
-        console.log("showTela", UIS.array_Divs.length -1);
+        //console.log("showTela", UIS.array_Divs.length -1);
 
         $(tela).removeClass('hideme');
         $(tela).removeClass('box-escondido');
         $(tela).addClass('box-ativo');
         $(tela).addClass('showme').one(transitionsevents,function(){
+           
+            console.log("Mostra a tela!!")
         });
     } 
 
     function voltar(){
-        console.log("voltar", UIS.array_Divs.length -1);
+
         //tela para voltar
-        if (UIS.array_Divs.length == 1)
-                return;
+        if (UIS.array_Divs.length == 1){
+             return;
+        }else{
 
-        //excluir tela atual da lista
+            UIS.animandovoltar = true; 
+             //excluir tela atual da lista
         
-        UIS.array_Divs[UIS.array_Divs.length -1].removeClass('showme');
-        UIS.array_Divs[UIS.array_Divs.length -1].addClass('hideme').one(transitionsevents,function(){
-        UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
-        UIS.array_Divs[UIS.array_Divs.length -1].addClass('box-escondido');
+            UIS.array_Divs[UIS.array_Divs.length -1].removeClass('showme');
+            UIS.array_Divs[UIS.array_Divs.length -1].addClass('hideme').one(transitionsevents,function(){
+                
+                UIS.array_Divs[UIS.array_Divs.length -1].addClass('box-escondido');
+                UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
 
-        UIS.array_Divs.pop();
-        console.log("removeu")
-        });
+                UIS.array_Divs.pop();
+
+                UIS.animandovoltar = false;
+               
+           });
+            
+
+        }
+               
+
+       
 
         //    function voltar(){
-        // console.log("entrou", UIS.array_Divs.length -2);
+        // //console.log("entrou", UIS.array_Divs.length -2);
         // //tela para voltar
         // UIS.array_Divs[UIS.array_Divs.length -2];
 
         // //excluir tela atual da lista
         // UIS.array_Divs.pop();
-        // console.log("removeu")
+        // //console.log("removeu")
 
         // UIS.array_Divs[UIS.array_Divs.length -2].removeClass('showme');
         // UIS.array_Divs[UIS.array_Divs.length -2].addClass('hideme').one(transitionsevents,function(){

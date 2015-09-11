@@ -133,10 +133,11 @@ body, p{
 /*classes topo fixo*/
 
 button{
-    border: 0;
+    border: none;
     background: none;
     display: block;
     float:left;
+    outline: none;
 }
 
 
@@ -1030,6 +1031,8 @@ ul#ulDetalhesMeta li{
 }
 
 
+
+
 .container-tit-subtit{
     clear: both;
     overflow: hidden;
@@ -1306,6 +1309,7 @@ ul.list_interna_proj li{
     top:0;
     z-index: 1;
 
+
 }
 
 #div_detalhesMeta{
@@ -1313,6 +1317,7 @@ ul.list_interna_proj li{
     position: absolute;
     top:0;
     z-index: 2;
+
 }
 
 #div_detalhesProjeto{
@@ -1320,6 +1325,7 @@ ul.list_interna_proj li{
     position: absolute;
     top:0;
     z-index: 3;
+
 }
 
 
@@ -1356,10 +1362,14 @@ ul.list_interna_proj li{
 }
 
 #container_relativo{
-    position: relative;
+    position: absolute;
     width: 100%;
     height: auto;
     margin: 0;
     padding: 0;
     z-index: 0;
+
+     
+
+
 }
