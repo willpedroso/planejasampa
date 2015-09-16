@@ -94,7 +94,7 @@
             function getGoalsFail(err) {
                 console.log("getGoalsFail - Erro: " + err);
                 // todo: Houve falha na obtenção das metas
-                alert("Houve falha de leitura do banco de dados. Por favor, reinicie o aplicativo.");
+                alert("Houve falha já aplicativo: \r\n " + err + ". Por favor, reinicie o aplicativo.");
             }
             /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/

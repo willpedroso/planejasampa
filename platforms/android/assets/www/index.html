@@ -28,7 +28,8 @@
              * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                  * Enable inline JS: add 'unsafe-inline' to default-src
          -->
-      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <!-- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> -->
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' *; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' 'unsafe-inline' 'unsafe-eval'">
       <meta name="format-detection" content="telephone=no">
       <meta name="msapplication-tap-highlight" content="no">
@@ -59,40 +60,8 @@
             <div id="bt_Subprefeituras" class="subprefeitura divide_meta">
                <div class="subpref">Subprefeitura</div>
                <div id="listaSubprefeituras" class="distrito">
-                  <select dir="rtl" name="distritos" >
-                     <option value="">Selecione</option>
-                     <option value="Aricanduva">Aricanduva</option>
-                     <option value="Vila Formosa">Vila Formosa</option>
-                     <option value="M'Boi Mirim">M'Boi Mirim</option>
-                     <option value="Butantã">Butantã</option>
-                     <option value="Mooca">Mooca</option>
-                     <option value="Campo Limpo">Campo Limpo</option>
-                     <option value="Parelheiros">Parelheiros</option>
-                     <option value="Capela do Socorro">Capela do Socorro</option>
-                     <option value="Penha">Penha</option>
-                     <option value="Casa Verde">Casa Verde</option>
-                     <option value="Perus">Perus</option>
-                     <option value="Cidade Ademar">Cidade Ademar</option>
-                     <option value="Pinheiros">Pinheiros</option>
-                     <option value="Cidade Tiradentes">Cidade Tiradentes</option>
-                     <option value="Pirituba/Jaraguá">Pirituba</option>
-                     <option value="Ermelino Matarazzo">Ermelino Matarazzo</option>
-                     <option value="Santana/Tucuruvi">Santana</option>
-                     <option value="Freguesia do Ó/Brasilândia">Freguesia </option>
-                     <option value="Santo Amaro">Santo Amaro</option>
-                     <option value="Guaianases">Guaianases</option>
-                     <option value="São Mateus">São Mateus</option>
-                     <option value="Ipiranga">Ipiranga</option>
-                     <option value="São Miguel Paulista">São Miguel Paulista</option>
-                     <option value="Itaim Paulista">Itaim Paulista</option>
-                     <option value="Sapopemba">Sapopemba</option>
-                     <option value="Itaquera">Itaquera</option>
-                     <option value="Sé">Sé</option>
-                     <option value="Jabaquara">Jabaquara</option>
-                     <option value="Vila Maria/Vila Guilherme">Vila Maria</option>
-                     <option value="Jaçanã/Tremembé Vila Mariana">Jaçanã/</option>
-                     <option value="Lapa">Lapa</option>
-                     <option value="Vila Prudente">Vila Prudente</option>
+                  <select id="selectListaSubprefeituras" dir='rtl' name='distritos'>
+
                   </select>
                </div>
             </div>
@@ -101,25 +70,25 @@
             <div id="listaMetasStatus">
                <div id="ulListaMetasStatus" >
                   <!-- metas em andamento -->
-                  <div idRegistro='2' class="metas_andamento divide_meta">
+                  <!-- <div idRegistro='2' class="metas_andamento divide_meta">
                      <div idRegistro='2' class="descricao_andamento  gray_4">metas em andamento</div>
                      <div idRegistro='2' class="valor_andamento cor_valor_meta">102</div>
                   </div>
                   <!--  metas que ja beneficiam  -->
-                  <div idRegistro='3' class="metas_beneficiam divide_meta">
+                  <!-- <div idRegistro='3' class="metas_beneficiam divide_meta">
                      <div idRegistro='3' class="descricao_beneficiam  gray_4">metas que j&aacute; beneficiam a popula&ccedil;&atilde;o</div>
                      <div  idRegistro='3' class="valor_beneficiam gray_2">72</div>
-                  </div>
+                  </div> -->
                   <!-- metas concluidas -->
-                  <div idRegistro='4' class="metas_concluidas divide_meta">
+                  <!-- <div idRegistro='4' class="metas_concluidas divide_meta">
                      <div idRegistro='4' class="descricao_concluidas">metas conclu&iacute;das</div>
                      <div idRegistro='4' class="valor_concluidas">21</div>
-                  </div>
+                  </div> -->
                   <!-- metas superadas -->
-                  <div  idRegistro='4' class="metas_superadas divide_meta">
+                  <!-- <div  idRegistro='4' class="metas_superadas divide_meta">
                      <div  idRegistro='4' class="descricao_superadas  gray_4">metas superdadas</div>
                      <div  idRegistro='4' class="valor_superadas gray_2">7</div>
-                  </div>
+                  </div> --> 
                </div>
             </div>
          </div>
@@ -133,21 +102,8 @@
                <!-- barra subprefeitura -->
                <div class="subprefeitura">
                   <div class="subpref">Subprefeitura</div>
-                  <div class="distrito">
-                     <select dir="rtl" name="distritos" id="distritos">
-                        <option value="">Selecione</option>
-                        <option value="Aricanduva">Aricanduva</option>
-                        <option value="Vila Formosa">Vila Formosa</option>
-                        <option value="Campo Limpo">Campo Limpo</option>
-                        <option value="Parelheiros">Parelheiros</option>
-                        <option value="Capela do Socorro">Capela do Socorro</option>
-                        <option value="Penha">Penha</option>
-                        <option value="Casa Verde">Casa Verde</option>
-                        <option value="Perus">Perus</option>
-                        <option value="Sé">S&eacute;</option>
-                        <option value="Vila Maria/Vila Guilherme">Vila Maria</option>
-                        <option value="Jaçanã/Tremembé Vila Mariana">Ja&ccedil;an&atilde;/</option>
-                     </select>
+                  <div id="listaSubprefeituras_metas" class="distrito">
+
                   </div>
                </div>
                <!-- fim da barra subprefeitura -->
@@ -168,20 +124,7 @@
                <div class="subprefeitura">
                   <div class="subpref">Metas</div>
                   <div class="distrito">
-                     <select dir="rtl" name="metas" id="metas">
-                        <option value="">META</option>
-                        <option value="Meta 01">META 01</option>
-                        <option value="Meta 02">META 02</option>
-                        <option value="Meta 03">META 03</option>
-                        <option value="Meta 04">META 04</option>
-                        <option value="Meta 05">META 05</option>
-                        <option value="Meta 06">META 06</option>
-                        <option value="Meta 07">META 07</option>
-                        <option value="Meta 08">META 08</option>
-                        <option value="Meta 09">META 09</option>
-                        <option value="Meta 10">META 10</option>
-                     </select>
-                  </div>
+                     
                </div>
                <!-- fim da barra indice de metas  -->
                <!-- bloco de informações -->
@@ -423,5 +366,7 @@
       <script type="text/javascript" src="js/index.js"></script>
       <script type="text/javascript" src="js/BancoDados.js"></script>
       <script type="text/javascript" src="js/UIS.js"></script>
+      <script type="text/javascript" src="js/PrjMil.js"></script>
+      <script type="text/javascript" src="js/PrjMon.js"></script>
    </body>
 </html>

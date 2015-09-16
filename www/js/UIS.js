@@ -18,6 +18,7 @@ var UIS = {
     div_footer: null,
     div_ultima_atualizacao: null,
     div_listaSubprefeituras: null,
+    select_ListaSubprefeituras: null,
     array_Divs: [],
 
     // ULs
@@ -71,6 +72,7 @@ var UIS = {
 	    this.div_footer = $("#div_footer");
 	    this.div_ultima_atualizacao = $("#div_ultima_atualizacao");
 	    this.div_listaSubprefeituras = $("#listaSubprefeituras");
+        this.select_ListaSubprefeituras = $("#selectListaSubprefeituras");
 
 	    this.ul_ListaMetas = $("#ulListaMetas");
 	    this.ul_listaObjetivos = $("#ulListaObjetivos");
@@ -133,6 +135,14 @@ var UIS = {
 	        // Armazena o estado do flag
 	        localStorage.setItem("autoUpdate", UIS.atualizacao_Automatica.prop("checked") == false ? 0 : 1);
 	    }).bind(this));
+
+        //altera o subprefeitura
+        //this.div_listaSubprefeituras.bind("change", (function () {
+        this.select_ListaSubprefeituras.bind("change", (function () {
+            console.log("subprefeitura: ", this.select_ListaSubprefeituras.attr("value"));
+            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"));
+
+        }).bind(this));
 
         // Botão da combobox de subprefeituras
         // todo: apenas para testes
@@ -287,6 +297,7 @@ var UIS = {
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        //console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
+            $('#container_relativo').css({"height":"100%"});
 	        
 	        if(this.dragging == false) {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
@@ -484,12 +495,109 @@ var UIS = {
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 
+     // Atualiza lista de metas por status, metas por objetivo e lista de metas se for a tela ativa, por meio da lista de metas filtrada por subprefeitura (lista em memória)
+    fillDivGoalsPrefecture: function (dados, listaStatus, listaObjetivos, idStatus, idObjective) {
+        console.log("fillDivGoalsPrefecture");
+        var nodes = "";
+        // Atualização de metas por status
+        var count = 0;
+        for (var i = 0; i < listaStatus.length; i++) {
+            count = 0;
+            for (var j = 0; j < dados.length; j++) {
+                if (dados[j].STATUS_META == listaStatus[i]) {
+                    count++;
+                }
+            }
+
+            // Monta nodes
+            //nodes += "<li><div idRegistro='" + listaStatus[i] + "'>" + "Status = " + UIS.txtStatusMetas[listaStatus[i]] + " - Qtd = " + count + "</div></li>";
+             nodes += "<div idRegistro='2' class='metas_andamento divide_meta'>" + 
+                        "<div idRegistro='2' class='descricao_andamento  gray_4'>" + 
+                        this.txtStatusMetas[listaStatus[i]] + 
+                        "</div>" + 
+                        "<div idRegistro='2' class='valor_andamento cor_valor_meta'>" + 
+                        count + 
+                        "</div>" + 
+                      "</div>";
+        }
+        console.log ("Nodes de metas por status: " + nodes);
+        UIS.ul_ListaMetasStatus.empty();
+        UIS.ul_ListaMetasStatus.append(nodes);
+
+        // Atualização de metas por objetivo
+        nodes = "";
+        for (var i = 0; i < listaObjetivos.length; i++) {
+            count = 0;
+            for (var j = 0; j < dados.length; j++) {
+                if (dados[j].NAME_OBJETIVO == listaObjetivos[i]) {
+                    count++;
+                }
+            }
+            // Monta nodes
+            nodes += "<li><div idRegistro='" + listaObjetivos[i] + "'>" + "Qtd = " + count + " - Objetivo = " + listaObjetivos[i] + "</div></li>";
+        }
+        //alert("Nodes de metas por objetivo: " + nodes);
+        UIS.ul_listaObjetivos.empty();
+        UIS.ul_listaObjetivos.append(nodes);
+
+        // Atualização da tela de lista de metas, se for a tela ativa
+        if (UIS.array_Divs[UIS.array_Divs.length - 1] == UIS.div_listaMetas) {
+            // A lista de metas é a tela ativa, atualiza
+            UIS.showListaMetasPrefecture(dados, idStatus, idObjective);
+        }
+    },
+
+    // Apresenta a lista de metas, por status ou objetivo, por meio da lista de metas filtrada por subprefeitura (lista em memória)
+    showListaMetasPrefecture: function(dados, idStatus, idObjective) {
+        console.log("prepareGoalsListPrefecture");
+        if (idStatus != null) {
+            // Lista de metas por status, por prefeitura
+            var listaMetas = [];
+            for (var i = 0; i < dados.length; i++) {
+                if(dados[i].STATUS_META == idStatus) {
+                    var s = {
+                        META_ID: dados[i].META_ID,
+                        NAME_META: dados[i].NAME_META,
+                        STATUS_META: dados[i].STATUS_META,
+                        ACOMPANHAMENTO_META: dados[i].ACOMPANHAMENTO_META
+                    };
+                    listaMetas.push(s);
+                }
+            }
+        }
+        else { // (idObjective != null)
+            // Lista de metas por objetivo, por prefeitura
+            var listaMetas = [];
+            for (var i = 0; i < dados.length; i++) {
+                if(dados[i].NAME_OBJETIVO == idObjective) {
+                    var s = {
+                        META_ID: dados[i].META_ID,
+                        NAME_META: dados[i].NAME_META,
+                        STATUS_META: dados[i].STATUS_META,
+                        ACOMPANHAMENTO_META: dados[i].ACOMPANHAMENTO_META
+                    };
+                    listaMetas.push(s);
+                }
+            }
+        }
+        UIS.showListaMetas(listaMetas);
+    },
+
+
     // Preenche os dados na div de metas por status
 	fillDivStatusGoals: function(dados) {
 	    //alert("fillDivStatusGoals");
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<div><div class='descricao_andamento' idRegistro='" + dados.rows.item(i).STATUS_META + "'>" + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META]+"</div>"+"<div class='valor_andamento'>" +  dados.rows.item(i).QTD + "</div></div>";
+            nodes += "<div idRegistro='2' class='metas_andamento divide_meta'>" + 
+                        "<div idRegistro='2' class='descricao_andamento  gray_4'>" + 
+                        this.txtStatusMetas[dados.rows.item(i).STATUS_META] + 
+                        "</div>" + 
+                        "<div idRegistro='2' class='valor_andamento cor_valor_meta'>" + 
+                        dados.rows.item(i).QTD + 
+                        "</div>" + 
+                      "</div>";
+	        //nodes += "<div><div class='descricao_andamento' idRegistro='" + dados.rows.item(i).STATUS_META + "'>" + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META]+"</div>"+"<div class='valor_andamento'>" +  dados.rows.item(i).QTD + "</div></div>";
 	    }
 		//alert(nodes);
 	    UIS.ul_ListaMetasStatus.empty();
@@ -516,13 +624,19 @@ var UIS = {
     // Preenche a div (combobox) de subprefeituras
 	fillDivPrefectures: function(dados) {
 	    //alert("fillDivPrefectures");
-	    var nodes = "";
+	    //var nodes = "<select dir='rtl' name='distritos'>";
+        var nodes = "";
+        // todo: colocar "São Paulo"
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<li><div idRegistro='" + dados.rows.item(i).idText + "'>" + dados.rows.item(i).name + "</div></li>";
+	        nodes += "<option value='" + dados.rows.item(i).ID + "'>" + dados.rows.item(i).NAME + "</option>";
 	    }
+        //nodes += "</select>";
 	    ////alert(nodes);
-	    $("#ulListaSubprefeituras").empty();
-	    $("#ulListaSubprefeituras").append(nodes);
+	    $("#selectListaSubprefeituras").empty();
+        $("#selectListaSubprefeituras").append(nodes);
+        $("#listaSubprefeituras_metas").empty();
+	    $("#listaSubprefeituras_metas").append(nodes);
+
 	},
 
     // Controle de divs
@@ -633,6 +747,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
     } 
 
     function voltar(){
+        console.log("VOLTAR()",UIS.array_Divs.length );
 
         //tela para voltar
         if (UIS.array_Divs.length == 1){
@@ -649,6 +764,11 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
                 UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
 
                 UIS.array_Divs.pop();
+
+                //se clicou voltar de tela de metas para a home, esconde o div container relativo
+                if(UIS.array_Divs.length == 1){
+                     $('#container_relativo').css({"height":"0"});
+                }
 
                 UIS.animandovoltar = false;
                

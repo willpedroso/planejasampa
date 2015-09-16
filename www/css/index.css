@@ -270,19 +270,20 @@ button{
 
 
 .descricao_andamento{
-    width: 32%;
+    width: 50%;
     float: left;
     font-family: 'Roboto', sans-serif;
     font-size: 1.2em;
     font-weight: 500;
-    padding-left:5%;
     line-height: 22px;
-    padding-top: 21px;
+    padding: 10px 0 10px 15px;
  
 }
 
 .valor_andamento{
-    width: 63%;
+    padding: 0px 15px 0 0;
+    text-align: right;
+    width: 50%;
     line-height: 90px;
     float: right;
     clear: right;
@@ -1308,6 +1309,9 @@ ul.list_interna_proj li{
     position: absolute;
     top:0;
     z-index: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
 
 
 }
@@ -1317,6 +1321,9 @@ ul.list_interna_proj li{
     position: absolute;
     top:0;
     z-index: 2;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
 
 }
 
@@ -1325,6 +1332,9 @@ ul.list_interna_proj li{
     position: absolute;
     top:0;
     z-index: 3;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
 
 }
 
@@ -1364,7 +1374,7 @@ ul.list_interna_proj li{
 #container_relativo{
     position: absolute;
     width: 100%;
-    height: auto;
+    height: 0;
     margin: 0;
     padding: 0;
     z-index: 0;
