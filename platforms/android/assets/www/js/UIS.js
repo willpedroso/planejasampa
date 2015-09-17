@@ -297,10 +297,10 @@ var UIS = {
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        //console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
-            $('#container_relativo').css({"height":"100%"});
+            //$('#container_relativo').css({"height":"100%"});
 	        
 	        if(this.dragging == false) {
-	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
 	    }).bind(this));
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
@@ -308,7 +308,7 @@ var UIS = {
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
-	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.showListaMetas, null);
+	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
 	    }).bind(this));
 
@@ -369,32 +369,84 @@ var UIS = {
             }
 	},
 
-    // Mostra lista de metas
-	showListaMetas: function(dados) {
-	    //alert("showListaMetas");
-	    // Preenche os dados e apresenta
-	    var nodes = "";
-	    var idDaMeta ="";
-	    for (var i = 0; i < dados.rows.length; i++) {
-	        //nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
-            
-	        idDaMeta = dados.rows.item(i).ID_META;
-
-            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
-            			idDaMeta + 
-            			"'><h4 idMeta='"+idDaMeta+"'>META " + 
-            			idDaMeta + 
-            			"</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
-            			dados.rows.item(i).NAME_META + 
-            			"</p></div></li>";
+     // Recebe dados de retorno da consulta ao banco e prepara lista simples de dados
+    prepareShowListaMetas: function(dadosBanco) {
+        alert("prepareShowListaMetas - tamanho dos dados = " + dadosBanco.rows.length);
+        // prepara lista simples para showListaMetas
+        var listaMetas = [];
+        for (var i = 0; i < dadosBanco.rows.length; i++) {
+            var s = {
+                META_ID: dadosBanco.rows.item(i).ID_META,
+                NAME_META: dadosBanco.rows.item(i).NAME_META,
+                STATUS_META: dadosBanco.rows.item(i).STATUS_META,
+                ACOMPANHAMENTO_META: dadosBanco.rows.item(i).ACOMPANHAMENTO_META
+            };
+            listaMetas.push(s);
         }
-//	    //alert(nodes);
-	    UIS.ul_ListaMetas.empty();
-	    UIS.ul_ListaMetas.append(nodes);
+        //alert(listaMetas);
+        UIS.showListaMetas(listaMetas);
+    },
+
+    // Mostra lista de metas, dados na forma de array simples
+    showListaMetas: function(dados) {
+        alert("showListaMetas - tamanho dos dados = " + dados.length);
+        // Preenche os dados e apresenta
+        var nodes = "";
+        var nodesListaMetas = "";
+        for (var i = 0; i < dados.length; i++) {
+            idDaMeta = dados[i].META_ID;
+            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+                        idDaMeta + 
+                        "'><h4 idMeta='"+idDaMeta+"'>META " + 
+                        idDaMeta + 
+                        "</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+                        dados[i].NAME_META + 
+                        "</p></div></li>";
+
+            // monta a lista de metas para combobox
+            nodesListaMetas += "<li><div idMeta='" + dados[i].META_ID + "'>" +
+                        "Meta: " + dados[i].META_ID +
+                        "</div></li>";
+        }
+        // todo: lista de metas para combobox
+        //UIS.ul_ListaMetasDetalhes.empty();
+        //UIS.ul_ListaMetasDetalhes.append(nodesListaMetas);
+
+        alert(nodes);
+        UIS.ul_ListaMetas.empty();
+        UIS.ul_ListaMetas.append(nodes);
 
         showTela(div_listaMetas);
-	    UIS.pushDiv(UIS.div_listaMetas);
-	},
+        UIS.pushDiv(UIS.div_listaMetas);
+    },
+
+
+//     // Mostra lista de metas
+// 	showListaMetas: function(dados) {
+// 	    //alert("showListaMetas");
+// 	    // Preenche os dados e apresenta
+// 	    var nodes = "";
+// 	    var idDaMeta ="";
+// 	    for (var i = 0; i < dados.rows.length; i++) {
+// 	        //nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
+            
+// 	        idDaMeta = dados.rows.item(i).ID_META;
+
+//             nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
+//             			idDaMeta + 
+//             			"'><h4 idMeta='"+idDaMeta+"'>META " + 
+//             			idDaMeta + 
+//             			"</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+//             			dados.rows.item(i).NAME_META + 
+//             			"</p></div></li>";
+//         }
+// //	    //alert(nodes);
+// 	    UIS.ul_ListaMetas.empty();
+// 	    UIS.ul_ListaMetas.append(nodes);
+
+//         showTela(div_listaMetas);
+// 	    UIS.pushDiv(UIS.div_listaMetas);
+// 	},
 
     // Mostra detalhes da meta
 	showDetalhesMetas: function (dados) {
@@ -511,11 +563,11 @@ var UIS = {
 
             // Monta nodes
             //nodes += "<li><div idRegistro='" + listaStatus[i] + "'>" + "Status = " + UIS.txtStatusMetas[listaStatus[i]] + " - Qtd = " + count + "</div></li>";
-             nodes += "<div idRegistro='2' class='metas_andamento divide_meta'>" + 
-                        "<div idRegistro='2' class='descricao_andamento  gray_4'>" + 
+             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" + 
+                        "<div idRegistro='" + listaStatus[i] + "' class='descricao_andamento  gray_4'>" + 
                         this.txtStatusMetas[listaStatus[i]] + 
                         "</div>" + 
-                        "<div idRegistro='2' class='valor_andamento cor_valor_meta'>" + 
+                        "<div idRegistro='" + listaStatus[i] + "' class='valor_andamento cor_valor_meta'>" + 
                         count + 
                         "</div>" + 
                       "</div>";
@@ -553,7 +605,7 @@ var UIS = {
 
     // Apresenta a lista de metas, por status ou objetivo, por meio da lista de metas filtrada por subprefeitura (lista em memória)
     showListaMetasPrefecture: function(dados, idStatus, idObjective) {
-        console.log("prepareGoalsListPrefecture");
+        console.log("showListaMetasPrefecture");
         if (idStatus != null) {
             // Lista de metas por status, por prefeitura
             var listaMetas = [];
@@ -593,11 +645,11 @@ var UIS = {
 	    //alert("fillDivStatusGoals");
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-            nodes += "<div idRegistro='2' class='metas_andamento divide_meta'>" + 
-                        "<div idRegistro='2' class='descricao_andamento  gray_4'>" + 
+            nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" + 
+                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='descricao_andamento  gray_4'>" + 
                         this.txtStatusMetas[dados.rows.item(i).STATUS_META] + 
                         "</div>" + 
-                        "<div idRegistro='2' class='valor_andamento cor_valor_meta'>" + 
+                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta'>" + 
                         dados.rows.item(i).QTD + 
                         "</div>" + 
                       "</div>";

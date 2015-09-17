@@ -1372,7 +1372,7 @@ ul.list_interna_proj li{
 }
 
 #container_relativo{
-    position: relative;
+    /*position: absolute;*/
     width: 100%;
     height: 0;
     margin: 0;
