@@ -534,7 +534,11 @@ var UIS = {
                 }
             }
             // Monta nodes
-            nodes += "<li><div idRegistro='" + listaObjetivos[i] + "'>" + "Qtd = " + count + " - Objetivo = " + listaObjetivos[i] + "</div></li>";
+            //nodes += "<li><div idRegistro='" + listaObjetivos[i] + "'>" + "Qtd = " + count + " - Objetivo = " + listaObjetivos[i] + "</div></li>";
+            nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + listaObjetivos[i]+ "'>" +
+                        "<div class='desc_objetivo'>" + listaObjetivos[i] + "</div>" +
+                        "<div class='valor_objetivo'>" + count + "</div>" +
+                     "</div>";
         }
         //alert("Nodes de metas por objetivo: " + nodes);
         UIS.ul_listaObjetivos.empty();
