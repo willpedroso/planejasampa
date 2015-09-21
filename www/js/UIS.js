@@ -78,7 +78,7 @@ var UIS = {
 	    this.ul_listaObjetivos = $("#ulListaObjetivos");
 	    this.ul_ListaMetasStatus = $("#ulListaMetasStatus");
 	    this.ul_DetalhesMeta = $("#ulDetalhesMeta");
-	    this.ul_listaProjetosDeMetas = $("#listaProjetosDeMetas li");
+	    this.ul_listaProjetosDeMetas = $("#listaProjetosDeMetas");
 
 	    //console.log("****",this.ul_listaProjetosDeMetas)
 
@@ -327,19 +327,19 @@ var UIS = {
 
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
-	    //this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
-	        //alert("Detalhes da meta");
-	        ////alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
+	    this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
+	        alert("Detalhes da meta");
+	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	        
-	      //  //console.log("++++++ this.ul_DetalhesMeta.bind")
+	       //console.log("++++++ this.ul_DetalhesMeta.bind")
 
         
-			//UIS.pushDiv(UIS.div_detalhesProjeto);
+			UIS.pushDiv(UIS.div_detalhesProjeto);
 
-	        //if(this.dragging == false) {
-	        //	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
-	    	//}
-	    //}).bind(this));
+	        if(this.dragging == false) {
+	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
+	    	}
+	    }).bind(this));
 	},
 
 	fakeShowHideConfiguracoes:function(){
@@ -449,10 +449,11 @@ var UIS = {
 // 	},
 
     // Mostra detalhes da meta
-	showDetalhesMetas: function (dados) {
+	showDetalhesMetas: function (dados, projetos) {
 	    //alert("showDetalhesMetas");
 	    // Preenche os dados e apresenta
 	    var nodes = "";
+        var listaTiposProjetos = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
 	       /* nodes += "<li><div idProjeto='" + dados.rows.item(i).ID_META + "'>" +
                         "<p>Meta: " + dados.rows.item(i).ID_META +
@@ -471,13 +472,18 @@ var UIS = {
                         "</p><p>Executado: " + dados.rows.item(i).EXECUTADO_META +
                         "</p></div></li>";*/
 
+                        // Lista de tipos de projeto
+                        for (var j = 0; j < projetos.rows.length; j++) {
+                            listaTiposProjetos += projetos.rows.item(j).TIPO_PROJETO + " - ";
+                        }
+
                         nodes+="<li class='overfl-hdd'>"+
                         "<div class='col-50-l  marg-b-16'><span class='header-verm'>META "+dados.rows.item(i).ID_META+"</span><br /><span class='cor_cz87'>COM BENEFÍCIO À POPULAÇÃO</span></div><div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>100%</div>"+	
                        "<div class='hspacer-line '></div>"+
                         "<p class='clear-bth marg-t-16'><span class='gray_4'>"+dados.rows.item(i).NAME_META+"</span></p></li>"+	
                         "<li class='cor_cz'><span class='header-verm font-15'>OBJETIVO</span><br />"+dados.rows.item(i).NAME_OBJETIVO+"</li>"+
                         "<li class='cor_cz'><span class='header-verm font-15'>ARTICULAÇÃO</span><br />"+dados.rows.item(i).NAME_ARTICULACAO+"</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />Novos serviços ou benefícios</li>"+
+                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />" + listaTiposProjetos + "</li>"+
                         "<li class='cor_cz'><span class='header-verm font-15'>ANDAMENTO QUANTITATIVO</span><br /><span class='txt-b cor_cz40'>348.472</span> famílias beneficiadas com o programa Bolsa Família<div class='hspacer-line marg-t-16 marg-b-16'></div><span class='txt-b cor_cz40'>80.736</span> novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada</li>"+
                         
                         "<li  class='overfl-hdd'>"+
@@ -490,7 +496,15 @@ var UIS = {
                         "</div>	"+
                         "</li>"+
                         "<li>"+
-                        "<br /><span class='header-verm font-15'>PROJETOS</span><br />"+
+                        "<br /><span class='header-verm font-15'>PROJETOS</span><br />";
+
+                        listaTiposProjetos = "";
+                        for (var j = 0; j < projetos.rows.length; j++) {
+                            listaTiposProjetos += "<li class='border-t'>" + projetos.rows.item(j).NAME_PROJETO + "</li>";
+                        }
+                        UIS.ul_listaProjetosDeMetas.empty();
+                        UIS.ul_listaProjetosDeMetas.append(listaTiposProjetos);
+                        /*
                         "<ul id='listaProjetosDeMetas'>"+
                         "<li class='border-t' onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 1"+
                         "</li>"+
@@ -500,13 +514,13 @@ var UIS = {
                         "</li>"+
                         "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 4"+
                         "</li>"+
-                         "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 5"+
+                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 5"+
                         "</li>"+
                          "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 6"+
                         "</li>"+
                         "</ul>"+
                         "</li>";
-
+                        */
 
 
 		//alert(nodes);
