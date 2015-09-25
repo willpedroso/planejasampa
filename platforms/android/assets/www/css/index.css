@@ -1251,14 +1251,14 @@ COISAS DO WILL
 
  */
 
-ul.lista_fake {
+ul.listaDetalheProjeto {
      margin:0;
     padding: 0;
     list-style-type: none;
 }
 
-ul.lista_fake li{
-color:#949494;
+ul.listaDetalheProjeto li{
+    color:#949494;
     padding: 16px;
     border-bottom: 1px solid #ccc;
     line-height: 1.6;

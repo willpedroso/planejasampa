@@ -45,7 +45,8 @@ var UIS = {
 
     // Texto para status de metas
     txtStatusMetas: [],
-
+    txtTipoProjeto: [],
+    
     touchEndEvent:null,
 
     //flag que avisa se a animacao esta rodando
@@ -59,6 +60,16 @@ var UIS = {
         this.txtStatusMetas[3] = "Metas em andamento com benefícios à população";
         this.txtStatusMetas[4] = "Metas concluídas";
         this.txtStatusMetas[5] = "Metas superadas";
+
+        this.txtTipoProjeto[0] = "Tipo 0";
+        this.txtTipoProjeto[1] = "Construção de equipamento";
+        this.txtTipoProjeto[2] = "Obras de infraestrutura";
+        this.txtTipoProjeto[3] = "Novos equipamentos em imóvel alugado";
+        this.txtTipoProjeto[4] = "Equipamentos readequados";
+        this.txtTipoProjeto[5] = "Novos órgãos ou estruturas administrativas";
+        this.txtTipoProjeto[6] = "Sistemas";
+        this.txtTipoProjeto[7] = "Atos Normativos";
+        this.txtTipoProjeto[8] = "Novos serviços ou benefícios";
 
         this.div_metasObjetivos = $("#div_metasObjetivos");
 	    this.div_metasStatus = $("#div_metasStatus");
@@ -327,7 +338,7 @@ var UIS = {
 
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
-	    this.ul_listaProjetosDeMetas.bind("touchend mouseup", (function (event) {
+	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
 	        alert("Detalhes da meta");
 	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	        
@@ -399,7 +410,13 @@ var UIS = {
                         idDaMeta + 
                         "'><h4 idMeta='"+idDaMeta+"'>META " + 
                         idDaMeta + 
-                        "</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
+                        "</h4><p idMeta='"+idDaMeta+"'>" +
+                        this.txtStatusMetas[dados[i].STATUS_META] + 
+                        "</p><h1 class='gray_3' idMeta='"+
+                        idDaMeta+
+                        "'>" +
+                        dados[i].ACOMPANHAMENTO_META +
+                        "</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
                         dados[i].NAME_META + 
                         "</p></div></li>";
 
@@ -474,7 +491,9 @@ var UIS = {
 
                         // Lista de tipos de projeto
                         for (var j = 0; j < projetos.rows.length; j++) {
-                            listaTiposProjetos += projetos.rows.item(j).TIPO_PROJETO + " - ";
+                            listaTiposProjetos += UIS.txtTipoProjeto[projetos.rows.item(j).TIPO_PROJETO];
+                            if (j < projetos.rows.length - 1)
+                                listaTiposProjetos += " - ";
                         }
 
                         nodes+="<li class='overfl-hdd'>"+
@@ -500,7 +519,11 @@ var UIS = {
 
                         listaTiposProjetos = "";
                         for (var j = 0; j < projetos.rows.length; j++) {
-                            listaTiposProjetos += "<li class='border-t'>" + projetos.rows.item(j).NAME_PROJETO + "</li>";
+                            listaTiposProjetos += "<li class='border-t' idProjeto='" +
+                                                        projetos.rows.item(j).ID +
+                                                        "'>" +
+                                                        projetos.rows.item(j).NAME_PROJETO +
+                                                    "</li>";
                         }
                         UIS.ul_listaProjetosDeMetas.empty();
                         UIS.ul_listaProjetosDeMetas.append(listaTiposProjetos);
@@ -525,7 +548,7 @@ var UIS = {
 
 		//alert(nodes);
 	    }
-//	    //alert(nodes);
+	    //alert(nodes);
 	    UIS.ul_DetalhesMeta.empty();
 	    UIS.ul_DetalhesMeta.append(nodes);
 
@@ -537,14 +560,116 @@ var UIS = {
 	},
 
     // Mostra detalhes do projeto da meta
-	showDetalhesProjeto: function (dados) {
-	    //alert("showDetalhesProjeto");
+	showDetalhesProjeto: function (dados, listaSubprefeiturasAtendidas, projetos) {
+	    alert("showDetalhesProjeto - dados.rows.length = " + dados.rows.length);
 	    // Preenche os dados e apresenta
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<li><div>" + dados.rows.item(i).name + "</div></li>";
+            //tipoProj = dados.rows.item(i).TIPO_PROJETO;
+            alert(dados.rows.item(i).TIPO_PROJETO);
+            alert(UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO]);
+	        nodes += "<div class='cor-cz-1 container-tit-subtit2'>" + 
+                        "<div class='box-titulo line-cz'>" +
+                        // todo: dados.rows.item(i).NAME_PROJETO +
+                        "METAS J&Aacute; BENEFICIAM POPULA&Ccedil;&Atilde;O" +
+                        "</div>" +
+                        "<div class='box-titulo line-cz''>" +
+                        "S&atilde;o Paulo" +
+                        "</div>" +
+                         "<div id='status_local' class='cor-cz-2 w-100-pct box-subtitulo line-cz'>" +
+                         "Meta"+
+                         "</div>" +
+                    "</div>" +
+                    "<div class='list-style reset-marg reset-padd'>" +
+                        "<ul class='listaDetalheProjeto'>" +
+                        "<li><div class='titulo_projetos'>" +
+                            "<h3 class='cor_3_red uppercase'>" +
+                                "Projeto" +
+                            "</h3>" +
+                            " <p class='padding_t_10 gray_1'>" +
+                                dados.rows.item(i).NAME_PROJETO +
+                            "</p>" +
+                        "</div></li>" + 
+                        "<li><div class='box_info'>" +
+                        "<h4 class='cor_3_red'>" +
+                        "TIPO" +
+                        "</h4>" +
+                        "<p class='padding_t_10 gray_3'>" +
+                       UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO] + 
+                        "</p>"+
+                        "</div></li>" +
+                        "<li><div class='box_info'>" +
+                        "<h4 class='cor_3_red uppercase'>" +
+                        "Status do projeto" +
+                        "</h4>" +
+                        "<h1 class='pct_projeto'>" +
+                        dados.rows.item(i).ACOMPANHAMENTO_PROJETO +
+                        "</h1>"+
+                        "</div></li>" +
+                        "<li><div class='box_info'>" +
+                            "<h4 class='cor_3_red'>" +
+                                "SUBPREFEITURAS ATENDIDAS" +
+                            "</h4>" +
+                            "<p class='padding_t_10 gray_3'>" +
+                            "Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente" +
+                            "</p>" +
+                        "</div>" +
+                        "</li>" +
+                        "<li>" +
+                           "<div class='box_info'>" +
+                              "<h4 class='cor_3_red uppercase'>" +
+                              "Distrito" +
+                              "</h4>" +
+                              "<p class='padding_t_10 gray_3'>" +
+                              dados.rows.item(i).DISTRITO_PROJETO +
+                              "</p>" +
+                           "</div>" +
+                        "</li>" +
+                         "<li>" +
+                           "<div class='box_info'>" +
+                            "<h4 class='cor_3_red'>" +
+                                "ACOMPANHAMENTO" +
+                            "</h4>" +
+                            "<h4 class='cor_3_red padding_t_10'>" +
+                            "2013" +
+                            "</h4>" +
+                              "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
+                              "369.852" +
+                              "</strong>" +
+                              "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                              "</p>" +
+                              "<h4 class='cor_3_red padding_t_10'>" +
+                              "2014" +
+                              "</h4>" +
+                              "<p class='padding_t_10 gray_3 padd-l-16'><strong>" +
+                              "698.991" +
+                              "</strong>" +
+                              "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                              "</p>" +
+                           "</div>" +
+                        "</li>" +
+                        " <div class='box_info'>" +
+                              "<h4 class='cor_3_red'>" +
+                              "FASES" +
+                              "</h4>" +
+                              "<ul class='list_interna_proj'>" +
+                                 "<li>" +
+                                    "<div class='border_rigth'>" +
+                                       "<p class='gray_4'>" +
+                                        "Defini&ccedil;&atilde;o de Terreno (10%)" +
+                                        "</p>" +
+                                    "</div>" +
+                                    "<p class='text_center gray_3'>" +
+                                    "CONCLU&Iacute;DA" +
+                                    "</p>" +
+                                 "</li>" +
+                        "</ul></div>";
+            
+            
+
 	    }
-	    ////alert(nodes);
+
+	    alert(nodes);
 	    $("#ulDetalhesProjeto").empty();
 	    $("#ulDetalhesProjeto").append(nodes);
 
@@ -554,12 +679,12 @@ var UIS = {
 	    UIS.pushDiv(UIS.div_detalhesProjeto);
 	},
 
-	fakeshowDetalhesProjeto: function (){
-		//console.log("FAKE SHOW");
-		//movescroll para o top
-        showTela(div_detalhesProjeto);
-	    UIS.pushDiv(UIS.div_detalhesProjeto);
-	},
+	// fakeshowDetalhesProjeto: function (){
+	// 	//console.log("FAKE SHOW");
+	// 	//movescroll para o top
+ //        showTela(div_detalhesProjeto);
+	//     UIS.pushDiv(UIS.div_detalhesProjeto);
+	// },
 
      // Atualiza lista de metas por status, metas por objetivo e lista de metas se for a tela ativa, por meio da lista de metas filtrada por subprefeitura (lista em memória)
     fillDivGoalsPrefecture: function (dados, listaStatus, listaObjetivos, idStatus, idObjective) {

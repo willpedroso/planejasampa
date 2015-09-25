@@ -34,6 +34,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\index.html \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\index_TEST.html \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\old \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\plugins \
