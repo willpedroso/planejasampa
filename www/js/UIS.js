@@ -1,10 +1,8 @@
-/* 
- * Controle de interfaces 
- http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
+/*  * Controle de interfaces  http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
  */
 
 var UIS = {
-	
+
     // Divs
     div_metasObjetivos:null,
     div_metasStatus: null,
@@ -46,7 +44,6 @@ var UIS = {
     // Texto para status de metas
     txtStatusMetas: [],
     txtTipoProjeto: [],
-    
     touchEndEvent:null,
 
     //flag que avisa se a animacao esta rodando
@@ -102,7 +99,7 @@ var UIS = {
 	    this.desenvolvimento = $("#desenvolvimento");
 	    this.atualizacao_Automatica = $("#atualizacao_Automatica");
 	    this.bt_Subprefeituras = $("#bt_Subprefeituras");
-        this.touchEndEvent = ('ontouchstart' in window ? 'touchend' : 'mouseup');
+        this.touchEndEvent = ('ontouchend' in window ? 'touchend' : 'mouseup');
 
 	    this.bodyPM = $("body");
 
@@ -134,7 +131,7 @@ var UIS = {
         	this.dragging = true;
         }).bind(this));
 
-        this.bodyPM.bind("touchstart", (function () {
+       this.bodyPM.bind("touchstart", (function () {
         	// Desmarca dragging
         	//alert("touchstart");
         	this.dragging = false;
@@ -170,13 +167,13 @@ var UIS = {
 	    // Botão voltar
 	    this.bt_Voltar.bind(this.touchEndEvent, (function () {
              //console.log("click voltar");
-             
+
             //so dispara o click se a animacao da voltar estiver completa
 
             if(!UIS.animandovoltar){
 
     	        if (UIS.div_configuracao.attr("style") == "display: block") {
-    	          
+
 
                     // Está na tela de configuração, esconde
     	            UIS.div_configuracao.attr("style", "display: none");
@@ -189,7 +186,7 @@ var UIS = {
                     }
                     return;
     	        }
-    	        
+
                 if (UIS.array_Divs.length == 1){
     	            return;
                 }else{
@@ -197,8 +194,6 @@ var UIS = {
                 }
 
             }
-
-            
 
 	        //UIS.popDiv();
 	    }).bind(this));
@@ -220,7 +215,7 @@ var UIS = {
 	    this.bt_showMetasStatus.bind("touchend", (function () {
 	    	// insere borda de ativo
 	    	UIS.bt_showMetasStatus.addClass("bt_border_ativo");
-            // remove a borda de ativo            
+            // remove a borda de ativo
 	    	UIS.bt_showMetasObjetivos.removeClass("bt_border_ativo");
 
 	        UIS.div_metasObjetivos.attr("style", "display: none");
@@ -309,7 +304,7 @@ var UIS = {
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        //console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
             //$('#container_relativo').css({"height":"100%"});
-	        
+
 	        if(this.dragging == false) {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
@@ -323,7 +318,7 @@ var UIS = {
 	    	}
 	    }).bind(this));
 
-//==>>  
+//==>>
 
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend", (function (event) {
@@ -339,24 +334,21 @@ var UIS = {
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
-	        alert("Detalhes da meta");
-	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	        
+	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	       //console.log("++++++ this.ul_DetalhesMeta.bind")
 
-        
 			UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        if(this.dragging == false) {
+                alert("Detalhes da meta");
 	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
 	    	}
 	    }).bind(this));
 	},
 
 	fakeShowHideConfiguracoes:function(){
-		
 		//console.log("++++ FAKE!!!")
-
 
 		if (UIS.div_configuracao.attr("style") == "display: none") {
             	//alert("esta none");
@@ -375,7 +367,7 @@ var UIS = {
                     // Houve atualização de dados, volta para a tela de metas por status
                    // //console.log("Dados atualizados. Volta para a tela de metas por status");
                    // UIS.resetDivStack();
-                    
+
                 }
             }
 	},
@@ -406,18 +398,18 @@ var UIS = {
         var nodesListaMetas = "";
         for (var i = 0; i < dados.length; i++) {
             idDaMeta = dados[i].META_ID;
-            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
-                        idDaMeta + 
-                        "'><h4 idMeta='"+idDaMeta+"'>META " + 
-                        idDaMeta + 
+            nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" +
+                        idDaMeta +
+                        "'><h4 idMeta='"+idDaMeta+"'>META " +
+                        idDaMeta +
                         "</h4><p idMeta='"+idDaMeta+"'>" +
-                        this.txtStatusMetas[dados[i].STATUS_META] + 
+                        this.txtStatusMetas[dados[i].STATUS_META] +
                         "</p><h1 class='gray_3' idMeta='"+
                         idDaMeta+
                         "'>" +
                         dados[i].ACOMPANHAMENTO_META +
-                        "</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
-                        dados[i].NAME_META + 
+                        "</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" +
+                        dados[i].NAME_META +
                         "</p></div></li>";
 
             // monta a lista de metas para combobox
@@ -446,15 +438,15 @@ var UIS = {
 // 	    var idDaMeta ="";
 // 	    for (var i = 0; i < dados.rows.length; i++) {
 // 	        //nodes += "<li class='descricao_andamento'><div idMeta='" + dados.rows.item(i).ID_META + "'>" + dados.rows.item(i).NAME_META + "</div></li>";
-            
+
 // 	        idDaMeta = dados.rows.item(i).ID_META;
 
-//             nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" + 
-//             			idDaMeta + 
-//             			"'><h4 idMeta='"+idDaMeta+"'>META " + 
-//             			idDaMeta + 
+//             nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" +
+//             			idDaMeta +
+//             			"'><h4 idMeta='"+idDaMeta+"'>META " +
+//             			idDaMeta +
 //             			"</h4><p idMeta='"+idDaMeta+"'>com benefício à população</p><h1 class='gray_3' idMeta='"+idDaMeta+"'>51,0%</h1></div><div class='meta_discricao'><p idMeta='"+idDaMeta+"'>" + 
-//             			dados.rows.item(i).NAME_META + 
+//             			dados.rows.item(i).NAME_META +
 //             			"</p></div></li>";
 //         }
 // //	    //alert(nodes);
@@ -471,6 +463,32 @@ var UIS = {
 	    // Preenche os dados e apresenta
 	    var nodes = "";
         var listaTiposProjetos = "";
+        var projetosDistintos = [];
+        var EncontrouProjeto = false;
+
+        // Elimina projetos repetidos
+        for (var i = 0; i < projetos.rows.length; i++) {
+            EncontrouProjeto = false;
+            for (var j = 0; j < projetosDistintos.length; j++) {
+                if (projetos.rows.item(i).TIPO_PROJETO == projetosDistintos[j]) {
+                    // Projeto já se encontra na lista projetosDistintos
+                    EncontrouProjeto = true;
+                    break;
+                }
+            }
+            if (EncontrouProjeto == false) {
+                // Insere projeto na lista projetosDistintos
+                projetosDistintos.push(projetos.rows.item(i).TIPO_PROJETO);
+            }
+        }
+        //alert(projetosDistintos);
+        // Lista de tipos de projeto
+        for (var j = 0; j < projetosDistintos.length; j++) {
+            listaTiposProjetos += UIS.txtTipoProjeto[projetosDistintos[j]];
+            if (j < projetosDistintos.length - 1)
+                listaTiposProjetos += "<br>";
+        }
+
 	    for (var i = 0; i < dados.rows.length; i++) {
 	       /* nodes += "<li><div idProjeto='" + dados.rows.item(i).ID_META + "'>" +
                         "<p>Meta: " + dados.rows.item(i).ID_META +
@@ -489,61 +507,114 @@ var UIS = {
                         "</p><p>Executado: " + dados.rows.item(i).EXECUTADO_META +
                         "</p></div></li>";*/
 
-                        // Lista de tipos de projeto
-                        for (var j = 0; j < projetos.rows.length; j++) {
-                            listaTiposProjetos += UIS.txtTipoProjeto[projetos.rows.item(j).TIPO_PROJETO];
-                            if (j < projetos.rows.length - 1)
-                                listaTiposProjetos += " - ";
-                        }
+                        nodes+=
+                        "<li class=''>"+
+                            "<div class='col-50-l  marg-b-16'>" +
+                                "<span class='header-verm'>META "+
+                                    dados.rows.item(i).ID_META+
+                                "</span><br />" +
+                                "<span class='cor_cz87'>" +
+                                    "COM BENEFÍCIO À POPULAÇÃO" +
+                                "</span>" +
+                            "</div>" +
+                            "<div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>" +
+                                "100%" +
+                            "</div>"+
+                            "<div class='hspacer-line '>" +
+                            "</div>"+
+                            "<p class='clear-bth marg-t-16'>" +
+                                "<span class='gray_4'>"+
+                                    dados.rows.item(i).NAME_META+
+                                "</span>" +
+                            "</p>" +
+                        "</li>"+
 
-                        nodes+="<li class='overfl-hdd'>"+
-                        "<div class='col-50-l  marg-b-16'><span class='header-verm'>META "+dados.rows.item(i).ID_META+"</span><br /><span class='cor_cz87'>COM BENEFÍCIO À POPULAÇÃO</span></div><div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>100%</div>"+	
-                       "<div class='hspacer-line '></div>"+
-                        "<p class='clear-bth marg-t-16'><span class='gray_4'>"+dados.rows.item(i).NAME_META+"</span></p></li>"+	
-                        "<li class='cor_cz'><span class='header-verm font-15'>OBJETIVO</span><br />"+dados.rows.item(i).NAME_OBJETIVO+"</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>ARTICULAÇÃO</span><br />"+dados.rows.item(i).NAME_ARTICULACAO+"</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>TIPOS DE PROJETO</span><br />" + listaTiposProjetos + "</li>"+
-                        "<li class='cor_cz'><span class='header-verm font-15'>ANDAMENTO QUANTITATIVO</span><br /><span class='txt-b cor_cz40'>348.472</span> famílias beneficiadas com o programa Bolsa Família<div class='hspacer-line marg-t-16 marg-b-16'></div><span class='txt-b cor_cz40'>80.736</span> novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada</li>"+
-                        
+                        "<li class='cor_cz'>" +
+                            "<span class='header-verm font-15'>" +
+                                "OBJETIVO" +
+                            "</span><br />"+
+                            dados.rows.item(i).NAME_OBJETIVO+
+                        "</li>"+
+
+                        "<li class='cor_cz'>" +
+                            "<span class='header-verm font-15'>" +
+                                "ARTICULAÇÃO" +
+                            "</span><br />"+
+                            dados.rows.item(i).NAME_ARTICULACAO+
+                        "</li>"+
+                        "<li class='cor_cz'>"+
+                            "<span class='header-verm font-15'>" +
+                                "TIPOS DE PROJETO" +
+                            "</span><br />" +
+                            "listaTiposProjetos" +
+                        "</li>"+
+                        "<li class='cor_cz'>" +
+                            "<span class='header-verm font-15'>" +
+                                "ANDAMENTO QUANTITATIVO" +
+                            "</span><br />" +
+                            "<span class='txt-b cor_cz40'>" +
+                                "348.472" +
+                            "</span>" +
+                            "famílias beneficiadas com o programa Bolsa Família" +
+                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                            "</div>" +
+                            "<span class='txt-b cor_cz40'>" +
+                                "80.736" +
+                            "</span>" +
+                            "novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada" +
+                        "</li>"+
                         "<li  class='overfl-hdd'>"+
-                        "<span class='header-verm font-15'>ANDAMENTO QUALITATIVO</span><br />Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
-                        "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
-                        "<span class='header-verm font-15'>PREVISTO</span><br />"+dados.rows.item(i).PREVISTO_META+
-                        "</div>"+
-                        "<div class='col-50-r overfl-hdd bg-cor_czf5 padd-10'>"+
-                        "<span class='header-verm font-15'>EXECUTADO</span><br />"+dados.rows.item(i).EXECUTADO_META+
-                        "</div>	"+
+                            "<span class='header-verm font-15'>" +
+                                "ANDAMENTO QUALITATIVO" +
+                            "</span><br />" +
+                            "Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
+                            "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
+                                "<span class='header-verm font-15'>" +
+                                    "PREVISTO" +
+                                "</span><br />"+
+                                dados.rows.item(i).PREVISTO_META+
+                            "</div>"+
+                            "<div class='col-50-r overfl-hdd bg-cor_czf5 padd-10'>"+
+                                "<span class='header-verm font-15'>" +
+                                    "EXECUTADO" +
+                                "</span><br />"+
+                                dados.rows.item(i).EXECUTADO_META+
+                            "</div>	"+
                         "</li>"+
                         "<li>"+
-                        "<br /><span class='header-verm font-15'>PROJETOS</span><br />";
+                            "<span class='header-verm font-15'>" +
+                                "PROJETOS" +
+                            "</span>"
+                        "</li>"
 
-                        listaTiposProjetos = "";
-                        for (var j = 0; j < projetos.rows.length; j++) {
-                            listaTiposProjetos += "<li class='border-t' idProjeto='" +
-                                                        projetos.rows.item(j).ID +
-                                                        "'>" +
-                                                        projetos.rows.item(j).NAME_PROJETO +
-                                                    "</li>";
-                        }
-                        UIS.ul_listaProjetosDeMetas.empty();
-                        UIS.ul_listaProjetosDeMetas.append(listaTiposProjetos);
-                        /*
-                        "<ul id='listaProjetosDeMetas'>"+
-                        "<li class='border-t' onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 1"+
-                        "</li>"+
-                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 2"+
-                        "</li>"+
-                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 3"+
-                        "</li>"+
-                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 4"+
-                        "</li>"+
-                        "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 5"+
-                        "</li>"+
-                         "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 6"+
-                        "</li>"+
-                        "</ul>"+
-                        "</li>";
-                        */
+                            listaTiposProjetos = "";
+                            for (var j = 0; j < projetos.rows.length; j++) {
+                                listaTiposProjetos += "<li class='cor_cz' idProjeto='" +
+                                                            projetos.rows.item(j).ID +
+                                                            "'>" +
+                                                            projetos.rows.item(j).NAME_PROJETO +
+                                                        "</li>";
+                            }
+
+                            UIS.ul_listaProjetosDeMetas.empty();
+                            UIS.ul_listaProjetosDeMetas.append(listaTiposProjetos);
+                            /*
+                            "<ul id='listaProjetosDeMetas'>"+
+                            "<li class='border-t' onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 1"+
+                            "</li>"+
+                            "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 2"+
+                            "</li>"+
+                            "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 3"+
+                            "</li>"+
+                            "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 4"+
+                            "</li>"+
+                            "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 5"+
+                            "</li>"+
+                             "<li onclick='UIS.fakeshowDetalhesProjeto()'>Projeto 6"+
+                            "</li>"+
+                            "</ul>"+
+                            "</li>";
+                            */
 
 
 		//alert(nodes);
@@ -560,15 +631,28 @@ var UIS = {
 	},
 
     // Mostra detalhes do projeto da meta
-	showDetalhesProjeto: function (dados, listaSubprefeiturasAtendidas, projetos) {
-	    alert("showDetalhesProjeto - dados.rows.length = " + dados.rows.length);
+	showDetalhesProjeto: function (dados, listaSubprefeiturasAtendidas, prjFase, dadosAcompanha) {
+	    //alert("showDetalhesProjeto - dados.rows.length = " + dados.rows.length);
+        //alert("showDetalhesProjeto - listaSubprefeiturasAtendidas.rows.length = " + listaSubprefeiturasAtendidas.rows.length);
+        //alert("showDetalhesProjeto - prjFase = " + prjFase);
+        //alert("showDetalhesProjeto - dadosAcompanha.rows.length = " + dadosAcompanha.rows.length);
 	    // Preenche os dados e apresenta
+
+        // Monta lista de subprefeituras
+        var listaSub = "";
+        for (var i = 0; i < listaSubprefeiturasAtendidas.rows.length; i++) {
+            listaSub += listaSubprefeiturasAtendidas.rows.item(i).NAME;
+            if ((i + 1) < listaSubprefeiturasAtendidas.rows.length) {
+                listaSub += ", ";
+            }
+        }
+
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
             //tipoProj = dados.rows.item(i).TIPO_PROJETO;
             alert(dados.rows.item(i).TIPO_PROJETO);
             alert(UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO]);
-	        nodes += "<div class='cor-cz-1 container-tit-subtit2'>" + 
+	        nodes += "<div class='cor-cz-1 container-tit-subtit2'>" +
                         "<div class='box-titulo line-cz'>" +
                         // todo: dados.rows.item(i).NAME_PROJETO +
                         "METAS J&Aacute; BENEFICIAM POPULA&Ccedil;&Atilde;O" +
@@ -580,94 +664,149 @@ var UIS = {
                          "Meta"+
                          "</div>" +
                     "</div>" +
+                    "<div class='titulo_projetos'>" +
+                        "<h3 class='cor_3_red uppercase'>" +
+                            "Projeto" +
+                        "</h3>" +
+                        " <p class='padding_t_10 gray_1'>" +
+                            dados.rows.item(i).NAME_PROJETO +
+                        "</p>" +
+                    "</div>" +
                     "<div class='list-style reset-marg reset-padd'>" +
                         "<ul class='listaDetalheProjeto'>" +
-                        "<li><div class='titulo_projetos'>" +
-                            "<h3 class='cor_3_red uppercase'>" +
-                                "Projeto" +
-                            "</h3>" +
-                            " <p class='padding_t_10 gray_1'>" +
-                                dados.rows.item(i).NAME_PROJETO +
-                            "</p>" +
-                        "</div></li>" + 
-                        "<li><div class='box_info'>" +
-                        "<h4 class='cor_3_red'>" +
-                        "TIPO" +
-                        "</h4>" +
-                        "<p class='padding_t_10 gray_3'>" +
-                       UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO] + 
-                        "</p>"+
-                        "</div></li>" +
-                        "<li><div class='box_info'>" +
-                        "<h4 class='cor_3_red uppercase'>" +
-                        "Status do projeto" +
-                        "</h4>" +
-                        "<h1 class='pct_projeto'>" +
-                        dados.rows.item(i).ACOMPANHAMENTO_PROJETO +
-                        "</h1>"+
-                        "</div></li>" +
-                        "<li><div class='box_info'>" +
-                            "<h4 class='cor_3_red'>" +
-                                "SUBPREFEITURAS ATENDIDAS" +
-                            "</h4>" +
-                            "<p class='padding_t_10 gray_3'>" +
-                            "Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente" +
-                            "</p>" +
-                        "</div>" +
-                        "</li>" +
-                        "<li>" +
-                           "<div class='box_info'>" +
-                              "<h4 class='cor_3_red uppercase'>" +
-                              "Distrito" +
-                              "</h4>" +
-                              "<p class='padding_t_10 gray_3'>" +
-                              dados.rows.item(i).DISTRITO_PROJETO +
-                              "</p>" +
-                           "</div>" +
-                        "</li>" +
-                         "<li>" +
-                           "<div class='box_info'>" +
-                            "<h4 class='cor_3_red'>" +
-                                "ACOMPANHAMENTO" +
-                            "</h4>" +
-                            "<h4 class='cor_3_red padding_t_10'>" +
-                            "2013" +
-                            "</h4>" +
-                              "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
-                              "369.852" +
-                              "</strong>" +
-                              "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
-                              "</p>" +
-                              "<h4 class='cor_3_red padding_t_10'>" +
-                              "2014" +
-                              "</h4>" +
-                              "<p class='padding_t_10 gray_3 padd-l-16'><strong>" +
-                              "698.991" +
-                              "</strong>" +
-                              "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
-                              "</p>" +
-                           "</div>" +
-                        "</li>" +
-                        " <div class='box_info'>" +
-                              "<h4 class='cor_3_red'>" +
-                              "FASES" +
-                              "</h4>" +
-                              "<ul class='list_interna_proj'>" +
-                                 "<li>" +
-                                    "<div class='border_rigth'>" +
-                                       "<p class='gray_4'>" +
-                                        "Defini&ccedil;&atilde;o de Terreno (10%)" +
-                                        "</p>" +
-                                    "</div>" +
-                                    "<p class='text_center gray_3'>" +
-                                    "CONCLU&Iacute;DA" +
-                                    "</p>" +
-                                 "</li>" +
-                        "</ul></div>";
-            
-            
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red'>" +
+                                    "TIPO" +
+                                    "</h4>" +
+                                    "<p class='padding_t_10 gray_3'>" +
+                                    UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO] +
+                                    "</p>"+
+                                "</div>" +
+                            "</li>" +
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red uppercase'>" +
+                                    "Status do projeto" +
+                                    "</h4>" +
+                                    "<h1 class='pct_projeto'>" +
+                                    dados.rows.item(i).ACOMPANHAMENTO_PROJETO +
+                                    "</h1>"+
+                                "</div>" +
+                            "</li>" +
+                            //subprefeituras atendidas
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red'>" +
+                                        "SUBPREFEITURAS ATENDIDAS" +
+                                    "</h4>" +
+                                    "<p class='padding_t_10 gray_3'>" +
 
-	    }
+                                        //"Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente" +
+                                        listaSub +
+
+                                    "</p>" +
+                                "</div>" +
+                            "</li>" +
+
+                            "<li>" +
+                               "<div class='box_info'>" +
+                                  "<h4 class='cor_3_red uppercase'>" +
+                                  "Distrito" +
+                                  "</h4>" +
+                                  "<p class='padding_t_10 gray_3'>" +
+                                  dados.rows.item(i).DISTRITO_PROJETO +
+                                  "</p>" +
+                               "</div>" +
+                            "</li>" +
+
+                        // Acompanhamento
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red'>" +
+                                        "ACOMPANHAMENTO" +
+                                    "</h4>" +
+                                    "<h4 class='cor_3_red padding_t_10'>" +
+                                        "2013" +
+                                    "</h4>" +
+                                    "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
+                                        "369.852" +
+                                        "</strong>" +
+                                        "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                    "</p>" +
+                                        "<h4 class='cor_3_red padding_t_10'>" +
+                                            "2014" +
+                                        "</h4>" +
+                                    "<p class='padding_t_10 gray_3 padd-l-16'>" +
+                                        "<strong>" +
+                                            "698.991" +
+                                        "</strong>" +
+                                            "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                    "</p>" +
+                                "</div>" +
+                            "</li>" +
+                                //fases
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red'>" +
+                                    "FASES" +
+                                    "</h4>" +
+                                    "<ul class='list_interna_proj'>" +
+                                        "<li>" +
+                                            "<div class='border_rigth'>" +
+                                                "<p class='gray_4'>" +
+                                                    "Defini&ccedil;&atilde;o de Terreno (10%)" +
+                                                "</p>" +
+                                            "</div>" +
+                                            "<p class='text_center gray_3'>" +
+                                                "CONCLU&Iacute;DA" +
+                                            "</p>" +
+                                        "</li>" +
+                                    "</ul>" +
+                                "</div>" +
+                            "</li>" +
+                                //andamento qualitativo
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red pad_b_10px'>" +
+                                        "ANDAMENTO QUALITATIVO" +
+                                    "</h4>" +
+                                    "<p>" +
+                                        //"lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo." +
+                                        (dados.rows.item(i).Q1_PROJETO != "" ? dados.rows.item(i).Q1_PROJETO : "") +
+                                        (dados.rows.item(i).Q2_PROJETO != "" ? " - " + dados.rows.item(i).Q2_PROJETO : "") +
+                                        (dados.rows.item(i).Q3_PROJETO != "" ? " - " + dados.rows.item(i).Q3_PROJETO : "") +
+                                        (dados.rows.item(i).Q4_PROJETO != "" ? " - " + dados.rows.item(i).Q4_PROJETO : "") +
+                                        (dados.rows.item(i).Q5_PROJETO != "" ? " - " + dados.rows.item(i).Q5_PROJETO : "") +
+                                        (dados.rows.item(i).Q6_PROJETO != "" ? " - " + dados.rows.item(i).Q6_PROJETO : "") +
+                                        // dados.rows.item(i).Q2_PROJETO + " - " +
+                                        // dados.rows.item(i).Q3_PROJETO + " - " +
+                                        // dados.rows.item(i).Q4_PROJETO + " - " +
+                                        // dados.rows.item(i).Q5_PROJETO + " - " +
+                                        // dados.rows.item(i).Q6_PROJETO +
+                                    "</p>" +
+                                "</div>" +
+                            "</li>" +
+                            "<li>" +
+                                "<div class='box_info'>" +
+                                    "<h4 class='cor_3_red'>" +
+                                        "EXECU&Ccedil;&Atilde;O OR&Ccedil;AMENT&Aacute;RIA" +
+                                    "</h4>" +
+                                    "<ul>" +
+                                        "<li>" +
+                                            "<h4 class='cor_3_red'>" +
+                                                "2013" +
+                                            "</h4>" +
+                                            "<p class='padding_t_10 gray_3'>" +
+                                                "__" +
+                                            "</p>" +
+                                        "</li>" +
+                                    "</ul>" +
+                                "</div>" +
+                            "</li>" +
+                        "</ul>" +
+                    "</div>";
+        }
 
 	    alert(nodes);
 	    $("#ulDetalhesProjeto").empty();
@@ -702,13 +841,13 @@ var UIS = {
 
             // Monta nodes
             //nodes += "<li><div idRegistro='" + listaStatus[i] + "'>" + "Status = " + UIS.txtStatusMetas[listaStatus[i]] + " - Qtd = " + count + "</div></li>";
-             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" + 
-                        "<div idRegistro='" + listaStatus[i] + "' class='descricao_andamento  gray_4'>" + 
-                        this.txtStatusMetas[listaStatus[i]] + 
-                        "</div>" + 
-                        "<div idRegistro='" + listaStatus[i] + "' class='valor_andamento cor_valor_meta'>" + 
-                        count + 
-                        "</div>" + 
+             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
+                        "<div idRegistro='" + listaStatus[i] + "' class='descricao_andamento  gray_4'>" +
+                        this.txtStatusMetas[listaStatus[i]] +
+                        "</div>" +
+                        "<div idRegistro='" + listaStatus[i] + "' class='valor_andamento cor_valor_meta'>" +
+                        count +
+                        "</div>" +
                       "</div>";
         }
         console.log ("Nodes de metas por status: " + nodes);
@@ -784,13 +923,13 @@ var UIS = {
 	    //alert("fillDivStatusGoals");
 	    var nodes = "";
 	    for (var i = 0; i < dados.rows.length; i++) {
-            nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" + 
-                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='descricao_andamento  gray_4'>" + 
-                        this.txtStatusMetas[dados.rows.item(i).STATUS_META] + 
-                        "</div>" + 
-                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta'>" + 
-                        dados.rows.item(i).QTD + 
-                        "</div>" + 
+            nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
+                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='descricao_andamento  gray_4'>" +
+                        this.txtStatusMetas[dados.rows.item(i).STATUS_META] +
+                        "</div>" +
+                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta'>" +
+                        dados.rows.item(i).QTD +
+                        "</div>" +
                       "</div>";
 	        //nodes += "<div><div class='descricao_andamento' idRegistro='" + dados.rows.item(i).STATUS_META + "'>" + UIS.txtStatusMetas[dados.rows.item(i).STATUS_META]+"</div>"+"<div class='valor_andamento'>" +  dados.rows.item(i).QTD + "</div></div>";
 	    }
@@ -862,11 +1001,10 @@ var UIS = {
     // Insere uma div na pilha
 	pushDiv: function (obj) {
 	    ////console.log("pushDiv: array_Divs.length = " + UIS.array_Divs.length);
-	    
-        console.log("==>>pushDIV:",obj.attr("id"))   
+        console.log("==>>pushDIV:",obj.attr("id"))
         var id2check = obj.attr("id");
         var divexists = false;
-        
+
         for(var i =0; i< UIS.array_Divs.length; i++){
             if(UIS.array_Divs[i].attr("id ") == id2check){
                 divexists = true;
@@ -878,7 +1016,7 @@ var UIS = {
         if (!divexists){
             UIS.array_Divs.push(obj);
         }
-        
+
 	   //UIS.showDiv();
 	},
 
@@ -936,10 +1074,10 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         $(tela).removeClass('box-escondido');
         $(tela).addClass('box-ativo');
         $(tela).addClass('showme').one(transitionsevents,function(){
-           
+
             console.log("Mostra a tela!!")
         });
-    } 
+    }
 
     function voltar(){
         console.log("VOLTAR()",UIS.array_Divs.length );
@@ -949,12 +1087,12 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
              return;
         }else{
 
-            UIS.animandovoltar = true; 
+            UIS.animandovoltar = true;
              //excluir tela atual da lista
-        
+
             UIS.array_Divs[UIS.array_Divs.length -1].removeClass('showme');
             UIS.array_Divs[UIS.array_Divs.length -1].addClass('hideme').one(transitionsevents,function(){
-                
+
                 UIS.array_Divs[UIS.array_Divs.length -1].addClass('box-escondido');
                 UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
 
@@ -966,14 +1104,11 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
                 }
 
                 UIS.animandovoltar = false;
-               
+
            });
-            
+
 
         }
-               
-
-       
 
         //    function voltar(){
         // //console.log("entrou", UIS.array_Divs.length -2);
@@ -989,7 +1124,6 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         // UIS.array_Divs[UIS.array_Divs.length -2].removeClass('box-ativo');
         // UIS.array_Divs[UIS.array_Divs.length -2].addClass('box-escondido');
         // });
-        
-        
+
     }
 
