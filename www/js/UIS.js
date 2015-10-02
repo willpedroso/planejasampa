@@ -17,6 +17,7 @@ var UIS = {
     div_ultima_atualizacao: null,
     div_listaSubprefeituras: null,
     select_ListaSubprefeituras: null,
+    select_ListaSubprefeiturasMetas: null,
     array_Divs: [],
 
     // ULs
@@ -49,6 +50,13 @@ var UIS = {
     //flag que avisa se a animacao esta rodando
     animandovoltar:false,
 
+    // Variáveis usadas no header das telas
+    tipoMeta: null,
+    subprefSelecionada: null,
+    metaSelecionada: null,
+
+    // Armazenagem da lista de metas
+    varListaMetas: [],
 
     configListeners: function () {
         // Texto para status de metas
@@ -81,6 +89,8 @@ var UIS = {
 	    this.div_ultima_atualizacao = $("#div_ultima_atualizacao");
 	    this.div_listaSubprefeituras = $("#listaSubprefeituras");
         this.select_ListaSubprefeituras = $("#selectListaSubprefeituras");
+        this.select_ListaSubprefeiturasMetas = $("#listaSubprefeituras_metas");
+        this.listaMetasSelect = $("#lista_metas_select");
 
 	    this.ul_ListaMetas = $("#ulListaMetas");
 	    this.ul_listaObjetivos = $("#ulListaObjetivos");
@@ -144,12 +154,29 @@ var UIS = {
 	        localStorage.setItem("autoUpdate", UIS.atualizacao_Automatica.prop("checked") == false ? 0 : 1);
 	    }).bind(this));
 
-        //altera o subprefeitura
-        //this.div_listaSubprefeituras.bind("change", (function () {
-        this.select_ListaSubprefeituras.bind("change", (function () {
+        // Subprefeitura selecionada na tela de metas por status
+        this.select_ListaSubprefeituras.bind("change", (function (event) {
             console.log("subprefeitura: ", this.select_ListaSubprefeituras.attr("value"));
+            UIS.subprefSelecionada = $("#selectListaSubprefeituras option:selected").text();
             BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"));
+            // seleciona a mesma subprefeitura na combobox da tela de lista de metas
+            
+        }).bind(this));
 
+        // Subprefeitura selecionada na tela de lista de metas
+        this.select_ListaSubprefeiturasMetas.bind("change", (function (event) {
+            console.log("subprefeitura: ", this.select_ListaSubprefeiturasMetas.attr("value"));
+            UIS.subprefSelecionada = $("#listaSubprefeituras_metas option:selected").text();
+            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"));
+            // seleciona a mesma subprefeitura na combobox da tela de lista de metas por status
+
+        }).bind(this));
+
+        // Altera a meta selecionada
+        this.listaMetasSelect.bind("change", (function (event) {
+            console.log("meta: ", this.listaMetasSelect.attr("value"));
+            UIS.metaSelecionada = $("#lista_metas_select option:selected").text();
+            BANCODADOS.getGoalDetails(this.listaMetasSelect.attr("value"), UIS.showDetalhesMetas, null);
         }).bind(this));
 
         // Botão da combobox de subprefeituras
@@ -306,6 +333,8 @@ var UIS = {
             //$('#container_relativo').css({"height":"100%"});
 
 	        if(this.dragging == false) {
+                //alert("Tipo de Meta por status: " + event.target.getAttribute('idRegistro'));
+                UIS.tipoMeta = UIS.txtStatusMetas[event.target.getAttribute('idRegistro')];
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
 	    }).bind(this));
@@ -314,6 +343,8 @@ var UIS = {
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
+                //alert("Tipo de Meta por objetivo: " + event.target.getAttribute('idRegistro'));
+                UIS.tipoMeta = event.target.getAttribute('idRegistro');
 	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
 	    }).bind(this));
@@ -393,9 +424,20 @@ var UIS = {
     // Mostra lista de metas, dados na forma de array simples
     showListaMetas: function(dados) {
         alert("showListaMetas - tamanho dos dados = " + dados.length);
+
+        // Atualizar header - tipo da meta
+        $("#listaMetas").empty();
+        $("#listaMetas").append(UIS.tipoMeta);
+
         // Preenche os dados e apresenta
         var nodes = "";
         var nodesListaMetas = "";
+
+        // Limpa a lista de metas antes de preencher
+        for(var i = 0; i < UIS.varListaMetas.length; i++) {
+            UIS.varListaMetas.pop();
+        }
+
         for (var i = 0; i < dados.length; i++) {
             idDaMeta = dados[i].META_ID;
             nodes += "<li class='li_metas'><div class='meta_valor' idMeta='" +
@@ -413,15 +455,9 @@ var UIS = {
                         "</p></div></li>";
 
             // monta a lista de metas para combobox
-            nodesListaMetas += "<li><div idMeta='" + dados[i].META_ID + "'>" +
-                        "Meta: " + dados[i].META_ID +
-                        "</div></li>";
+            UIS.varListaMetas.push(idDaMeta);
         }
-        // todo: lista de metas para combobox
-        //UIS.ul_ListaMetasDetalhes.empty();
-        //UIS.ul_ListaMetasDetalhes.append(nodesListaMetas);
-
-        alert(nodes);
+        //alert(nodes);
         UIS.ul_ListaMetas.empty();
         UIS.ul_ListaMetas.append(nodes);
 
@@ -466,6 +502,13 @@ var UIS = {
         var projetosDistintos = [];
         var EncontrouProjeto = false;
 
+        // Atualizar header - tipo da meta
+        $("#detalhesMeta").empty();
+        $("#detalhesMeta").append(UIS.tipoMeta);
+        // Atualizar header - subprefeitura selecionada
+        $("#status_local").empty();
+        $("#status_local").append(UIS.subprefSelecionada);
+
         // Elimina projetos repetidos
         for (var i = 0; i < projetos.rows.length; i++) {
             EncontrouProjeto = false;
@@ -507,6 +550,7 @@ var UIS = {
                         "</p><p>Executado: " + dados.rows.item(i).EXECUTADO_META +
                         "</p></div></li>";*/
 
+                        
                         nodes+=
                         "<li class=''>"+
                             "<div class='col-50-l  marg-b-16'>" +
@@ -514,7 +558,8 @@ var UIS = {
                                     dados.rows.item(i).ID_META+
                                 "</span><br />" +
                                 "<span class='cor_cz87'>" +
-                                    "COM BENEFÍCIO À POPULAÇÃO" +
+                                    //"COM BENEFÍCIO À POPULAÇÃO" +
+                                    UIS.txtStatusMetas[dados.rows.item(i).STATUS_META] +
                                 "</span>" +
                             "</div>" +
                             "<div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>" +
@@ -619,6 +664,21 @@ var UIS = {
 
 		//alert(nodes);
 	    }
+        // Preenche a combobox de lista de metas e seleciona a meta detalhada
+        var nodesListaMetas = "";
+        for (var i = 0; i < UIS.varListaMetas.length; i++) {
+            if (dados.rows.item(0).ID_META == UIS.varListaMetas[i]) {
+                UIS.metaSelecionada = "Meta " + UIS.varListaMetas[i];
+                nodesListaMetas += "<option value='" + UIS.varListaMetas[i] + "' selected>" + "Meta " + UIS.varListaMetas[i] + "</option>";
+            }
+            else {
+                nodesListaMetas += "<option value='" + UIS.varListaMetas[i] + "'>" + "Meta " + UIS.varListaMetas[i] + "</option>";
+            }
+        }
+        // lista de metas para combobox
+        UIS.listaMetasSelect.empty();
+        UIS.listaMetasSelect.append(nodesListaMetas);
+
 	    //alert(nodes);
 	    UIS.ul_DetalhesMeta.empty();
 	    UIS.ul_DetalhesMeta.append(nodes);
@@ -640,6 +700,7 @@ var UIS = {
 
         // Monta lista de subprefeituras
         var listaSub = "";
+       
         for (var i = 0; i < listaSubprefeiturasAtendidas.rows.length; i++) {
             listaSub += listaSubprefeiturasAtendidas.rows.item(i).NAME;
             if ((i + 1) < listaSubprefeiturasAtendidas.rows.length) {
@@ -648,164 +709,165 @@ var UIS = {
         }
 
 	    var nodes = "";
-	    for (var i = 0; i < dados.rows.length; i++) {
+        for (var i = 0; i < dados.rows.length; i++) {
             //tipoProj = dados.rows.item(i).TIPO_PROJETO;
             alert(dados.rows.item(i).TIPO_PROJETO);
             alert(UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO]);
 	        nodes += "<div class='cor-cz-1 container-tit-subtit2'>" +
                         "<div class='box-titulo line-cz'>" +
                         // todo: dados.rows.item(i).NAME_PROJETO +
-                        "METAS J&Aacute; BENEFICIAM POPULA&Ccedil;&Atilde;O" +
+                        //"METAS J&Aacute; BENEFICIAM POPULA&Ccedil;&Atilde;O" +
+                       UIS.tipoMeta +
                         "</div>" +
-                        "<div class='box-titulo line-cz''>" +
-                        "S&atilde;o Paulo" +
+                        "<div  class='box-titulo line-cz''>" +
+                        UIS.subprefSelecionada +
                         "</div>" +
                          "<div id='status_local' class='cor-cz-2 w-100-pct box-subtitulo line-cz'>" +
-                         "Meta"+
+                         UIS.metaSelecionada+
                          "</div>" +
                     "</div>" +
-                    "<div class='titulo_projetos'>" +
-                        "<h3 class='cor_3_red uppercase'>" +
-                            "Projeto" +
-                        "</h3>" +
-                        " <p class='padding_t_10 gray_1'>" +
-                            dados.rows.item(i).NAME_PROJETO +
-                        "</p>" +
-                    "</div>" +
                     "<div class='list-style reset-marg reset-padd'>" +
-                        "<ul class='listaDetalheProjeto'>" +
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red'>" +
-                                    "TIPO" +
-                                    "</h4>" +
-                                    "<p class='padding_t_10 gray_3'>" +
-                                    UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO] +
-                                    "</p>"+
-                                "</div>" +
-                            "</li>" +
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red uppercase'>" +
-                                    "Status do projeto" +
-                                    "</h4>" +
-                                    "<h1 class='pct_projeto'>" +
-                                    dados.rows.item(i).ACOMPANHAMENTO_PROJETO +
-                                    "</h1>"+
-                                "</div>" +
-                            "</li>" +
-                            //subprefeituras atendidas
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red'>" +
-                                        "SUBPREFEITURAS ATENDIDAS" +
-                                    "</h4>" +
-                                    "<p class='padding_t_10 gray_3'>" +
-
-                                        //"Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente" +
-                                        listaSub +
-
-                                    "</p>" +
-                                "</div>" +
-                            "</li>" +
-
-                            "<li>" +
-                               "<div class='box_info'>" +
-                                  "<h4 class='cor_3_red uppercase'>" +
-                                  "Distrito" +
-                                  "</h4>" +
-                                  "<p class='padding_t_10 gray_3'>" +
-                                  dados.rows.item(i).DISTRITO_PROJETO +
-                                  "</p>" +
-                               "</div>" +
-                            "</li>" +
-
-                        // Acompanhamento
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red'>" +
-                                        "ACOMPANHAMENTO" +
-                                    "</h4>" +
-                                    "<h4 class='cor_3_red padding_t_10'>" +
-                                        "2013" +
-                                    "</h4>" +
-                                    "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
-                                        "369.852" +
-                                        "</strong>" +
-                                        "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
-                                    "</p>" +
-                                        "<h4 class='cor_3_red padding_t_10'>" +
-                                            "2014" +
-                                        "</h4>" +
-                                    "<p class='padding_t_10 gray_3 padd-l-16'>" +
-                                        "<strong>" +
-                                            "698.991" +
-                                        "</strong>" +
-                                            "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
-                                    "</p>" +
-                                "</div>" +
-                            "</li>" +
-                                //fases
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red'>" +
-                                    "FASES" +
-                                    "</h4>" +
-                                    "<ul class='list_interna_proj'>" +
-                                        "<li>" +
-                                            "<div class='border_rigth'>" +
-                                                "<p class='gray_4'>" +
-                                                    "Defini&ccedil;&atilde;o de Terreno (10%)" +
-                                                "</p>" +
-                                            "</div>" +
-                                            "<p class='text_center gray_3'>" +
-                                                "CONCLU&Iacute;DA" +
+                            "<ul class='listaDetalheProjeto'>" +
+                                "<li>" +
+                                    "<div class='box_info'>" +
+                                        "<div class='titulo_projetos'>" +
+                                            "<h3 class='cor_3_red uppercase'>" +
+                                                "Projeto" +
+                                            "</h3>" +
+                                            " <p class='padding_t_10 gray_1'>" +
+                                                dados.rows.item(i).NAME_PROJETO +
                                             "</p>" +
-                                        "</li>" +
-                                    "</ul>" +
-                                "</div>" +
-                            "</li>" +
-                                //andamento qualitativo
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red pad_b_10px'>" +
-                                        "ANDAMENTO QUALITATIVO" +
-                                    "</h4>" +
-                                    "<p>" +
-                                        //"lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo." +
-                                        (dados.rows.item(i).Q1_PROJETO != "" ? dados.rows.item(i).Q1_PROJETO : "") +
-                                        (dados.rows.item(i).Q2_PROJETO != "" ? " - " + dados.rows.item(i).Q2_PROJETO : "") +
-                                        (dados.rows.item(i).Q3_PROJETO != "" ? " - " + dados.rows.item(i).Q3_PROJETO : "") +
-                                        (dados.rows.item(i).Q4_PROJETO != "" ? " - " + dados.rows.item(i).Q4_PROJETO : "") +
-                                        (dados.rows.item(i).Q5_PROJETO != "" ? " - " + dados.rows.item(i).Q5_PROJETO : "") +
-                                        (dados.rows.item(i).Q6_PROJETO != "" ? " - " + dados.rows.item(i).Q6_PROJETO : "") +
-                                        // dados.rows.item(i).Q2_PROJETO + " - " +
-                                        // dados.rows.item(i).Q3_PROJETO + " - " +
-                                        // dados.rows.item(i).Q4_PROJETO + " - " +
-                                        // dados.rows.item(i).Q5_PROJETO + " - " +
-                                        // dados.rows.item(i).Q6_PROJETO +
-                                    "</p>" +
-                                "</div>" +
-                            "</li>" +
-                            "<li>" +
-                                "<div class='box_info'>" +
-                                    "<h4 class='cor_3_red'>" +
-                                        "EXECU&Ccedil;&Atilde;O OR&Ccedil;AMENT&Aacute;RIA" +
-                                    "</h4>" +
-                                    "<ul>" +
-                                        "<li>" +
+                                        "</div>" +
+                                        "<h4 class='cor_3_red'>" +
+                                        "TIPO" +
+                                        "</h4>" +
+                                        "<p class='padding_t_10 gray_3'>" +
+                                        UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO] +
+                                        "</p>"+
+                                    "</div>" +
+                                "</li>" +
+                                "<li>" +
+                                    "<div class='box_info'>" +
+                                        "<h4 class='cor_3_red uppercase'>" +
+                                        "Status do projeto" +
+                                        "</h4>" +
+                                        "<h1 class='pct_projeto'>" +
+                                        dados.rows.item(i).ACOMPANHAMENTO_PROJETO +
+                                        "</h1>"+
+                                    "</div>" +
+                                "</li>" +
+                                //subprefeituras atendidas
+                                "<li>" +
+                                    "<div class='box_info'>" +
+                                        "<h4 class='cor_3_red'>" +
+                                            "SUBPREFEITURAS ATENDIDAS" +
+                                        "</h4>" +
+                                        "<p class='padding_t_10 gray_3'>" +
+    
+                                                //"Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente" +
+                                                listaSub +
+    
+                                            "</p>" +
+                                        "</div>" +
+                                    "</li>" +
+    
+                                    "<li>" +
+                                       "<div class='box_info'>" +
+                                          "<h4 class='cor_3_red uppercase'>" +
+                                          "Distrito" +
+                                          "</h4>" +
+                                          "<p class='padding_t_10 gray_3'>" +
+                                          dados.rows.item(i).DISTRITO_PROJETO +
+                                          "</p>" +
+                                       "</div>" +
+                                    "</li>" +
+    
+                                // Acompanhamento
+                                    "<li>" +
+                                        "<div class='box_info'>" +
                                             "<h4 class='cor_3_red'>" +
+                                                "ACOMPANHAMENTO" +
+                                            "</h4>" +
+                                            "<h4 class='cor_3_red padding_t_10'>" +
                                                 "2013" +
                                             "</h4>" +
-                                            "<p class='padding_t_10 gray_3'>" +
-                                                "__" +
+                                            "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
+                                                "369.852" +
+                                                "</strong>" +
+                                                "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
                                             "</p>" +
-                                        "</li>" +
-                                    "</ul>" +
-                                "</div>" +
-                            "</li>" +
-                        "</ul>" +
-                    "</div>";
+                                                "<h4 class='cor_3_red padding_t_10'>" +
+                                                    "2014" +
+                                                "</h4>" +
+                                            "<p class='padding_t_10 gray_3 padd-l-16'>" +
+                                                "<strong>" +
+                                                    "698.991" +
+                                                "</strong>" +
+                                                    "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                            "</p>" +
+                                        "</div>" +
+                                    "</li>" +
+                                        //fases
+                                    "<li>" +
+                                        "<div class='box_info'>" +
+                                            "<h4 class='cor_3_red'>" +
+                                            "FASES" +
+                                            "</h4>" +
+                                            "<ul class='list_interna_proj'>" +
+                                                "<li>" +
+                                                    "<div class='border_rigth'>" +
+                                                        "<p class='gray_4'>" +
+                                                            "Defini&ccedil;&atilde;o de Terreno (10%)" +
+                                                        "</p>" +
+                                                    "</div>" +
+                                                    "<p class='text_center gray_3'>" +
+                                                        "CONCLU&Iacute;DA" +
+                                                    "</p>" +
+                                                "</li>" +
+                                            "</ul>" +
+                                        "</div>" +
+                                    "</li>" +
+                                        //andamento qualitativo
+                                    "<li>" +
+                                        "<div class='box_info'>" +
+                                            "<h4 class='cor_3_red pad_b_10px'>" +
+                                                "ANDAMENTO QUALITATIVO" +
+                                            "</h4>" +
+                                            "<p>" +
+                                                //"lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo." +
+                                                (dados.rows.item(i).Q1_PROJETO != "" ? dados.rows.item(i).Q1_PROJETO : "") +
+                                                (dados.rows.item(i).Q2_PROJETO != "" ? " - " + dados.rows.item(i).Q2_PROJETO : "") +
+                                                (dados.rows.item(i).Q3_PROJETO != "" ? " - " + dados.rows.item(i).Q3_PROJETO : "") +
+                                                (dados.rows.item(i).Q4_PROJETO != "" ? " - " + dados.rows.item(i).Q4_PROJETO : "") +
+                                                (dados.rows.item(i).Q5_PROJETO != "" ? " - " + dados.rows.item(i).Q5_PROJETO : "") +
+                                                (dados.rows.item(i).Q6_PROJETO != "" ? " - " + dados.rows.item(i).Q6_PROJETO : "") +
+                                                // dados.rows.item(i).Q2_PROJETO + " - " +
+                                                // dados.rows.item(i).Q3_PROJETO + " - " +
+                                                // dados.rows.item(i).Q4_PROJETO + " - " +
+                                                // dados.rows.item(i).Q5_PROJETO + " - " +
+                                                // dados.rows.item(i).Q6_PROJETO +
+                                            "</p>" +
+                                        "</div>" +
+                                    "</li>" +
+                                    "<li>" +
+                                        "<div class='box_info'>" +
+                                            "<h4 class='cor_3_red'>" +
+                                                "EXECU&Ccedil;&Atilde;O OR&Ccedil;AMENT&Aacute;RIA" +
+                                            "</h4>" +
+                                            "<ul>" +
+                                                "<li>" +
+                                                    "<h4 class='cor_3_red'>" +
+                                                        "2013" +
+                                                    "</h4>" +
+                                                    "<p class='padding_t_10 gray_3'>" +
+                                                        "__" +
+                                                    "</p>" +
+                                                "</li>" +
+                                            "</ul>" +
+                                        "</div>" +
+                                    "</li>" +
+                                "</ul>" +
+                        "</div>";
         }
 
 	    alert(nodes);
@@ -946,8 +1008,8 @@ var UIS = {
 	    for (var i = 0; i < dados.rows.length; i++) {
 	    	// nodes += "<li class='list-style list_objetivos'><div class='list_objetivos_itens' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" + "Qtd = " + dados.rows.item(i).QTD + " - Objetivo = " + dados.rows.item(i).NAME_OBJETIVO + "</div></li>";
 	        nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" +
-	        		 	"<div class='desc_objetivo'>" + dados.rows.item(i).NAME_OBJETIVO + "</div>" +
-	        		 	"<div class='valor_objetivo'>" + dados.rows.item(i).QTD + "</div>" +
+	        		 	"<div class='desc_objetivo' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" + dados.rows.item(i).NAME_OBJETIVO + "</div>" +
+	        		 	"<div class='valor_objetivo' idRegistro='" + dados.rows.item(i).NAME_OBJETIVO + "'>" + dados.rows.item(i).QTD + "</div>" +
 	        		 "</div>";
 	    }
 	    //alert(nodes);
@@ -960,12 +1022,14 @@ var UIS = {
 	    //alert("fillDivPrefectures");
 	    //var nodes = "<select dir='rtl' name='distritos'>";
         var nodes = "";
-        // todo: colocar "São Paulo"
+        // Insere opção "São Paulo" (não filtra por subprefeitura)
+        nodes += "<option value='" + "Sao Paulo" + "' selected>" + "São Paulo" + "</option>";
+        UIS.subprefSelecionada = "São Paulo";
 	    for (var i = 0; i < dados.rows.length; i++) {
 	        nodes += "<option value='" + dados.rows.item(i).ID + "'>" + dados.rows.item(i).NAME + "</option>";
 	    }
         //nodes += "</select>";
-	    ////alert(nodes);
+	    alert(nodes);
 	    $("#selectListaSubprefeituras").empty();
         $("#selectListaSubprefeituras").append(nodes);
         $("#listaSubprefeituras_metas").empty();
