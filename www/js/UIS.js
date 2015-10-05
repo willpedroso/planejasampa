@@ -45,6 +45,7 @@ var UIS = {
     // Texto para status de metas
     txtStatusMetas: [],
     txtTipoProjeto: [],
+    txtNomeFases: [],
     touchEndEvent:null,
 
     //flag que avisa se a animacao esta rodando
@@ -66,6 +67,7 @@ var UIS = {
         this.txtStatusMetas[4] = "Metas concluídas";
         this.txtStatusMetas[5] = "Metas superadas";
 
+        // Texto para tipos de projeto
         this.txtTipoProjeto[0] = "Tipo 0";
         this.txtTipoProjeto[1] = "Construção de equipamento";
         this.txtTipoProjeto[2] = "Obras de infraestrutura";
@@ -75,6 +77,16 @@ var UIS = {
         this.txtTipoProjeto[6] = "Sistemas";
         this.txtTipoProjeto[7] = "Atos Normativos";
         this.txtTipoProjeto[8] = "Novos serviços ou benefícios";
+
+        // Texto para nome das fases
+        this.txtNomeFases[0] = "Definição de Terreno (10%)";
+        this.txtNomeFases[1] = "Projeto Básico (5%)";
+        this.txtNomeFases[2] = "Garantia da fonte de financiamento (10%)";
+        this.txtNomeFases[3] = "Licenciamento (5%)";
+        this.txtNomeFases[4] = "Licitação da obra (10%)";
+        this.txtNomeFases[5] = "Obras - Fase 1 (20%)";
+        this.txtNomeFases[6] = "Obras - Fase 2 (35%)";
+        this.txtNomeFases[7] = "Estruturação para funcionamento (5%)";
 
         this.div_metasObjetivos = $("#div_metasObjetivos");
 	    this.div_metasStatus = $("#div_metasStatus");
@@ -563,7 +575,8 @@ var UIS = {
                                 "</span>" +
                             "</div>" +
                             "<div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>" +
-                                "100%" +
+                                //"100%" +
+                                dados.rows.item(i).ACOMPANHAMENTO_META +
                             "</div>"+
                             "<div class='hspacer-line '>" +
                             "</div>"+
@@ -591,28 +604,33 @@ var UIS = {
                             "<span class='header-verm font-15'>" +
                                 "TIPOS DE PROJETO" +
                             "</span><br />" +
-                            "listaTiposProjetos" +
+                            //"listaTiposProjetos" +
+                            listaTiposProjetos +
                         "</li>"+
                         "<li class='cor_cz'>" +
                             "<span class='header-verm font-15'>" +
                                 "ANDAMENTO QUANTITATIVO" +
                             "</span><br />" +
-                            "<span class='txt-b cor_cz40'>" +
-                                "348.472" +
-                            "</span>" +
-                            "famílias beneficiadas com o programa Bolsa Família" +
+                            dados.rows.item(i).QP1_META + "<br>" +
                             "<div class='hspacer-line marg-t-16 marg-b-16'>" +
                             "</div>" +
-                            "<span class='txt-b cor_cz40'>" +
-                                "80.736" +
-                            "</span>" +
-                            "novas famílias beneficiadas com o Programa Bolsa Família - Concessão acumulada" +
+                            dados.rows.item(i).QP2_META + "<br>" +
                         "</li>"+
                         "<li  class='overfl-hdd'>"+
                             "<span class='header-verm font-15'>" +
                                 "ANDAMENTO QUALITATIVO" +
                             "</span><br />" +
-                            "Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
+                            //"Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
+                            dados.rows.item(i).QP3_META + 
+                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                            "</div>" +
+                            dados.rows.item(i).QP4_META + 
+                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                            "</div>" +
+                            dados.rows.item(i).QP5_META + 
+                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                            "</div>" +
+                            dados.rows.item(i).QP6_META + "<br>" +
                             "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
                                 "<span class='header-verm font-15'>" +
                                     "PREVISTO" +
@@ -707,6 +725,112 @@ var UIS = {
                 listaSub += ", ";
             }
         }
+        var fases = "";
+        var acompanha = "";
+
+        if (prjFase == true) {
+            // Projeto por fase
+            var i = 0
+            var situacao = "";
+
+            fases = "<li>" +
+                        "<div class='box_info'>" +
+                            "<h4 class='cor_3_red'>" +
+                            "FASES" +
+                            "</h4>" +
+                            "<ul class='list_interna_proj'>";
+
+            for (i = 0; i < dadosAcompanha.rows.length; i++) {
+                //alert ("MARCO: " + dadosAcompanha.rows.item(i).MARCO + " - STATUS_MARCO: " + dadosAcompanha.rows.item(i).STATUS_MARCO);
+                if (dadosAcompanha.rows.item(i).STATUS_MARCO > 0 && dadosAcompanha.rows.item(i).STATUS_MARCO < 100) {
+                    situacao = "EM ANDAMENTO";
+                }
+                else if (dadosAcompanha.rows.item(i).STATUS_MARCO == 0) {
+                    situacao = "NÃO INICIADA";
+                }
+                else {
+                    situacao = "CONCLUÍDA";
+                }
+                fases += "<li>" +
+                            "<div class='border_rigth'>" +
+                                "<p class='gray_4'>" +
+                                    UIS.txtNomeFases[dadosAcompanha.rows.item(i).MARCO - 1] +
+                                "</p>" +
+                            "</div>" +
+                            "<p class='text_center gray_3'>" +
+                                situacao +
+                            "</p>" +
+                        "</li>";
+            }
+            // todo: (revisar) verifica se alguma fase não foi retornada do banco de dados, inclui como "NÃO INICIADA"
+            if (i < UIS.txtNomeFases.length) {
+                // Faltaram fases
+                for (var j = i; j < UIS.txtNomeFases.length; j++) {
+                    fases += "<li>" +
+                                "<div class='border_rigth'>" +
+                                    "<p class='gray_4'>" +
+                                        UIS.txtNomeFases[j] +
+                                    "</p>" +
+                                "</div>" +
+                                "<p class='text_center gray_3'>" +
+                                    "NÃO INICIADA" +
+                                "</p>" +
+                            "</li>";
+                }
+            }
+
+            fases +=
+                                            "</ul>" +
+                                        "</div>" +
+                                    "</li>";
+
+            alert ("Fases: " + fases);
+        }
+        else {
+            // Projeto por progresso mensal
+            var ano = [];
+            var acumuladoAno = [];
+            var auxAno = "";
+            for (var i = 0; i < dadosAcompanha.rows.length; i ++) {
+                //alert ("MES_ANO: " + dadosAcompanha.rows.item(i).MES_ANO + " - VALOR_MENSAL: " + dadosAcompanha.rows.item(i).VALOR_MENSAL);
+                // Armazena ano
+                if (auxAno != dadosAcompanha.rows.item(i).MES_ANO.substring(0, 4)) {
+                    ano.push(auxAno = dadosAcompanha.rows.item(i).MES_ANO.substring(0, 4));
+                    acumuladoAno.push(0);
+                }
+                // Soma valor mensal
+                acumuladoAno[acumuladoAno.length - 1] += parseInt(dadosAcompanha.rows.item(i).VALOR_MENSAL, 10);
+            }
+            // Monta html
+            acompanha +=
+                                    "<li>" +
+                                        "<div class='box_info'>" +
+                                            "<h4 class='cor_3_red'>" +
+                                                "ACOMPANHAMENTO" +
+                                            "</h4>";
+            for (var i = 0; i < ano.length; i++) {
+                acompanha +=
+                                            "<h4 class='cor_3_red padding_t_10'>" +
+                                                ano[i] + " - "
+                                            "</h4>" +
+                                            "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
+                                                acumuladoAno[i] +
+                                                "</strong>" +
+                                                "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                            "</p>";
+
+            }
+            acompanha +=
+                                        "</div>" +
+                                    "</li>";
+            /*
+            var alerta = "";
+            for (var i = 0; i < ano.length; i++) {
+                alerta += "Ano: " + ano[i] + " - Acumulado: " + acumuladoAno[i] + "\r\n";
+            }
+            alert(alerta);
+            */
+        }
 
 	    var nodes = "";
         for (var i = 0; i < dados.rows.length; i++) {
@@ -783,6 +907,8 @@ var UIS = {
                                     "</li>" +
     
                                 // Acompanhamento
+                                    acompanha +
+                                    /*
                                     "<li>" +
                                         "<div class='box_info'>" +
                                             "<h4 class='cor_3_red'>" +
@@ -807,8 +933,9 @@ var UIS = {
                                             "</p>" +
                                         "</div>" +
                                     "</li>" +
+                                    */
                                         //fases
-                                    "<li>" +
+                                    /*"<li>" +
                                         "<div class='box_info'>" +
                                             "<h4 class='cor_3_red'>" +
                                             "FASES" +
@@ -823,10 +950,11 @@ var UIS = {
                                                     "<p class='text_center gray_3'>" +
                                                         "CONCLU&Iacute;DA" +
                                                     "</p>" +
-                                                "</li>" +
-                                            "</ul>" +
+                                                "</li>" + */
+                                                fases + 
+                                    /*        "</ul>" +
                                         "</div>" +
-                                    "</li>" +
+                                    "</li>" +*/
                                         //andamento qualitativo
                                     "<li>" +
                                         "<div class='box_info'>" +
@@ -860,7 +988,37 @@ var UIS = {
                                                         "2013" +
                                                     "</h4>" +
                                                     "<p class='padding_t_10 gray_3'>" +
-                                                        "__" +
+                                                        (dados.rows.item(i).B13_PROJETO == "0" ? "Sem execução orçamentária" : "R$ " + UIS.formatoMonetario (dados.rows.item(i).B13_PROJETO)) +
+                                                    "</p>" +
+                                                "</li>" +
+                                            "</ul>" +
+                                            "<ul>" +
+                                                "<li>" +
+                                                    "<h4 class='cor_3_red'>" +
+                                                        "2014" +
+                                                    "</h4>" +
+                                                    "<p class='padding_t_10 gray_3'>" +
+                                                        (dados.rows.item(i).B14_PROJETO == "0" ? "Sem execução orçamentária" : "R$ " + UIS.formatoMonetario (dados.rows.item(i).B14_PROJETO)) +
+                                                    "</p>" +
+                                                "</li>" +
+                                            "</ul>" +
+                                            "<ul>" +
+                                                "<li>" +
+                                                    "<h4 class='cor_3_red'>" +
+                                                        "2015" +
+                                                    "</h4>" +
+                                                    "<p class='padding_t_10 gray_3'>" +
+                                                        (dados.rows.item(i).B15_PROJETO == "0" ? "Sem execução orçamentária" : "R$ " + UIS.formatoMonetario (dados.rows.item(i).B15_PROJETO)) +
+                                                    "</p>" +
+                                                "</li>" +
+                                            "</ul>" +
+                                            "<ul>" +
+                                                "<li>" +
+                                                    "<h4 class='cor_3_red'>" +
+                                                        "2016" +
+                                                    "</h4>" +
+                                                    "<p class='padding_t_10 gray_3'>" +
+                                                        (dados.rows.item(i).B16_PROJETO == "0" ? "Sem execução orçamentária" : "R$ " + UIS.formatoMonetario (dados.rows.item(i).B16_PROJETO)) +
                                                     "</p>" +
                                                 "</li>" +
                                             "</ul>" +
