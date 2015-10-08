@@ -170,18 +170,20 @@ var UIS = {
         this.select_ListaSubprefeituras.bind("change", (function (event) {
             console.log("subprefeitura: ", this.select_ListaSubprefeituras.attr("value"));
             UIS.subprefSelecionada = $("#selectListaSubprefeituras option:selected").text();
+            // Altera o item selecionado na lista de subprefeituras da tela de lista de metas
+            $('#listaSubprefeituras_metas option[value="' + $("#selectListaSubprefeituras option:selected").val() + '"]').attr({ selected : "selected"});
+
             BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"));
-            // seleciona a mesma subprefeitura na combobox da tela de lista de metas
-            
         }).bind(this));
 
         // Subprefeitura selecionada na tela de lista de metas
         this.select_ListaSubprefeiturasMetas.bind("change", (function (event) {
             console.log("subprefeitura: ", this.select_ListaSubprefeiturasMetas.attr("value"));
             UIS.subprefSelecionada = $("#listaSubprefeituras_metas option:selected").text();
-            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"));
-            // seleciona a mesma subprefeitura na combobox da tela de lista de metas por status
+            // Altera o item selecionado na lista de subprefeituras da tela de metas por status
+            $('#selectListaSubprefeituras option[value="' + $("#listaSubprefeituras_metas option:selected").val() + '"]').attr({ selected : "selected"});
 
+            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"));
         }).bind(this));
 
         // Altera a meta selecionada
@@ -202,6 +204,36 @@ var UIS = {
 	            //UIS.div_listaSubprefeituras.attr("style", "display: block");
 	        }
 	    }).bind(this));
+
+        // Botão (físico) voltar do dispositivo
+        document.addEventListener("backbutton", (function (e) {
+            //console.log("botão físico voltar");
+            //so dispara o click se a animacao da voltar estiver completa
+            if(!UIS.animandovoltar){
+                if (UIS.div_configuracao.attr("style") == "display: block") {
+                    // Está na tela de configuração, esconde
+                    UIS.div_configuracao.attr("style", "display: none");
+                    UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+                    // Verifica se houve atualização de dados
+                    if (BANCODADOS.bUpdated) {
+                        BANCODADOS.bUpdated = false;
+                        // Houve atualização de dados, volta para a tela de metas por status
+                        UIS.resetDivStack();
+                    }
+                    return;
+                }
+                if (UIS.array_Divs.length == 1){
+                    // Está na primeira tela
+                    if (confirm("Deseja realmente sair?") == true) {
+                        e.preventDefault();
+                        navigator.app.exitApp();
+                    }
+                    return;
+                }else{
+                    voltar();
+                }
+            }
+        }), false);
 
 	    // Botão voltar
 	    this.bt_Voltar.bind(this.touchEndEvent, (function () {
@@ -384,7 +416,7 @@ var UIS = {
 			UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        if(this.dragging == false) {
-                alert("Detalhes da meta");
+                //alert("Detalhes da meta");
 	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
 	    	}
 	    }).bind(this));
@@ -417,7 +449,7 @@ var UIS = {
 
      // Recebe dados de retorno da consulta ao banco e prepara lista simples de dados
     prepareShowListaMetas: function(dadosBanco) {
-        alert("prepareShowListaMetas - tamanho dos dados = " + dadosBanco.rows.length);
+        //alert("prepareShowListaMetas - tamanho dos dados = " + dadosBanco.rows.length);
         // prepara lista simples para showListaMetas
         var listaMetas = [];
         for (var i = 0; i < dadosBanco.rows.length; i++) {
@@ -435,7 +467,7 @@ var UIS = {
 
     // Mostra lista de metas, dados na forma de array simples
     showListaMetas: function(dados) {
-        alert("showListaMetas - tamanho dos dados = " + dados.length);
+        //alert("showListaMetas - tamanho dos dados = " + dados.length);
 
         // Atualizar header - tipo da meta
         $("#listaMetas").empty();
@@ -784,7 +816,7 @@ var UIS = {
                                         "</div>" +
                                     "</li>";
 
-            alert ("Fases: " + fases);
+           //alert ("Fases: " + fases);
         }
         else {
             // Projeto por progresso mensal
@@ -835,8 +867,8 @@ var UIS = {
 	    var nodes = "";
         for (var i = 0; i < dados.rows.length; i++) {
             //tipoProj = dados.rows.item(i).TIPO_PROJETO;
-            alert(dados.rows.item(i).TIPO_PROJETO);
-            alert(UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO]);
+            //alert(dados.rows.item(i).TIPO_PROJETO);
+            //alert(UIS.txtTipoProjeto[dados.rows.item(i).TIPO_PROJETO]);
 	        nodes += "<div class='cor-cz-1 container-tit-subtit2'>" +
                         "<div class='box-titulo line-cz'>" +
                         // todo: dados.rows.item(i).NAME_PROJETO +
@@ -1028,7 +1060,7 @@ var UIS = {
                         "</div>";
         }
 
-	    alert(nodes);
+	    //alert(nodes);
 	    $("#ulDetalhesProjeto").empty();
 	    $("#ulDetalhesProjeto").append(nodes);
 
@@ -1187,7 +1219,7 @@ var UIS = {
 	        nodes += "<option value='" + dados.rows.item(i).ID + "'>" + dados.rows.item(i).NAME + "</option>";
 	    }
         //nodes += "</select>";
-	    alert(nodes);
+	    //alert(nodes);
 	    $("#selectListaSubprefeituras").empty();
         $("#selectListaSubprefeituras").append(nodes);
         $("#listaSubprefeituras_metas").empty();
