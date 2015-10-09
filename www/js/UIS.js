@@ -59,6 +59,10 @@ var UIS = {
     // Armazenagem da lista de metas
     varListaMetas: [],
 
+    // Div para aguarde
+    div_Aguarde: null,
+    msg_Aguarde: null,
+
     configListeners: function () {
         // Texto para status de metas
         this.txtStatusMetas[1] = "Metas não iniciadas";
@@ -109,6 +113,9 @@ var UIS = {
 	    this.ul_ListaMetasStatus = $("#ulListaMetasStatus");
 	    this.ul_DetalhesMeta = $("#ulDetalhesMeta");
 	    this.ul_listaProjetosDeMetas = $("#listaProjetosDeMetas");
+
+        this.div_Aguarde = $("#telaAguarde");
+        this.msg_Aguarde = $("#cont_telaAguarde");
 
 	    //console.log("****",this.ul_listaProjetosDeMetas)
 
@@ -173,6 +180,7 @@ var UIS = {
             // Altera o item selecionado na lista de subprefeituras da tela de lista de metas
             $('#listaSubprefeituras_metas option[value="' + $("#selectListaSubprefeituras option:selected").val() + '"]').attr({ selected : "selected"});
 
+            UIS.showTelaAguarde("Atualizando lista de metas por status...");
             BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"));
         }).bind(this));
 
@@ -183,6 +191,7 @@ var UIS = {
             // Altera o item selecionado na lista de subprefeituras da tela de metas por status
             $('#selectListaSubprefeituras option[value="' + $("#listaSubprefeituras_metas option:selected").val() + '"]').attr({ selected : "selected"});
 
+            UIS.showTelaAguarde("Atualizando lista de metas...");
             BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"));
         }).bind(this));
 
@@ -190,6 +199,7 @@ var UIS = {
         this.listaMetasSelect.bind("change", (function (event) {
             console.log("meta: ", this.listaMetasSelect.attr("value"));
             UIS.metaSelecionada = $("#lista_metas_select option:selected").text();
+            UIS.showTelaAguarde("Atualizando detalhes da meta...");
             BANCODADOS.getGoalDetails(this.listaMetasSelect.attr("value"), UIS.showDetalhesMetas, null);
         }).bind(this));
 
@@ -413,7 +423,7 @@ var UIS = {
 	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	       //console.log("++++++ this.ul_DetalhesMeta.bind")
 
-			UIS.pushDiv(UIS.div_detalhesProjeto);
+			//UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        if(this.dragging == false) {
                 //alert("Detalhes da meta");
@@ -421,6 +431,24 @@ var UIS = {
 	    	}
 	    }).bind(this));
 	},
+
+    hideTelaAguarde: function(){
+        // Esconde a tela de aguarde
+        this.div_Aguarde.removeClass('dspl-blk');
+        this.div_Aguarde.addClass('dspl-nn');
+    },
+
+    showTelaAguarde: function(msgAguarde){
+        // Mostra a tela de aguarde
+        this.div_Aguarde.removeClass('dspl-nn');
+        var msg = "";
+        msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+                    msgAguarde +
+                "</h3>";
+        this.msg_Aguarde.empty();
+        this.msg_Aguarde.append(msg);
+        this.div_Aguarde.addClass('dspl-blk');
+    },
 
 	fakeShowHideConfiguracoes:function(){
 		//console.log("++++ FAKE!!!")
@@ -738,6 +766,8 @@ var UIS = {
        showTela(div_detalhesMeta);
 
 	   UIS.pushDiv(UIS.div_detalhesMeta);
+
+       UIS.hideTelaAguarde();
 	},
 
     // Mostra detalhes do projeto da meta
@@ -1131,6 +1161,7 @@ var UIS = {
             // A lista de metas é a tela ativa, atualiza
             UIS.showListaMetasPrefecture(dados, idStatus, idObjective);
         }
+        UIS.hideTelaAguarde();
     },
 
     // Apresenta a lista de metas, por status ou objetivo, por meio da lista de metas filtrada por subprefeitura (lista em memória)
@@ -1188,7 +1219,8 @@ var UIS = {
 		//alert(nodes);
 	    UIS.ul_ListaMetasStatus.empty();
 	    UIS.ul_ListaMetasStatus.append(nodes);
-	   //console.log(dados.rows.length)
+	   //console.log(dados.rows.length);
+       UIS.hideTelaAguarde();
 	},
 
     // Preenche os dados na div de metas por objetivo
@@ -1322,6 +1354,7 @@ var UIS = {
 var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend'; 
 
     function showTela(tela){
+        console.log("SHOWTELA(): ",UIS.array_Divs.length );
         //console.log("showTela", UIS.array_Divs.length -1);
 
         $(tela).removeClass('hideme');
@@ -1334,7 +1367,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
     }
 
     function voltar(){
-        console.log("VOLTAR()",UIS.array_Divs.length );
+        console.log("VOLTAR() - Entrada: ",UIS.array_Divs.length );
 
         //tela para voltar
         if (UIS.array_Divs.length == 1){
@@ -1351,6 +1384,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
                 UIS.array_Divs[UIS.array_Divs.length -1].removeClass('box-ativo');
 
                 UIS.array_Divs.pop();
+                console.log("VOLTAR() - Apos pop: ",UIS.array_Divs.length );
 
                 //se clicou voltar de tela de metas para a home, esconde o div container relativo
                 if(UIS.array_Divs.length == 1){
@@ -1378,6 +1412,6 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         // UIS.array_Divs[UIS.array_Divs.length -2].removeClass('box-ativo');
         // UIS.array_Divs[UIS.array_Divs.length -2].addClass('box-escondido');
         // });
-
+        console.log("VOLTAR() - Saida: ",UIS.array_Divs.length );
     }
 

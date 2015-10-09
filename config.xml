@@ -17,21 +17,27 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <preference name="SplashScreenDelay" value="2000" />
+        <preference name="SplashScreen" value="screen" />
         <!-- you can use any density that exists in the Android project -->
-        <splash src="res/screen/android/splash_land_hdpi.png" density="land-hdpi"/>
-        <splash src="res/screen/android/splash_land_hdpi.png" density="land-ldpi"/>
-        <splash src="res/screen/android/splash_land_hdpi.png" density="land-mdpi"/>
-        <splash src="res/screen/android/splash_land_xhdpi.png" density="land-xhdpi"/>
+        <splash src="res/android/splash.png" density="land-hdpi"/>
+        <splash src="res/android/splash.png" density="land-ldpi"/>
+        <splash src="res/android/splash.png" density="land-mdpi"/>
+        <splash src="res/android/splash.png" density="land-xhdpi"/>
     
-        <splash src="res/screen/android/splash_port_hdpi.png" density="port-hdpi"/>
-        <splash src="res/screen/android/splash_port_ldpi.png" density="port-ldpi"/>
-        <splash src="res/screen/android/splash_port_mdpi.png" density="port-mdpi"/>
-        <splash src="res/screen/android/splash_port_xhdpi.png" density="port-xhdpi"/>
+        <splash src="res/android/splash.png" density="port-hdpi"/>
+        <splash src="res/android/splash.png" density="port-ldpi"/>
+        <splash src="res/android/splash.png" density="port-mdpi"/>
+        <splash src="res/android/splash.png" density="port-xhdpi"/>
+
+        <icon src="res/android/icon.png" density="hdpi"/>
+        <icon src="res/android/icon.png" density="ldpi"/>
+        <icon src="res/android/icon.png" density="mdpi"/>
+        <icon src="res/android/icon.png" density="xhdpi"/>
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <preference name="SplashScreenDelay" value="20000" />
 </widget>
