@@ -394,7 +394,7 @@ var BANCODADOS = {
 
         if (BANCODADOS.vIdPrefecture != "Sao Paulo") {
             // Utiliza dados da lista de metas filtrada por subprefeitura
-            UIS.showListaMetasPrefecture(BANCODADOS.statusGoalsListPrefecture, BANCODADOS.idStatus, BANCODADOS.idObjective);
+            UIS.showListaMetasPrefecture(BANCODADOS.statusGoalsListPrefecture, BANCODADOS.idStatus, BANCODADOS.idObjective, true);
         }
         else {
             BANCODADOS.sqlCmdDB("SELECT ID_META, NAME_META, STATUS_META, ACOMPANHAMENTO_META FROM GOALS WHERE NAME_OBJETIVO = ? ORDER BY ID_META", [BANCODADOS.idObjective], BANCODADOS.getStatusGoalsListSuccess, BANCODADOS.getStatusGoalsListFail);
@@ -442,7 +442,7 @@ var BANCODADOS = {
 
         if (BANCODADOS.vIdPrefecture != "Sao Paulo") {
             // Utiliza dados da lista de metas filtrada por subprefeitura
-            UIS.showListaMetasPrefecture(BANCODADOS.statusGoalsListPrefecture, BANCODADOS.idStatus, BANCODADOS.idObjective);
+            UIS.showListaMetasPrefecture(BANCODADOS.statusGoalsListPrefecture, BANCODADOS.idStatus, BANCODADOS.idObjective, true);
         }
         else {
             BANCODADOS.sqlCmdDB("SELECT ID_META, NAME_META, STATUS_META, ACOMPANHAMENTO_META, EXECUTADO_META FROM GOALS WHERE STATUS_META = ? ORDER BY ID_META", [BANCODADOS.idStatus], BANCODADOS.getStatusGoalsListSuccess, BANCODADOS.getStatusGoalsListFail);

@@ -63,6 +63,9 @@ var UIS = {
     div_Aguarde: null,
     msg_Aguarde: null,
 
+    // Controle de click
+    aguardaTransicaoTela: false,
+        
     configListeners: function () {
         // Texto para status de metas
         this.txtStatusMetas[1] = "Metas não iniciadas";
@@ -214,6 +217,21 @@ var UIS = {
 	            //UIS.div_listaSubprefeituras.attr("style", "display: block");
 	        }
 	    }).bind(this));
+
+/* Excluir
+
+        // Captura o clik no body
+//        this.bodyPM.bind("touchend", (function (e) {
+        document.addEventListener("touchend", (function (e) {
+            if (this.aguardaTransicaoTela == true) {
+                // Está aguardando transição de tela, descarta o click
+                console.log("Aguardando transição de tela");
+                //e.preventDefault();
+                e.stopPropagation();
+            }
+            else ("Não está aguardando transição de tela");
+        }).bind(this));
+*/
 
         // Botão (físico) voltar do dispositivo
         document.addEventListener("backbutton", (function (e) {
@@ -380,6 +398,12 @@ var UIS = {
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
+            // Evita clicks durante a transição da tela
+            console.log("Click!!!");
+            if (UIS.aguardaTransicaoTela == true) {
+                return;
+            }
+            UIS.aguardaTransicaoTela = true;
 
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
@@ -392,8 +416,16 @@ var UIS = {
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
 	    }).bind(this));
+
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
 	    this.ul_listaObjetivos.bind("touchend", (function (event) {
+            // Evita clicks durante a transição da tela
+            console.log("Click!!!");
+            if (UIS.aguardaTransicaoTela == true) {
+                return;
+            }
+            UIS.aguardaTransicaoTela = true;
+
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
@@ -407,6 +439,13 @@ var UIS = {
 
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend", (function (event) {
+            // Evita clicks durante a transição da tela
+            console.log("Click!!!");
+            if (UIS.aguardaTransicaoTela == true) {
+                return;
+            }
+            UIS.aguardaTransicaoTela = true;
+
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
             event.stopImmediatePropagation();
@@ -419,7 +458,13 @@ var UIS = {
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
-	        
+            // Evita clicks durante a transição da tela
+            console.log("Click!!!");
+            if (UIS.aguardaTransicaoTela == true) {
+                return;
+            }
+            UIS.aguardaTransicaoTela = true;
+
 	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	       //console.log("++++++ this.ul_DetalhesMeta.bind")
 
@@ -490,17 +535,11 @@ var UIS = {
             listaMetas.push(s);
         }
         //alert(listaMetas);
-        console.log("prepareShowListaMetas --> pre-showListaMetas: " + listaMetas);
-        UIS.showListaMetas(listaMetas);
-        console.log("prepareShowListaMetas --> pre-showTela: " + UIS.div_listaMetas);
-        showTela(UIS.div_listaMetas);
-        console.log("prepareShowListaMetas --> pre-pushDiv: " + UIS.div_listaMetas);
-        UIS.pushDiv(UIS.div_listaMetas);
-        console.log("prepareShowListaMetas --> pos-pushDiv");
+        UIS.showListaMetas(listaMetas, true);
     },
 
     // Mostra lista de metas, dados na forma de array simples
-    showListaMetas: function(dados) {
+    showListaMetas: function(dados, navegaListaMetas) {
         //alert("showListaMetas - tamanho dos dados = " + dados.length);
 
         // Atualizar header - tipo da meta
@@ -540,8 +579,10 @@ var UIS = {
 
         UIS.ul_ListaMetas.append(nodes);
 
-//        showTela(div_listaMetas);
-//        UIS.pushDiv(UIS.div_listaMetas);
+		if (navegaListaMetas == true) {
+			showTela(div_listaMetas);
+			UIS.pushDiv(UIS.div_listaMetas);
+		}
     },
 
 
@@ -1164,15 +1205,15 @@ var UIS = {
         UIS.ul_listaObjetivos.append(nodes);
 
         // Atualização da tela de lista de metas, se for a tela ativa
-        if (UIS.array_Divs[UIS.array_Divs.length - 1] == UIS.div_listaMetas) {
+        if (UIS.array_Divs[UIS.array_Divs.length - 1].attr("id") == UIS.div_listaMetas.attr("id")) {
             // A lista de metas é a tela ativa, atualiza
-            UIS.showListaMetasPrefecture(dados, idStatus, idObjective);
+            UIS.showListaMetasPrefecture(dados, idStatus, idObjective, false);
         }
         UIS.hideTelaAguarde();
     },
 
     // Apresenta a lista de metas, por status ou objetivo, por meio da lista de metas filtrada por subprefeitura (lista em memória)
-    showListaMetasPrefecture: function(dados, idStatus, idObjective) {
+    showListaMetasPrefecture: function(dados, idStatus, idObjective, navegaListaMetas) {
         console.log("showListaMetasPrefecture");
         var listaMetas = [];
         if (idStatus != null) {
@@ -1205,7 +1246,7 @@ var UIS = {
                 }
             }
         }
-        UIS.showListaMetas(listaMetas);
+        UIS.showListaMetas(listaMetas, navegaListaMetas);
     },
 
 
@@ -1370,14 +1411,18 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         $(tela).removeClass('box-escondido');
         $(tela).addClass('box-ativo');
         $(tela).addClass('showme').one(transitionsevents,function(){
-/*
+
             if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {
                 //oculta a tela metas por objetivos transição para lista de metas
                 UIS.div_metasObjetivos.attr("style", "display: none");
                 console.log("div_metasObjetivos - none");
             }
-*/
-            console.log("Mostra a tela!!")
+
+            console.log("Mostra a tela!!");
+
+            // Libera uso do click
+            UIS.aguardaTransicaoTela = false;
+            console.log("Liberando click!!!");
         });
     }
 
