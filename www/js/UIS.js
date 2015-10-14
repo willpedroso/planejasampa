@@ -490,7 +490,13 @@ var UIS = {
             listaMetas.push(s);
         }
         //alert(listaMetas);
+        console.log("prepareShowListaMetas --> pre-showListaMetas: " + listaMetas);
         UIS.showListaMetas(listaMetas);
+        console.log("prepareShowListaMetas --> pre-showTela: " + UIS.div_listaMetas);
+        showTela(UIS.div_listaMetas);
+        console.log("prepareShowListaMetas --> pre-pushDiv: " + UIS.div_listaMetas);
+        UIS.pushDiv(UIS.div_listaMetas);
+        console.log("prepareShowListaMetas --> pos-pushDiv");
     },
 
     // Mostra lista de metas, dados na forma de array simples
@@ -531,10 +537,11 @@ var UIS = {
         }
         //alert(nodes);
         UIS.ul_ListaMetas.empty();
+
         UIS.ul_ListaMetas.append(nodes);
 
-        showTela(div_listaMetas);
-        UIS.pushDiv(UIS.div_listaMetas);
+//        showTela(div_listaMetas);
+//        UIS.pushDiv(UIS.div_listaMetas);
     },
 
 
@@ -1148,8 +1155,8 @@ var UIS = {
             // Monta nodes
             //nodes += "<li><div idRegistro='" + listaObjetivos[i] + "'>" + "Qtd = " + count + " - Objetivo = " + listaObjetivos[i] + "</div></li>";
             nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + listaObjetivos[i]+ "'>" +
-                        "<div class='desc_objetivo'>" + listaObjetivos[i] + "</div>" +
-                        "<div class='valor_objetivo'>" + count + "</div>" +
+                        "<div class='desc_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + listaObjetivos[i] + "</div>" +
+                        "<div class='valor_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + count + "</div>" +
                      "</div>";
         }
         //alert("Nodes de metas por objetivo: " + nodes);
@@ -1167,9 +1174,10 @@ var UIS = {
     // Apresenta a lista de metas, por status ou objetivo, por meio da lista de metas filtrada por subprefeitura (lista em memória)
     showListaMetasPrefecture: function(dados, idStatus, idObjective) {
         console.log("showListaMetasPrefecture");
+        var listaMetas = [];
         if (idStatus != null) {
             // Lista de metas por status, por prefeitura
-            var listaMetas = [];
+//            var listaMetas = [];
             for (var i = 0; i < dados.length; i++) {
                 if(dados[i].STATUS_META == idStatus) {
                     var s = {
@@ -1184,7 +1192,7 @@ var UIS = {
         }
         else { // (idObjective != null)
             // Lista de metas por objetivo, por prefeitura
-            var listaMetas = [];
+//            var listaMetas = [];
             for (var i = 0; i < dados.length; i++) {
                 if(dados[i].NAME_OBJETIVO == idObjective) {
                     var s = {
@@ -1235,6 +1243,7 @@ var UIS = {
 	        		 "</div>";
 	    }
 	    //alert(nodes);
+
 	    UIS.ul_listaObjetivos.empty();
 	    UIS.ul_listaObjetivos.append(nodes);
 	},
@@ -1292,7 +1301,7 @@ var UIS = {
         var divexists = false;
 
         for(var i =0; i< UIS.array_Divs.length; i++){
-            if(UIS.array_Divs[i].attr("id ") == id2check){
+            if(UIS.array_Divs[i].attr("id") == id2check){
                 divexists = true;
                 break;
             }
@@ -1361,7 +1370,13 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         $(tela).removeClass('box-escondido');
         $(tela).addClass('box-ativo');
         $(tela).addClass('showme').one(transitionsevents,function(){
-
+/*
+            if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {
+                //oculta a tela metas por objetivos transição para lista de metas
+                UIS.div_metasObjetivos.attr("style", "display: none");
+                console.log("div_metasObjetivos - none");
+            }
+*/
             console.log("Mostra a tela!!")
         });
     }
@@ -1377,6 +1392,13 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
             UIS.animandovoltar = true;
              //excluir tela atual da lista
 
+            if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {
+                //mostra a tela metas por objetivos na volta da lista de metas
+                UIS.div_metasObjetivos.attr("style", "display: block");
+                console.log("div_metasObjetivos - block");
+            }
+
+
             UIS.array_Divs[UIS.array_Divs.length -1].removeClass('showme');
             UIS.array_Divs[UIS.array_Divs.length -1].addClass('hideme').one(transitionsevents,function(){
 
@@ -1388,7 +1410,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
 
                 //se clicou voltar de tela de metas para a home, esconde o div container relativo
                 if(UIS.array_Divs.length == 1){
-                     $('#container_relativo').css({"height":"0"});
+                    $('#container_relativo').css({"height":"0"});
                 }
 
                 UIS.animandovoltar = false;
