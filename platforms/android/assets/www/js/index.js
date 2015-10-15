@@ -95,6 +95,9 @@
                 console.log("getGoalsFail - Erro: " + err);
                 // todo: Houve falha na obtenção das metas
                 UIS.hideTelaAguarde();
+
+                // Libera uso do click
+                UIS.aguardaTransicaoTela = false;
                 alert("Houve falha já aplicativo: \r\n " + err + ". Por favor, reinicie o aplicativo.");
             }
             /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
@@ -114,6 +117,9 @@
             function bt_failUpdate() {
                 console.log("bt_failUpdate");
                 UIS.hideTelaAguarde();
+
+                // Libera uso do click
+                UIS.aguardaTransicaoTela = false;
                 alert("Houve falha na atualização dos dados.");
             }
 
@@ -133,6 +139,9 @@
             function automatic_failUpdate() {
                 console.log("automatic_failUpdate");
                 UIS.hideTelaAguarde();
+
+                // Libera uso do click
+                UIS.aguardaTransicaoTela = false;
                 alert("Houve falha na atualização dos dados.");
             }
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/

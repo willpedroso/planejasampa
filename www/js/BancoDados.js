@@ -512,7 +512,8 @@ var BANCODADOS = {
     getObjectivesGoalsSuccess: function (trans, res) {
         console.log("getObjectivesGoalsSuccess");
         // Salva lista de tipos de status
-        for (var i = 0; i < BANCODADOS.tiposObjetivos.length; i++) {
+        //for (var i = 0; i < BANCODADOS.tiposObjetivos.length; i++) {
+        while (BANCODADOS.tiposObjetivos.length > 0) {
             BANCODADOS.tiposObjetivos.pop();
         }
         for (var i = 0; i < res.rows.length; i++) {
@@ -561,14 +562,16 @@ var BANCODADOS = {
     getStatusGoalsPrefectureP1Success: function (trans, res) {
         console.log("getStatusGoalsPrefectureP1Success");
         // Monta lista de projetos
-        for (var i = 0; i < BANCODADOS.auxListVar_1.length; i++) {
+        //for (var i = 0; i < BANCODADOS.auxListVar_1.length; i++) {
+        while (BANCODADOS.auxListVar_1.length > 0) {
             BANCODADOS.auxListVar_1.pop();
         }
         for (var i = 0; i < res.rows.length; i++) {
             BANCODADOS.auxListVar_1.push(res.rows.item(i).PROJETO_ID);
         }
         BANCODADOS.auxVar_1 = 0;
-        for (var i = 0; i < BANCODADOS.statusGoalsListPrefecture.length; i++) {
+        //for (var i = 0; i < BANCODADOS.statusGoalsListPrefecture.length; i++) {
+        while (BANCODADOS.statusGoalsListPrefecture.length > 0) {
             BANCODADOS.statusGoalsListPrefecture.pop();
         }
         // Com a lista de projetos obtém a lista de metas
@@ -713,7 +716,8 @@ var BANCODADOS = {
     getStatusGoalsSuccess: function (trans, res) {
         console.log("getStatusGoalsSuccess");
         // Salva lista de tipos de status
-        for (var i = 0; i < BANCODADOS.tiposStatus.length; i++) {
+        //for (var i = 0; i < BANCODADOS.tiposStatus.length; i++) {
+        while (BANCODADOS.tiposStatus.length > 0) {
             BANCODADOS.tiposStatus.pop();
         }
         for (var i = 0; i < res.rows.length; i++) {

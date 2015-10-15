@@ -218,20 +218,6 @@ var UIS = {
 	        }
 	    }).bind(this));
 
-/* Excluir
-
-        // Captura o clik no body
-//        this.bodyPM.bind("touchend", (function (e) {
-        document.addEventListener("touchend", (function (e) {
-            if (this.aguardaTransicaoTela == true) {
-                // Está aguardando transição de tela, descarta o click
-                console.log("Aguardando transição de tela");
-                //e.preventDefault();
-                e.stopPropagation();
-            }
-            else ("Não está aguardando transição de tela");
-        }).bind(this));
-*/
 
         // Botão (físico) voltar do dispositivo
         document.addEventListener("backbutton", (function (e) {
@@ -398,19 +384,19 @@ var UIS = {
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
-            // Evita clicks durante a transição da tela
-            console.log("Click!!!");
-            if (UIS.aguardaTransicaoTela == true) {
-                return;
-            }
-            UIS.aguardaTransicaoTela = true;
-
 	        //alert("Lista de metas por status");
 	        //alert("idRegistro = " + event.target.getAttribute('idRegistro'));
 	        //console.log("++++++ idRegistro = " + event.target.getAttribute('idRegistro'))
             //$('#container_relativo').css({"height":"100%"});
 
 	        if(this.dragging == false) {
+                // Evita clicks durante a transição da tela
+                console.log("Click!!!");
+                if (UIS.aguardaTransicaoTela == true) {
+                    return;
+                }
+                UIS.aguardaTransicaoTela = true;
+
                 //alert("Tipo de Meta por status: " + event.target.getAttribute('idRegistro'));
                 UIS.tipoMeta = UIS.txtStatusMetas[event.target.getAttribute('idRegistro')];
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
@@ -419,16 +405,16 @@ var UIS = {
 
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
 	    this.ul_listaObjetivos.bind("touchend", (function (event) {
-            // Evita clicks durante a transição da tela
-            console.log("Click!!!");
-            if (UIS.aguardaTransicaoTela == true) {
-                return;
-            }
-            UIS.aguardaTransicaoTela = true;
-
 	        //alert("Lista de metas por objetivo");
 	        ////alert("Lista de Objetivos \nidObjetivo: " + event.target.getAttribute('idRegistro'));
 	        if(this.dragging == false) {
+                // Evita clicks durante a transição da tela
+                console.log("Click!!!");
+                if (UIS.aguardaTransicaoTela == true) {
+                    return;
+                }
+                UIS.aguardaTransicaoTela = true;
+
                 //alert("Tipo de Meta por objetivo: " + event.target.getAttribute('idRegistro'));
                 UIS.tipoMeta = event.target.getAttribute('idRegistro');
 	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
@@ -439,18 +425,18 @@ var UIS = {
 
 	    // Navegação da tela de lista de metas para a tela de detalhes da meta
 	    this.ul_ListaMetas.bind("touchend", (function (event) {
-            // Evita clicks durante a transição da tela
-            console.log("Click!!!");
-            if (UIS.aguardaTransicaoTela == true) {
-                return;
-            }
-            UIS.aguardaTransicaoTela = true;
-
 	        //alert("Lista de metas");
 	        ////alert("Detalhes da Meta: \nidMeta: " + event.target.getAttribute('idMeta'));
             event.stopImmediatePropagation();
 
 	        if(this.dragging == false) {
+                // Evita clicks durante a transição da tela
+                console.log("Click!!!");
+                if (UIS.aguardaTransicaoTela == true) {
+                    return;
+                }
+                UIS.aguardaTransicaoTela = true;
+
 	        	BANCODADOS.getGoalDetails(event.target.getAttribute('idMeta'), UIS.showDetalhesMetas, null);
 	    	}
 	    }).bind(this));
@@ -458,19 +444,19 @@ var UIS = {
 	    // Navegação da tela de detalhes da meta para a tela de detalhes de um projeto
 	    //this.ul_DetalhesMeta.bind("touchend mouseup", (function (event) {
 	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
-            // Evita clicks durante a transição da tela
-            console.log("Click!!!");
-            if (UIS.aguardaTransicaoTela == true) {
-                return;
-            }
-            UIS.aguardaTransicaoTela = true;
-
 	        //alert("Detalhes do Projeto \nidProjeto: " + event.target.getAttribute('idProjeto'));
 	       //console.log("++++++ this.ul_DetalhesMeta.bind")
 
 			//UIS.pushDiv(UIS.div_detalhesProjeto);
 
 	        if(this.dragging == false) {
+                // Evita clicks durante a transição da tela
+                console.log("Click!!!");
+                if (UIS.aguardaTransicaoTela == true) {
+                    return;
+                }
+                UIS.aguardaTransicaoTela = true;
+
                 //alert("Detalhes da meta");
 	        	BANCODADOS.getProjectDetails(event.target.getAttribute('idProjeto'), UIS.showDetalhesProjeto, null);
 	    	}
@@ -551,7 +537,8 @@ var UIS = {
         var nodesListaMetas = "";
 
         // Limpa a lista de metas antes de preencher
-        for(var i = 0; i < UIS.varListaMetas.length; i++) {
+        //for(var i = 0; i < UIS.varListaMetas.length; i++) {
+        while (UIS.varListaMetas.length > 0) {
             UIS.varListaMetas.pop();
         }
 
