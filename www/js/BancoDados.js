@@ -760,7 +760,7 @@ var BANCODADOS = {
         //INCLUSÃO DE DADOS NA TABELA DE EVOLUÇÃO MENSAL DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        console.log("Mensal de Projetos - inserindo " + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMonProjects.length + ")");
+        //console.log("Mensal de Projetos - inserindo " + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMonProjects.length + ")");
         Dados = "";
 
         Dados += "INSERT INTO MONPROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
@@ -797,7 +797,7 @@ var BANCODADOS = {
         //INCLUSÃO DE DADOS NA TABELA DE MARCOS DE PROJETO
         //**************************************************************************
         //**************************************************************************
-        console.log("Marcos de Projetos - inserindo " + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMilProjects.length + ")");
+        //console.log("Marcos de Projetos - inserindo " + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMilProjects.length + ")");
         Dados = "";
         Dados += "INSERT INTO MILPROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].id + "' AS 'ID', '" +
@@ -831,7 +831,7 @@ var BANCODADOS = {
         //INCLUSÃO DE DADOS NA TABELA DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        console.log("Projetos - inserindo " + ((BANCODADOS.msgProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgProjects.length -BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg: (BANCODADOS.msgProjects.length -BANCODADOS.countReg))) + "/" +BANCODADOS.msgProjects.length + ")");
+        //console.log("Projetos - inserindo " + ((BANCODADOS.msgProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgProjects.length -BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg: (BANCODADOS.msgProjects.length -BANCODADOS.countReg))) + "/" +BANCODADOS.msgProjects.length + ")");
         Dados = "";
         Dados += "INSERT INTO PROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
             BANCODADOS.msgProjects[BANCODADOS.countReg].id + "' AS 'ID', '" +
@@ -894,7 +894,7 @@ var BANCODADOS = {
         //INCLUSÃO DE DADOS NA TABELA DE SUBPREFEITURAS
         //**************************************************************************
         //**************************************************************************
-        console.log("Subprefeituras - inserindo " + BANCODADOS.msgPrefectures.length + " registros");
+        //console.log("Subprefeituras - inserindo " + BANCODADOS.msgPrefectures.length + " registros");
         Dados = "";
         Dados += "INSERT INTO PREFECTURES SELECT 1 AS 'iid', '" +
             BANCODADOS.msgPrefectures[0].id + "' AS 'ID', '" +
@@ -927,7 +927,7 @@ var BANCODADOS = {
         //INCLUSÃO DE DADOS NA TABELA DE INFORMAÇÕES DAS METAS
         //**************************************************************************
         //**************************************************************************
-        console.log("Metas - inserindo " + BANCODADOS.msgGoals.length + " registros");
+        //console.log("Metas - inserindo " + BANCODADOS.msgGoals.length + " registros");
         Dados = "";
         Dados += "INSERT INTO GOALS SELECT 1 AS 'iid', '" +
             BANCODADOS.msgGoals[0].id + "' AS 'ID_META', '" +
