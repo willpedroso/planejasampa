@@ -69,34 +69,13 @@
             <!--lista de metas por status -->
             <div id="listaMetasStatus">
                <div id="ulListaMetasStatus" >
-                  <!-- metas em andamento -->
-                  <!-- <div idRegistro='2' class="metas_andamento divide_meta">
-                     <div idRegistro='2' class="descricao_andamento  gray_4">metas em andamento</div>
-                     <div idRegistro='2' class="valor_andamento cor_valor_meta">102</div>
-                  </div>
-                  <!--  metas que ja beneficiam  -->
-                  <!-- <div idRegistro='3' class="metas_beneficiam divide_meta">
-                     <div idRegistro='3' class="descricao_beneficiam  gray_4">metas que j&aacute; beneficiam a popula&ccedil;&atilde;o</div>
-                     <div  idRegistro='3' class="valor_beneficiam gray_2">72</div>
-                  </div> -->
-                  <!-- metas concluidas -->
-                  <!-- <div idRegistro='4' class="metas_concluidas divide_meta">
-                     <div idRegistro='4' class="descricao_concluidas">metas conclu&iacute;das</div>
-                     <div idRegistro='4' class="valor_concluidas">21</div>
-                  </div> -->
-                  <!-- metas superadas -->
-                  <!-- <div  idRegistro='4' class="metas_superadas divide_meta">
-                     <div  idRegistro='4' class="descricao_superadas  gray_4">metas superdadas</div>
-                     <div  idRegistro='4' class="valor_superadas gray_2">7</div>
-                  </div> --> 
+                  <!-- carrega dados do banco -->
                </div>
             </div>
          </div>
          <!-- fim da tela meta por status -->
          <!-- iniico da tela metasObjetivos -->
          <div id="div_metasObjetivos" style="display: none">
-            <!-- bloco de informações -->
-            <!--  <div id="listaObjetivos" class="list-style list_objetivos"> -->
             <!-- bloco links projetos -->
             <div class="titulo_objetivo border_bottom_gray cor_3_red">
                <h2>
@@ -110,6 +89,7 @@
          <!-- fim da tela metasObjetivos -->
          
          <!-- inicio tela2 -->
+        
          <div id="container_relativo">
             <div id="div_listaMetas"  class="box-escondido hideme">
                <div id="listaMetas" class="status_tela gray_4">
@@ -120,7 +100,6 @@
                   <div class="subpref">Subprefeitura</div>
                   <div class="distrito">
                      <select id="listaSubprefeituras_metas" dir='rtl' name='distritos'>
-
                      </select>
                   </div>
                </div>
@@ -148,183 +127,39 @@
                      Metas
                   </div>
                   <div class="distrito">
-                      <select id="lista_metas_select" dir='rtl' name='distritos'>
-
+                     <select id="lista_metas_select" dir='rtl' name='distritos'>
                      </select>
                   </div>
-               <!-- fim da barra indice de metas  -->
-               <!-- bloco de informações -->
-               <!-- SAITO -->
-               <ul id="ulDetalhesMeta">
-               </ul>
-               <!-- SAITO -->
-               <!-- bloco links projetos -->
-               <!--<ul id="projetos">-->
-               <ul id="listaProjetosDeMetas">
-
-               </ul>
-            </div>
+                  <!-- fim da barra indice de metas  -->
+                  <!-- bloco de informações -->
+                  <!-- SAITO -->
+                  <ul id="ulDetalhesMeta">
+                  </ul>
+                  <!-- SAITO -->
+                  <!-- bloco links projetos -->
+                  <!--<ul id="projetos">-->
+                  <ul id="listaProjetosDeMetas">
+                  </ul>
+               </div>
             </div>
             <!-- fim da tela 3 -->
             <!-- inicio tela 4 -->
             <div id="div_detalhesProjeto" class="box-escondido hideme">
                <div  id="detalhesProjeto" >
                   <ul id="ulDetalhesProjeto">
-                  <!-- <div class=" cor-cz-1 container-tit-subtit2 ">
-                     <div class="box-titulo line-cz">METAS J&Aacute; BENEFICIAM POPULA&Ccedil;&Atilde;O</div>
-                     <div class="box-titulo line-cz">S&atilde;o Paulo</div>
-                     <div id="status_local " class="cor-cz-2 w-100-pct box-subtitulo line-cz">Meta</div>
-                  </div>
-                  <!-- bloco de informações -->
-                  <!-- <div class="list-style reset-marg reset-padd">
-                     <ul class="listaDetalheProjeto">
-                        <li>
-                           <div class="titulo_projetos">
-                              <h3 class=" cor_3_red uppercase">Projeto</h3>
-                              <p class="padding_t_10 gray_1">Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia</p>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red">TIPO</h4>
-                              <p class="padding_t_10 gray_3">Novos serviços ou benef&iacute;cios</p>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red uppercase">Status do projeto</h4>
-                              <h1 class="pct_projeto">545,6%</h1>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red">SUBPREFEITURAS ATENDIDAS</h4>
-                              <p class="padding_t_10 gray_3">Aricanduva/Formosa/Carr&atilde;o, Butant&atilde;, Campo Limpo, Capela do Socorro, Casa Verde/Cachoeirinha, Cidade Ademar, Cidade Tiradentes, Ermelino Matarazzo, Freguesia/Brasil&acirc;ndia, Guaianases, Ipiranga, Itaim Paulista, Itaquera, Jabaquara, Ja&ccedil;an&atilde;/Trememb&eacute;, Lapa, M&#039;Boi Mirim, Mooca, Parelheiros, Penha, Perus, Pinheiros, Pirituba, Santana/Tucuruvi, Santo Amaro, S&atilde;o Mateus, S&atilde;o Miguel, Sapopemba, S&eacute;, Supra-regional, Vila Maria/Vila Guilherme, Vila Mariana, Vila Prudente</p>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red uppercase">Distrito</h4>
-                              <p class="padding_t_10 gray_3">__</p>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red">ACOMPANHAMENTO</h4>
-                              <h4 class="cor_3_red padding_t_10 ">2013</h4>
-                              <p class="padding_t_10 gray_3 padd-l-16 line-cz"><strong>369.852</strong>Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia</p>
-                              <h4 class="cor_3_red padding_t_10 ">2014</h4>
-                              <p class="padding_t_10 gray_3 padd-l-16"><strong>698.991</strong>Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia</p>
-                           </div>
-                        </li>
-                        <li>
-                           <div class="box_info">
-                              <h4 class="cor_3_red">FASES</h4>
-                              <ul class="list_interna_proj">
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Defini&ccedil;&atilde;o de Terreno (10%)</p>
-                                    </div>
-                                    <p class="text_center gray_3">CONCLU&Iacute;DA</p>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Projeto B&aacute;sico (5%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">CONCLU&Iacute;DA</p>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Garantia da fonte de financiamento (10%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">CONCLU&Iacute;DA</p>
-                                    </div>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Licenciamento (5%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">EM ANDAMENTO</p>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Licita&ccedil;&atilde;o da obra (10%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">EM ANDAMENTO</p>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Obras - Fase 1 (20%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">N&Atilde;O INICIADA</p>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Obras - Fase 2 (35%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">N&Atilde;O INICIADA</p>
-                                    </div>
-                                 </li>
-                                 <li>
-                                    <div class="border_rigth">
-                                       <p class="gray_4">Estrutura&ccedil;&atilde;o para funcionamento (5%)</p>
-                                    </div>
-                                    <div>
-                                       <p class="text_center gray_3">N&Atilde;O INICIADA</p>
-                                    </div>
-                                 </li>
-                              </ul>
-                        <li>
-                        <div class="box_info">
-                        <h4 class="cor_3_red pad_b_10px">ANDAMENTO QUALITATIVO</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
-                        </div>
-                        </li>
-                        <li>
-                        <div class="box_info">
-                        <h4 class="cor_3_red">EXECU&Ccedil;&Atilde;O OR&Ccedil;AMENT&Aacute;RIA</h4>
-                        <ul>
-                        <li>
-                        <h4 class="cor_3_red">2013</h4>
-                        <p class="padding_t_10 gray_3">__</p>
-                        </li>    
-                        <li>
-                        <h4 class="cor_3_red">2014</h4>
-                        <p class="padding_t_10 gray_3">Em revis&atilde;o</p>
-                        </li>
-                        <li>    
-                        <h4 class="cor_3_red">2015</h4>
-                        <p class="padding_t_10 gray_3">__</p>
-                        </li>
-                        <li>
-                        <h4 class="cor_3_red">2016</h4>
-                        <p class="padding_t_10 pad_b_10px gray_3">__</p>
-                        </li>
-                        </ul> 
-                        </div>
-                        </li>
-                        </div> -->
-                     </ul>
-                  </div>
+                     <!-- carrega dados do banco -->
+                  </ul>
                </div>
             </div>
          </div>
-         <!-- fim da tela 4 -->
-         
-         <!-- inicio tela 6 -->    
+
+                  <!-- fim da tela 4 -->
+
+         <!-- inicio tela 6 -->
          <div id="div_configuracao" class="" style="display: none">
             <div class="config_container">
                <div class="barra-config">
-                  Configura&ccedil;&otilde;es 
+                  Configura&ccedil;&otilde;es
                   <button class="fechar-config" ontouchend="UIS.fakeShowHideConfiguracoes()">
                   </button>
                </div>

@@ -23,6 +23,7 @@
 
             document.addEventListener("deviceready", function () {
                 console.log("in deviceready");
+                //navigator.splashscreen.show();
                 UIS.configListeners();
                 UIS.pushDiv($("#div_metasStatus"));
                 initDB();

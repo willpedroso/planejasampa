@@ -16,24 +16,11 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
     <platform name="android">
-        <preference name="SplashScreenDelay" value="2000" />
-        <preference name="SplashScreen" value="screen" />
-        <!-- you can use any density that exists in the Android project -->
-        <splash src="res/android/splash.png" density="land-hdpi"/>
-        <splash src="res/android/splash.png" density="land-ldpi"/>
-        <splash src="res/android/splash.png" density="land-mdpi"/>
-        <splash src="res/android/splash.png" density="land-xhdpi"/>
-    
-        <splash src="res/android/splash.png" density="port-hdpi"/>
-        <splash src="res/android/splash.png" density="port-ldpi"/>
-        <splash src="res/android/splash.png" density="port-mdpi"/>
-        <splash src="res/android/splash.png" density="port-xhdpi"/>
-
-        <icon src="res/android/icon.png" density="hdpi"/>
-        <icon src="res/android/icon.png" density="ldpi"/>
-        <icon src="res/android/icon.png" density="mdpi"/>
-        <icon src="res/android/icon.png" density="xhdpi"/>
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
