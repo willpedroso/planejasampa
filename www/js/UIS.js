@@ -377,6 +377,12 @@ var UIS = {
 	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
 	        //console.log("Lista de metas por status");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				//alert ("idRegistro_" + event.target.getAttribute('idRegistro') + "_")
+				if (event.target.getAttribute('idRegistro') == "") {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -393,6 +399,11 @@ var UIS = {
 	    this.ul_listaObjetivos.bind("touchend", (function (event) {
 	        //console.log("Lista de metas por objetivo");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idRegistro') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -411,6 +422,11 @@ var UIS = {
             event.stopImmediatePropagation();
 
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idMeta') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -426,6 +442,11 @@ var UIS = {
 	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
 			//console.log("Detalhes de projeto");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idProjeto') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -800,12 +821,13 @@ var UIS = {
             for (var i = 0; i < ano.length; i++) {
                 acompanha +=
                                             "<h4 class='cor_3_red padding_t_10'>" +
-                                                ano[i] + " - "
+                                                ano[i] + 
                                             "</h4>" +
                                             "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
                                                 acumuladoAno[i] +
                                                 "</strong>" +
-                                                "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                                //"Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+												" " + dados.rows.item(0).NAME_PROJETO +
                                             "</p>";
 
             }
