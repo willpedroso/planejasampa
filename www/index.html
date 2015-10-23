@@ -172,9 +172,10 @@
                               Clique no bot&atilde;o abaixo para atualizar os dados do aplicativo.
                            </p>
                            <p>
-                              <strong>Ultima atualiza&ccedil;&atilde;o</strong><br />
-                              <span class="dataconfig">12/08/2015 - 12:23</span><br/><br/>
-                              <button class="bt-atualizar-dados">
+                              <strong>Última atualiza&ccedil;&atilde;o</strong><br />
+                              <!--<span class="dataconfig">12/08/2015 - 12:23</span><br/><br/>-->
+                              <span class="dataconfig" id="div_ultima_atualizacao"></span><br/><br/>
+                              <button class="bt-atualizar-dados" onclick="BANCODADOS.updateDataGoals(bt_didUpdate, bt_didNotUpdate, bt_failUpdate)">
                               ATUALIZAR DADOS
                               </button>
                            </p>

@@ -156,6 +156,8 @@ var BANCODADOS = {
     // Efetua a atualização de dados
     doUpdate: function () {
         console.log("doUpdate URL = " + BANCODADOS.urlDoUpdate);
+        UIS.showTelaAguarde("Atualizando os dados...");
+		
         // todo: testes - retirar
         BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
         BANCODADOS.bUpdated = true;
@@ -187,6 +189,9 @@ var BANCODADOS = {
     // **********************************************************************************************************
     updateDataGoals: function (sucDidUpdate, sucDidNotUpdate, fail) {
         console.log("Iniciando update de dados do sistema...");
+		
+        UIS.showTelaAguarde("Verificando a atualização de dados...");
+		
         this.cbFail_f = fail;
 
         this.cbSuccess_DidNotUpdate = sucDidNotUpdate;

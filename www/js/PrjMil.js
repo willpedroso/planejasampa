@@ -1,7 +1,7 @@
 var PRJMIL = {
     MilPrj: null,
     popula: function () {
-        alert ("popula MilPrj");
+        //alert ("popula MilPrj");
         this.MilPrj = "[\
 {\
 \"id\" : 1,\
