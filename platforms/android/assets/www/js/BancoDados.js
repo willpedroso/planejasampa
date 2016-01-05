@@ -156,6 +156,8 @@ var BANCODADOS = {
     // Efetua a atualização de dados
     doUpdate: function () {
         console.log("doUpdate URL = " + BANCODADOS.urlDoUpdate);
+        UIS.showTelaAguarde("Atualizando os dados...");
+		
         // todo: testes - retirar
         BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
         BANCODADOS.bUpdated = true;
@@ -187,6 +189,9 @@ var BANCODADOS = {
     // **********************************************************************************************************
     updateDataGoals: function (sucDidUpdate, sucDidNotUpdate, fail) {
         console.log("Iniciando update de dados do sistema...");
+		
+        UIS.showTelaAguarde("Verificando a atualização de dados...");
+		
         this.cbFail_f = fail;
 
         this.cbSuccess_DidNotUpdate = sucDidNotUpdate;
@@ -207,7 +212,6 @@ var BANCODADOS = {
         BANCODADOS.auxVar_1 = idProject;
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
-        // todo: corrigir comando sql, faltando lista de subprefeituras atendidas e fases
         BANCODADOS.sqlCmdDB("SELECT NAME_PROJETO, \
                             TIPO_PROJETO, \
                             ACOMPANHAMENTO_PROJETO, \
@@ -227,7 +231,6 @@ var BANCODADOS = {
 
     getProjectDetailsSuccess: function (trans, res) {
         console.log("getProjectDetailsSuccess");
-        //var dados = [];
 
         // Retorna
         BANCODADOS.cbSuccess_f(BANCODADOS.auxVar_2, BANCODADOS.auxVar_3, BANCODADOS.prjFase, res);
@@ -316,7 +319,6 @@ var BANCODADOS = {
         BANCODADOS.auxVar_1 = BANCODADOS.vIdGoal = idGoal;
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
-        // todo: revisar comando sql, faltando descrição do status, lista de tipos de projeto e lista de projetos
         BANCODADOS.sqlCmdDB("SELECT ID_META, \
                             STATUS_META, \
                             ACOMPANHAMENTO_META, \
@@ -403,7 +405,6 @@ var BANCODADOS = {
 
     getObjectivesGoalsListSuccess: function (trans, res) {
         console.log("getObjectivesGoalsListSuccess");
-        var dados = [];
 
         // Retorna
         BANCODADOS.cbSuccess_f(res);
@@ -451,7 +452,6 @@ var BANCODADOS = {
 
     getStatusGoalsListSuccess: function (trans, res) {
         console.log("getStatusGoalsListSuccess");
-        var dados = [];
 
         // Retorna
         BANCODADOS.cbSuccess_f(res);
@@ -480,7 +480,6 @@ var BANCODADOS = {
 
     getPrefecturesSuccess: function (trans, res) {
         console.log("getPrefecturesSuccess");
-        var dados = [];
         UIS.fillDivPrefectures(res);
 
         if (BANCODADOS.cbSuccess_f != null) {
@@ -512,7 +511,6 @@ var BANCODADOS = {
     getObjectivesGoalsSuccess: function (trans, res) {
         console.log("getObjectivesGoalsSuccess");
         // Salva lista de tipos de status
-        //for (var i = 0; i < BANCODADOS.tiposObjetivos.length; i++) {
         while (BANCODADOS.tiposObjetivos.length > 0) {
             BANCODADOS.tiposObjetivos.pop();
         }
@@ -540,29 +538,39 @@ var BANCODADOS = {
     // **********************************************************************************************************
     // Busca de metas, por subprefeitura (por status e por objetivo)
     // **********************************************************************************************************
-    getStatusGoalsPrefecture: function (idPrefecture) {
+    getStatusGoalsPrefecture: function (idPrefecture, blistaMetas) {
         console.log("getStatusGoalsPrefecture");
         console.log("idPrefecture = " + idPrefecture);
         // Retorno de sucesso e falha já foram definidos anteriormente, na abertura da aplicação
         // BANCODADOS.cbSuccess_f = cbSuc;
         // BANCODADOS.cbFail_f = cbFail;
-        if ((BANCODADOS.vIdPrefecture = idPrefecture) == "Sao Paulo") {
+        if ((BANCODADOS.vIdPrefecture = idPrefecture) == "Sao Paulo" &&
+			blistaMetas == false) {
+			// Não está na tela de lista de metas
             // Desconsidera a subprefeitura
             BANCODADOS.getStatusGoals(true, null);
         }
         else {
             // Obtém os projetos associados a prefeitura selecionada
-            BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS WHERE PREFEITURA_ID = ?" + 
-								" UNION " +
-								"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS WHERE PREFEITURA_ID = ?", 
-								[idPrefecture, idPrefecture], BANCODADOS.getStatusGoalsPrefectureP1Success, BANCODADOS.getStatusGoalsPrefectureP1Fail);
+			if (blistaMetas == true && idPrefecture == "Sao Paulo") {
+				// Desconsidera a subprefeitura, mas precisa das informações detalhadas, pois a tela de lista de metas é a tela atual
+				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS" + 
+									" UNION " +
+									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS", 
+									[], BANCODADOS.getStatusGoalsPrefectureP1Success, BANCODADOS.getStatusGoalsPrefectureP1Fail);
+			}
+			else {
+				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS WHERE PREFEITURA_ID = ?" + 
+									" UNION " +
+									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS WHERE PREFEITURA_ID = ?", 
+									[idPrefecture, idPrefecture], BANCODADOS.getStatusGoalsPrefectureP1Success, BANCODADOS.getStatusGoalsPrefectureP1Fail);
+			}
         }
     },
 
     getStatusGoalsPrefectureP1Success: function (trans, res) {
         console.log("getStatusGoalsPrefectureP1Success");
         // Monta lista de projetos
-        //for (var i = 0; i < BANCODADOS.auxListVar_1.length; i++) {
         while (BANCODADOS.auxListVar_1.length > 0) {
             BANCODADOS.auxListVar_1.pop();
         }
@@ -570,7 +578,6 @@ var BANCODADOS = {
             BANCODADOS.auxListVar_1.push(res.rows.item(i).PROJETO_ID);
         }
         BANCODADOS.auxVar_1 = 0;
-        //for (var i = 0; i < BANCODADOS.statusGoalsListPrefecture.length; i++) {
         while (BANCODADOS.statusGoalsListPrefecture.length > 0) {
             BANCODADOS.statusGoalsListPrefecture.pop();
         }
@@ -581,7 +588,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP2Success: function (trans, res) {
-        //alert("getStatusGoalsPrefectureP2Success");
+        //console.log("getStatusGoalsPrefectureP2Success");
         if (res.rows.length > 1 || res.rows.length == 0) {
             // Inconsistência no banco: mais de uma meta por projeto
             if (BANCODADOS.cbFail_f != null) {
@@ -592,7 +599,7 @@ var BANCODADOS = {
             }
             return;
         }
-        //alert("META_ID = " + res.rows.item(0).META_ID);
+
         var MetaIDEncontrada = false;
         // Verifica se a meta já está na lista
         for (var i = 0; i < BANCODADOS.statusGoalsListPrefecture.length; i++) {
@@ -716,7 +723,6 @@ var BANCODADOS = {
     getStatusGoalsSuccess: function (trans, res) {
         console.log("getStatusGoalsSuccess");
         // Salva lista de tipos de status
-        //for (var i = 0; i < BANCODADOS.tiposStatus.length; i++) {
         while (BANCODADOS.tiposStatus.length > 0) {
             BANCODADOS.tiposStatus.pop();
         }
@@ -783,7 +789,6 @@ var BANCODADOS = {
             BANCODADOS.msgMonProjects[BANCODADOS.countReg].vl + "', '" +
             BANCODADOS.msgMonProjects[BANCODADOS.countReg].up + "'";
         }
-        //alert(Dados);
         trans.executeSql(Dados, [], null, null);
     },
 
@@ -808,7 +813,6 @@ var BANCODADOS = {
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].up + "' AS 'ATUALIZACAO_MARCO'";
         BANCODADOS.countReg++;
         for (var i = 1; (BANCODADOS.countReg < BANCODADOS.msgMilProjects.length) && (i < BANCODADOS.maxReg) ; BANCODADOS.countReg++, i++) {
-        //for (var i = 1; i < BANCODADOS.msgMilProjects.length; i++) {
             Dados += " UNION ALL SELECT " + BANCODADOS.countReg + ", '" +
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].id + "', '" +
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].pjid + "', '" +
@@ -817,7 +821,6 @@ var BANCODADOS = {
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].st + "', '" +
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].up + "'";
         }
-        //alert(Dados);
         trans.executeSql(Dados, [], null, null);
     },
 
@@ -880,7 +883,6 @@ var BANCODADOS = {
             BANCODADOS.msgProjects[BANCODADOS.countReg].up + "', '" +
             BANCODADOS.msgProjects[BANCODADOS.countReg].acp + "'";
         }
-        //alert(Dados);
         trans.executeSql(Dados, [], null, null);
     },
 
@@ -912,7 +914,6 @@ var BANCODADOS = {
             BANCODADOS.msgPrefectures[i].long + "', '" +
             BANCODADOS.msgPrefectures[i].up + "'";
         }
-        //alert(Dados);
         trans.executeSql(Dados, [], null, null);
 
     },
@@ -975,7 +976,6 @@ var BANCODADOS = {
             BANCODADOS.msgGoals[i].snm + "', '" +
             BANCODADOS.msgGoals[i].sup + "'";
         }
-        //alert(Dados);
         trans.executeSql(Dados, [], null, null);
 
     },

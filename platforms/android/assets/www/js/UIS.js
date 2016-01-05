@@ -183,7 +183,7 @@ var UIS = {
             $('#listaSubprefeituras_metas option[value="' + $("#selectListaSubprefeituras option:selected").val() + '"]').attr({ selected : "selected"});
 
             UIS.showTelaAguarde("Atualizando lista de metas por status...");
-            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"));
+            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeituras.attr("value"), false);
         }).bind(this));
 
         // Subprefeitura selecionada na tela de lista de metas
@@ -195,7 +195,7 @@ var UIS = {
             $('#selectListaSubprefeituras option[value="' + $("#listaSubprefeituras_metas option:selected").val() + '"]').attr({ selected : "selected"});
 
             UIS.showTelaAguarde("Atualizando lista de metas...");
-            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"));
+            BANCODADOS.getStatusGoalsPrefecture(this.select_ListaSubprefeiturasMetas.attr("value"), true);
         }).bind(this));
 
         // Altera a meta selecionada
@@ -303,7 +303,6 @@ var UIS = {
 
 	    // Botão para visualização das configurações
 	    this.bt_Configure.bind("touchend", (function () {
-	    	//alert("estado = " + UIS.div_configuracao.attr("style"));
             if (UIS.div_configuracao.attr("style") == "display: none") {
                 // Apresenta div de configurações
                 UIS.div_configuracao.attr("style", "display: block");
@@ -377,6 +376,11 @@ var UIS = {
 	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
 	        //console.log("Lista de metas por status");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idRegistro') == "") {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -393,6 +397,11 @@ var UIS = {
 	    this.ul_listaObjetivos.bind("touchend", (function (event) {
 	        //console.log("Lista de metas por objetivo");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idRegistro') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -411,6 +420,11 @@ var UIS = {
             event.stopImmediatePropagation();
 
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idMeta') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -426,6 +440,11 @@ var UIS = {
 	    this.ul_listaProjetosDeMetas.bind("touchend", (function (event) {
 			//console.log("Detalhes de projeto");
 	        if(this.dragging == false) {
+				// Não efetua navegação se não houver registro selecionado pelo click
+				if (event.target.getAttribute('idProjeto') == null) {
+					return;
+				}
+				
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
@@ -800,12 +819,13 @@ var UIS = {
             for (var i = 0; i < ano.length; i++) {
                 acompanha +=
                                             "<h4 class='cor_3_red padding_t_10'>" +
-                                                ano[i] + " - "
+                                                ano[i] + 
                                             "</h4>" +
                                             "<p class='padding_t_10 gray_3 padd-l-16 line-cz'><strong>" +
                                                 acumuladoAno[i] +
                                                 "</strong>" +
-                                                "Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+                                                //"Fam&iacute;lias beneficiadas com o Programa Bolsa Fam&iacute;lia" +
+												" " + dados.rows.item(0).NAME_PROJETO +
                                             "</p>";
 
             }

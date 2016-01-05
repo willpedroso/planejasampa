@@ -84,12 +84,14 @@
             function getGoals() {
                 // Obtém as metas
                 console.log("Buscando metas")
+				UIS.showTelaAguarde("Carregando dados do banco...");
                 BANCODADOS.initGetStatusGoals(true, null, getGoalsSuccess, getGoalsFail);
             }
 
             function getGoalsSuccess() {
                 console.log("getGoalsSuccess");
                 // As metas foram obtidas com sucesso
+                UIS.hideTelaAguarde();
             }
 
             function getGoalsFail(err) {
@@ -110,7 +112,9 @@
 
             function bt_didUpdate() {
                 console.log("bt_didUpdate");
-                //alert("Atualização efetuada com sucesso");
+                UIS.hideTelaAguarde();
+
+                alert("Atualização efetuada com sucesso!");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
@@ -126,13 +130,17 @@
 
             function automatic_didNotUpdate() {
                 console.log("automatic_didNotUpdate");
-                //alert("Os dados já estão atualizados.");
+                UIS.hideTelaAguarde();
+
+                alert("Os dados já estão atualizados!");
                 getGoals();
             }
 
             function automatic_didUpdate() {
                 console.log("automatic_didUpdate");
-                //alert("Atualização efetuada com sucesso");
+                UIS.hideTelaAguarde();
+
+                alert("Atualização efetuada com sucesso!");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
