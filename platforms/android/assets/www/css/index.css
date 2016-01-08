@@ -150,13 +150,12 @@ button{
     width: 15%;
     padding-top: 15px;
     height: 40px;
-    background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');
+    background-image:  url('../img/icoLupa.gif');
     background-size: 24px 24px;
     background-position: center center;
     background-repeat: no-repeat;
 
 }
-
 .logo{
     float: left;
     width: 70%;
