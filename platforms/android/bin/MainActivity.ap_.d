@@ -1,31 +1,17 @@
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\MainActivity.ap_ \
  : C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable\icon.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-hdpi\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-land-hdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-land-ldpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-land-mdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-land-xhdpi\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-ldpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-mdpi\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-port-hdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-port-ldpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-port-mdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-port-xhdpi\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-xhdpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\values\strings.xml \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\xml\config.xml \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable\icon.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-hdpi\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-land-hdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-land-ldpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-land-mdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-land-xhdpi\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-ldpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-mdpi\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-port-hdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-port-ldpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-port-mdpi\screen.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-port-xhdpi\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-xhdpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\_where-is-www.txt \
@@ -63,6 +49,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\fechar.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\img_topo.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam_metas-01.png \
@@ -83,6 +70,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_left_black_18dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_left_black_24dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_left_black_36dp.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_left_black_48dp (2).png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_left_black_48dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_right_black_18dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_chevron_right_black_24dp.png \
@@ -120,7 +108,6 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_view_headline_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\ic_view_headline_black_48dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_chevron_left_black_24dp.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_chevron_left_black_48dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_view_headline_black_24dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons\__ic_view_headline_black_36dp.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js\BancoDados.js \

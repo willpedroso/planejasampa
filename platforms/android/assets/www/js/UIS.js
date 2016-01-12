@@ -467,9 +467,12 @@ var UIS = {
         // Mostra a tela de aguarde
         this.div_Aguarde.removeClass('dspl-nn');
         var msg = "";
-        msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
-                    msgAguarde +
-                "</h3>";
+        // msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+        //             msgAguarde +
+        //         "</h3>";
+        msg += "<img src='/img/logo.png' />";
+
+
         this.msg_Aguarde.empty();
         this.msg_Aguarde.append(msg);
         this.div_Aguarde.addClass('dspl-blk');
