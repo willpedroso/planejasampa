@@ -1,9 +1,5 @@
 #Last build type
-<<<<<<< HEAD
-#Fri, 08 Jan 2016 14:57:36 -0200
-=======
-#Fri, 08 Jan 2016 15:57:52 -0200
->>>>>>> versao_splash
+#Fri, 08 Jan 2016 16:09:01 -0200
 
 build.last.target=debug
 
