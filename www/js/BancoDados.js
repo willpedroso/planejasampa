@@ -205,7 +205,8 @@ var BANCODADOS = {
     // Efetua a atualização de dados
     doUpdate: function () {
         console.log("doUpdate URL = " + BANCODADOS.urlDoUpdate);
-        UIS.showTelaAguarde("Atualizando os dados...");
+        //UIS.showTelaAguarde("Atualizando os dados...");
+        UIS.showTelaAguarde("<img src='../img/loading_mywalit.gif' />");
 		
         // todo: testes - retirar
         BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
