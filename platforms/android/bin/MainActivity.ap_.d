@@ -50,6 +50,11 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\img_topo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit.gif \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_2.gif \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_3.gif \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_4.gif \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_5.gif \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_6.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\logo_prodam_metas-01.png \

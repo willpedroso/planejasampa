@@ -467,10 +467,13 @@ var UIS = {
         // Mostra a tela de aguarde
         this.div_Aguarde.removeClass('dspl-nn');
         var msg = "";
-        // msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
-        //             msgAguarde +
-        //         "</h3>";
-        msg += "<img src='/img/logo.png' />";
+         msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+                     "Atualizando os dados..." +
+                 "</h3>" +
+                 "<div class='font-br txt-alg-c' id='msgAguarde'>" +
+                     "<img src='img/loading_mywalit_6.gif' width='200px'>" +
+                 "</div>";
+        
 
 
         this.msg_Aguarde.empty();
@@ -612,7 +615,7 @@ var UIS = {
                                     UIS.txtStatusMetas[dados.rows.item(i).STATUS_META] +
                                 "</span>" +
                             "</div>" +
-                            "<div class='col-50-r font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>" +
+                            "<div class='valor_perc font-4-em  marg-b-16 cor_cz3e font-b lettr-spacing-tit-pct'>" +
                                 //"100%" +
                                 dados.rows.item(i).ACOMPANHAMENTO_META +
                             "</div>"+

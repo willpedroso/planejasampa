@@ -251,7 +251,7 @@ button{
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
     background-repeat: no-repeat;
     background-position: 95% center;
-    padding: 5px 19px 0 0;
+    padding: 3px 19px 0 0;
 }
 .padding_t_54{
     padding-top: 54px;
@@ -965,13 +965,20 @@ ul#ulDetalhesMeta li{
     
     
 }
+.valor_perc{
+    text-align: center;
+    float: right;
+    width: 100%;
+    height: auto;
+    margin-left:4px;
+} 
+
 .col-50-r{
     float: right;
     width: 48%;
     height: auto;
     margin-left:4px;
-   
-    
+
 }
 
 .txt-algn-c{
