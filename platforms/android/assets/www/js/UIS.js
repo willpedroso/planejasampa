@@ -63,6 +63,9 @@ var UIS = {
     div_Aguarde: null,
     msg_Aguarde: null,
 
+    // flag para controle do botão Voltar do header
+    colocaBotaoVoltar: false,
+
     // Controle de click
     aguardaTransicaoTela: false,
         
@@ -271,6 +274,12 @@ var UIS = {
                 if (UIS.array_Divs.length == 1){
     	            return;
                 }else{
+                    //Esconde o botão voltar
+                    if (UIS.array_Divs.length == 2){
+                            UIS.bt_Voltar.removeClass("bt_voltar");
+                            UIS.bt_Voltar.addClass("bt_voltar_none");
+                            UIS.colocaBotaoVoltar = false;
+                    }
                     voltar();
                 }
             }
@@ -302,17 +311,50 @@ var UIS = {
         }).bind(this));
 
 	    // Botão para visualização das configurações
-	    this.bt_Configure.bind("touchend", (function () {
-            if (UIS.div_configuracao.attr("style") == "display: none") {
+	    // this.bt_Configure.bind("touchend", (function () {
+     //        if (UIS.div_configuracao.attr("style") == "display: none") {
+     //            // Apresenta div de configurações
+     //            UIS.div_configuracao.attr("style", "display: block");
+     //            //anima div configuraçoes
+     //            showTela(div_configuracao);
+     //            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
+     //        }
+     //        else {
+     //            // Esconde div de configuração
+     //            UIS.div_configuracao.attr("style", "display: none");
+     //            UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+     //            // Verifica se houve atualização de dados
+     //            if (BANCODADOS.bUpdated) {
+     //                BANCODADOS.bUpdated = false;
+     //                // Houve atualização de dados, volta para a tela de metas por status
+     //                //console.log("Dados atualizados. Volta para a tela de metas por status");
+     //                UIS.resetDivStack();
+     //                //console.log("clicou")
+     //            }
+     //        }
+     //    }).bind(this));
+
+
+        // Botão para visualização das configurações
+         this.bt_Configure.bind("touchend", (function () {
+            if (UIS.div_configuracao.hasClass('hideme')) {
+                
                 // Apresenta div de configurações
-                UIS.div_configuracao.attr("style", "display: block");
-                UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
+                //UIS.div_configuracao.attr("style", "display: block");
+                //anima div configuraçoes
+                showTelaConf(div_configuracao);
+
+                //UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: none");
             }
             else {
+
                 // Esconde div de configuração
-                UIS.div_configuracao.attr("style", "display: none");
-                UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+               // UIS.div_configuracao.attr("style", "display: none");
+                //UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
                 // Verifica se houve atualização de dados
+                //anima div configuraçoes
+                hideTela(div_configuracao);
+
                 if (BANCODADOS.bUpdated) {
                     BANCODADOS.bUpdated = false;
                     // Houve atualização de dados, volta para a tela de metas por status
@@ -320,6 +362,7 @@ var UIS = {
                     UIS.resetDivStack();
                     //console.log("clicou")
                 }
+                
             }
         }).bind(this));
 
@@ -374,27 +417,36 @@ var UIS = {
 
 	    // Navegação da tela de metas por status para a tela de lista de metas
 	    this.ul_ListaMetasStatus.bind("touchend", (function (event) {
+
 	        //console.log("Lista de metas por status");
 	        if(this.dragging == false) {
 				// Não efetua navegação se não houver registro selecionado pelo click
 				if (event.target.getAttribute('idRegistro') == "") {
 					return;
 				}
-				
+
+                if (event.target.getAttribute('countRegistro') == "0") {
+                    return;
+                }
+
+                //mostra o botão voltar
+                UIS.colocaBotaoVoltar = true;
+
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
                     return;
                 }
                 UIS.aguardaTransicaoTela = true;
-
                 UIS.tipoMeta = UIS.txtStatusMetas[event.target.getAttribute('idRegistro')];
 	        	BANCODADOS.getStatusGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
+
 	    }).bind(this));
 
 	    // Navegação da tela de metas por objetivo para a tela de lista de metas
 	    this.ul_listaObjetivos.bind("touchend", (function (event) {
+           
 	        //console.log("Lista de metas por objetivo");
 	        if(this.dragging == false) {
 				// Não efetua navegação se não houver registro selecionado pelo click
@@ -402,13 +454,15 @@ var UIS = {
 					return;
 				}
 				
+                //mostra o botão voltar
+                UIS.colocaBotaoVoltar = true;
+
                 // Evita clicks durante a transição da tela
                 console.log("Click!!!");
                 if (UIS.aguardaTransicaoTela == true) {
                     return;
                 }
                 UIS.aguardaTransicaoTela = true;
-
                 UIS.tipoMeta = event.target.getAttribute('idRegistro');
 	        	BANCODADOS.getObjectivesGoalsList(event.target.getAttribute('idRegistro'), null, UIS.prepareShowListaMetas, null);
 	    	}
@@ -467,19 +521,38 @@ var UIS = {
         // Mostra a tela de aguarde
         this.div_Aguarde.removeClass('dspl-nn');
         var msg = "";
-         msg += "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
-                     "Atualizando os dados..." +
+         msg += "<div class='box_msg z-idx-102'>"+"<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+                     msgAguarde +
                  "</h3>" +
                  "<div class='font-br txt-alg-c' id='msgAguarde'>" +
-                     "<img src='img/loading_mywalit_6.gif' width='200px'>" +
-                 "</div>";
-        
+                     "<img src='img/Loading_metas.gif' width='100px' margin-top='20px'>" +
+                 "</div>" + "</div>";
+
 
 
         this.msg_Aguarde.empty();
         this.msg_Aguarde.append(msg);
         this.div_Aguarde.addClass('dspl-blk');
     },
+
+    showTelaErro: function(msgErro){
+        // Mostra a tela de aguarde
+        this.div_Aguarde.removeClass('dspl-nn');
+        var msg = "";
+         msg += "<div class='box_msg'>"+"<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+                     msgErro +
+                 "</h3>" +
+                 "<div class='font-br txt-alg-c' id='msgErro'>" +
+                     "<button onclick=\"hideTelaAguarde('#div_Aguarde');\">" + "Ok" +"</button>" +
+                 "</div>" + "</div>";
+        
+        this.msg_Aguarde.append(msg);
+        this.div_Aguarde.addClass('dspl-blk');
+
+
+        this.msg_Aguarde.empty();
+    },
+
 
 	fakeShowHideConfiguracoes:function(){
 		//console.log("++++ FAKE!!!")
@@ -660,19 +733,31 @@ var UIS = {
                         "<li  class='overfl-hdd'>"+
                             "<span class='header-verm font-15'>" +
                                 "ANDAMENTO QUALITATIVO" +
-                            "</span><br />" +
+//                          "</span><br />" +
+                            "</span><br />";
+
                             //"Para calcular o incremento bruto de beneficiários no Programa Bolsa família, devemos utilizar como referência o marco zero (janeiro de 2013) e subtrair os demais períodos de levantamento da informação. Para termos o total de inclusão, soma-se os incrementos.<br/><br/>"+
-                            dados.rows.item(i).QP3_META + 
-                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
-                            "</div>" +
-                            dados.rows.item(i).QP4_META + 
-                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
-                            "</div>" +
-                            dados.rows.item(i).QP5_META + 
-                            "<div class='hspacer-line marg-t-16 marg-b-16'>" +
-                            "</div>" +
-                            dados.rows.item(i).QP6_META + "<br>" +
-                            "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
+                            if (dados.rows.item(i).QP3_META != "" && dados.rows.item(i).QP3_META != null) {
+                                nodes += dados.rows.item(i).QP3_META + 
+                                "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                                "</div>";
+                            }
+                            if (dados.rows.item(i).QP4_META != "" && dados.rows.item(i).QP4_META != null) {
+                                nodes += dados.rows.item(i).QP4_META + 
+                                "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                                "</div>";
+                            }
+                            if (dados.rows.item(i).QP5_META != "" && dados.rows.item(i).QP5_META != null) {
+                                nodes += dados.rows.item(i).QP5_META + 
+                                "<div class='hspacer-line marg-t-16 marg-b-16'>" +
+                                "</div>";
+                            }
+                            if (dados.rows.item(i).QP6_META != "" && dados.rows.item(i).QP6_META != null) {
+                                nodes += dados.rows.item(i).QP6_META + "<br>";
+                            }
+
+                            nodes += "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
+//                          "<div class='col-50-l overfl-hdd bg-cor_czf5 padd-10'>"+
                                 "<span class='header-verm font-15'>" +
                                     "PREVISTO" +
                                 "</span><br />"+
@@ -994,6 +1079,12 @@ var UIS = {
         var nodes = "";
         // Atualização de metas por status
         var count = 0;
+        var valorMetas = [];
+        var pctMetas = [];
+        var totalMetas= 0;
+        // lista de fontes disponíveis
+        var listaFontes = ['font4', 'font3', 'font2', 'font1'];
+
         for (var i = 0; i < listaStatus.length; i++) {
             count = 0;
             for (var j = 0; j < dados.length; j++) {
@@ -1002,16 +1093,79 @@ var UIS = {
                 }
             }
 
+            valorMetas[i] = count;
+        }
+
+        for(var i = 0; i < valorMetas.length; i++){
+            totalMetas += valorMetas[i];
+        }
+
+        // carrega array de percentuais
+        for(var i = 0; i < valorMetas.length; i++){
+            pctMetas[i] = Math.ceil((100 * valorMetas[i]) / totalMetas);
+        }
+
+        // ordenar do maior para o menor percentual
+        pctMetas.sort(function (a,b){return b-a});
+
+        // cria a lista de tamanhos de fonte
+        var tamFontes = [];
+        var contadorFontes = 0;
+        for (var i = 0; i < pctMetas.length; i++) {
+            if (i > 0 && tamFontes[i-1] == tamFontes[i]) {
+                // repete o fonte
+                tamFontes[i] = tamFontes[i-1];
+            }
+            else {
+                tamFontes[i] = listaFontes[contadorFontes];
+                if (contadorFontes + 1 < listaFontes.length) {
+                    contadorFontes++;
+                }
+            }
+        }
+        
+        // todo: testes retirar
+        var Print = "";
+        for (var i = 0; i < tamFontes.length; i++) {
+            Print += "Percentual: " + pctMetas[i] + " - Fonte: " + tamFontes[i] + " - Valor da Meta: " + valorMetas[i] + "\r\n";
+        }
+        console.log(Print);
+        Print = "";
+        // testes retirar
+
+        for (var i = 0; i < tamFontes.length; i++) {    
+
+            // encontra a quantidade correta para o tamanho do fonte
+            var fonteCorreto = "";
+            for (var j = 0; j < pctMetas.length; j++) {
+                
+                // todo: testes retirar
+                console.log("Calculado = " + Math.ceil(valorMetas[i] / totalMetas * 100) + " - Armazenado = " + pctMetas[j] + "\r\n");
+                // todo: testes retirar
+
+                if (Math.ceil(valorMetas[i] / totalMetas * 100) == pctMetas[j]) {
+                    fonteCorreto = tamFontes[j];
+
+                    // todo: testes retirar
+                    Print += "Percentual: " + pctMetas[j] + " - Fonte correta: " + tamFontes[j] + " - Valor da Meta: " + valorMetas[i] + "\r\n";
+                    console.log(Print);
+                    // todo: testes retirar
+
+                    break;
+                }
+            }
+
             // Monta nodes
              nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
-                        "<div idRegistro='" + listaStatus[i] + "' class='descricao_andamento  gray_4'>" +
+                        "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + valorMetas[i] + "' class='descricao_andamento  gray_4'>" +
                         this.txtStatusMetas[listaStatus[i]] +
                         "</div>" +
-                        "<div idRegistro='" + listaStatus[i] + "' class='valor_andamento cor_valor_meta'>" +
-                        count +
+                        "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + valorMetas[i] + "' class='valor_andamento cor_valor_meta " + fonteCorreto + "'>" +
+                        valorMetas[i] +
                         "</div>" +
                       "</div>";
         }
+
         UIS.ul_ListaMetasStatus.empty();
         UIS.ul_ListaMetasStatus.append(nodes);
 
@@ -1025,10 +1179,12 @@ var UIS = {
                 }
             }
             // Monta nodes
-            nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + listaObjetivos[i]+ "'>" +
-                        "<div class='desc_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + listaObjetivos[i] + "</div>" +
-                        "<div class='valor_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + count + "</div>" +
-                     "</div>";
+            if(count > 0){
+                nodes += "<div class='item_objetivo border_bottom_gray' idRegistro='" + listaObjetivos[i]+ "'>" +
+                            "<div class='desc_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + listaObjetivos[i] + "</div>" +
+                            "<div class='valor_objetivo' idRegistro='" + listaObjetivos[i]+ "'>" + count + "</div>" +
+                         "</div>";
+             }
         }
         UIS.ul_listaObjetivos.empty();
         UIS.ul_listaObjetivos.append(nodes);
@@ -1231,8 +1387,63 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
             // Libera uso do click
             UIS.aguardaTransicaoTela = false;
             console.log("Liberando click!!!");
+
+            if (UIS.colocaBotaoVoltar == true) {
+                UIS.bt_Voltar.removeClass("bt_voltar_none");
+                UIS.bt_Voltar.addClass("bt_voltar");
+            }
         });
     }
+
+
+ function showTelaConf(tela){
+        console.log("SHOWTELA(): ",UIS.array_Divs.length );
+
+        $(tela).removeClass('hideme');
+        $(tela).removeClass('box-escondido');
+        $(tela).addClass('box-ativo');
+        $(tela).addClass('showme').one(transitionsevents,function(){
+
+               if($(tela).hasClass('box-ativo')){
+
+                    $(tela).addClass('bgAlpha');
+
+               }else{
+
+                $(aba).removeClass('bgAlpha');
+
+               }
+            // if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {
+            //     //oculta a tela metas por objetivos transição para lista de metas
+            //     UIS.div_metasObjetivos.attr("style", "display: none");
+            //     //console.log("div_metasObjetivos - none");
+            // }
+
+            // console.log("Mostra a tela!!");
+
+            // // Libera uso do click
+            // UIS.aguardaTransicaoTela = false;
+            // console.log("Liberando click!!!");
+
+            // if (UIS.colocaBotaoVoltar == true) {
+            //     UIS.bt_Voltar.removeClass("bt_voltar_none");
+            //     UIS.bt_Voltar.addClass("bt_voltar");
+            // }
+        });
+       
+    }
+    function hideTela(aba){
+
+        $(aba).removeClass('showme');
+        $(aba).removeClass('box-ativo');
+        $(aba).removeClass('bgAlpha');
+        $(aba).addClass('box-escondido');
+        $(aba).addClass('hideme');
+        
+        console.log("hideTela(): ",UIS.array_Divs.length );
+    }
+
+
 
     function voltar(){
         console.log("VOLTAR() - Entrada: ",UIS.array_Divs.length );
@@ -1241,6 +1452,10 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
         if (UIS.array_Divs.length == 1){
              return;
         }else{
+
+            // Evita click durante a transição de voltar
+            UIS.aguardaTransicaoTela = true;
+            console.log("Bloqueia click: " + UIS.aguardaTransicaoTela);
 
             UIS.animandovoltar = true;
 
@@ -1267,6 +1482,9 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
 
 				UIS.animandovoltar = false;
 
+                // Evita click durante a transição de voltar
+                UIS.aguardaTransicaoTela = false;
+                console.log("Desbloqueia click: " + UIS.aguardaTransicaoTela);
 			});
         }
         console.log("VOLTAR() - Saida: ",UIS.array_Divs.length );

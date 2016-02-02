@@ -18,6 +18,24 @@
  */
 
 
+@font-face {
+    font-family: "Roboto-Black";
+    src: url("../fonts/Roboto-Black.ttf"); /* para IE */
+    src: url("../fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-medium";
+    src: url("../fonts/Roboto-medium.ttf"); /* para IE */
+    src: url("../fonts/Roboto-medium.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("../fonts/Montserrat-Bold.ttf"); /* para IE */
+    src: url("../fonts/Montserrat-Bold.ttf");
+}
+Montserrat-Bold.ttf
 
 * {
    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -46,7 +64,7 @@ body, p{
 
  #header {
     position: fixed;
-    z-index: 9999;
+    z-index: 100;
     width: 100%;
     height: 55px;
     background-color: #fff;
@@ -150,7 +168,23 @@ button{
     width: 15%;
     padding-top: 15px;
     height: 40px;
-    background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');
+    background-image:  url('../img/icons/ic_arrow_back_black_36dp.png');
+    background-size: 24px 24px;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+
+.bt_voltar_none{
+    margin-top: 10px;
+    border: 0;
+    background: none;
+    display: block;
+    float:left;
+    width: 15%;
+    padding-top: 15px;
+    height: 40px;
+    /*background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');*/
     background-size: 24px 24px;
     background-position: center center;
     background-repeat: no-repeat;
@@ -214,6 +248,7 @@ button{
 .distrito select {
     outline-style: none;
     padding-right: 20px;
+    padding-top: 7px;
     text-align: left;
     float: right;
     color:#212121;
@@ -422,7 +457,7 @@ button{
 .status_metas {
     background-image: url(../img/background.png);
     background-repeat: no-repeat;
-    background-position: 0% -8px;
+    background-position: 4% -8px;
     background-size: 201%;
     width: 50%;
     height: 100%;
@@ -517,7 +552,7 @@ button{
     height: auto;
     border-bottom: 1px solid #ccc;
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-position: center right;
+    background-position: 95% center;
     background-repeat: no-repeat;
     text-decoration: none;
     list-style: none;
@@ -529,7 +564,7 @@ button{
     /*margin-top: 10px;*/
     float: left;
     text-align: center;
-    width: 35%;
+    width: 34%;
     padding-right: 16px;
 }
 
@@ -555,7 +590,7 @@ button{
     float: left;
     width: 65%;
     height: auto;
-    padding: 0 16px 0 16px;
+    padding: 0 23px 0 13px;
     line-height: 22px;
     min-height: 96px;
     border-left: 1px solid #ccc; 
@@ -1127,26 +1162,34 @@ margin: 0 auto;
 float: right;
 width: 65%;
 height: 50px;
-padding: 0px 15px 0 0;
+padding: 0px 20px 0 0;
 }
 
 /****** CONFIG *****/
 
+.bgAlpha{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 #div_configuracao{
     width: 100%;
     position: fixed;
-    z-index: 10;
+    height: 100%;
 }
 
 .config_container{
-    width: 100%;
-    background-color:#eeeeee;
-    border: 1px ;
+    width: 85%;
+    background-color: #eeeeee;
+    border: 1px;
+    padding-bottom: 42%;
+    float: right;
+    min-height: 100%;
 }
 
 .config_container p{
     margin: 16px 0 16px 0;
     line-height: 1.6;
+
 }
 
 
@@ -1170,7 +1213,7 @@ padding: 0px 15px 0 0;
 }
 
 .ico-nuvem{
-    background: url('../img/config-nuvem.png') no-repeat 16px center ;
+    background: url('../img/config-nuvem.png') no-repeat 25px center ;
     background-size: 25px 25px;
     height: 44px;
     line-height: 2.6;
@@ -1178,7 +1221,7 @@ padding: 0px 15px 0 0;
 }
 
 .ico-exclamacao{
-    background: url('../img/config-exclamacao.png') no-repeat 16px center;
+    background: url('../img/config-exclamacao.png') no-repeat 25px center;
      background-size: 25px 25px;
     height: 44px;
     line-height: 2.6;
@@ -1186,7 +1229,7 @@ padding: 0px 15px 0 0;
 }
 
 .ico-chave{
-    background: url('../img/chave.png') no-repeat 16px center;
+    background: url('../img/chave.png') no-repeat 25px center;
      background-size: 25px 25px;
     height: 44px;
     line-height: 2.6;
@@ -1209,7 +1252,7 @@ ul.lista-config li{
     font-weight: bold;
     color: #212121;
     display: block;
-    padding-left: 72px;
+    padding-left: 67px;
     border-bottom: 1px solid  #d7d7d7;
 }
 
@@ -1392,7 +1435,11 @@ ul.list_interna_proj li{
 }
 
 #div_desenvolvimento{
-    padding-left: 55px !important;
+    padding-left: 29px !important;
+}
+
+#div_desenvolvimento p{
+    padding-left: 15px;
 }
 .logo_prodam_des{
     padding: 10px 0 10px 0;
@@ -1406,6 +1453,14 @@ ul.list_interna_proj li{
 
 .z-idx-102{
     z-index: 102;
+}
+
+.z-idx-101{
+    z-index: 101;
+}
+
+.z-idx-100{
+    z-index: 100;
 }
 
 .dspl-nn{
@@ -1441,3 +1496,37 @@ ul.list_interna_proj li{
     text-align: center;
 }
 
+/*classe para box de alerta e mensagens*/
+
+.box_msg{
+    width: 240px;
+    background-color: #fff;
+    height: auto;
+    border-radius: 4px;
+    padding: 10px 0 10px 0;
+    margin: 103px 0px 0 30px;
+}
+
+.box_msg h3{
+    color: #212121;
+    margin: 7px 0 10px 0;
+}
+
+
+/*classe para tamanho da fonte na tela inicial*/
+
+.font1{
+    font-size: 14pt;
+}
+
+.font2{
+    font-size: 24pt;
+}
+
+.font3{
+    font-size: 32pt;
+}
+
+.font4{
+    font-size: 40pt;
+}

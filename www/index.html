@@ -35,7 +35,8 @@
       <meta name="msapplication-tap-highlight" content="no">
       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
       <link rel="stylesheet" type="text/css" href="css/index.css">
-      <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+      <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+      <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
       <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
       <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
       <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
@@ -44,7 +45,7 @@
    <body>
       <!-- topo fixo -->
       <div id="header">
-         <button id="bt_Voltar" class="bt_voltar">
+         <button id="bt_Voltar" class="bt_voltar_none">
          </button>
          <div class="logo">
             <img src="img/logo_prodam_metas-01.png" alt="">
@@ -156,18 +157,19 @@
                   <!-- fim da tela 4 -->
 
          <!-- inicio tela 6 -->
-         <div id="div_configuracao" class="" style="display: none">
+         <!-- <div id="div_configuracao" class="box-escondido hideme z-idx-101" style="display: none"> -->
+         <div id="div_configuracao" class="box-escondido hideme z-idx-101" >
             <div class="config_container">
                <div class="barra-config">
                   Configura&ccedil;&otilde;es
-                  <button class="fechar-config" ontouchend="UIS.fakeShowHideConfiguracoes()">
+                  <button class="fechar-config" ontouchend="hideTela('#div_configuracao')">
                   </button>
                </div>
                <div class="conteudo-config">
                   <ul class="lista-config">
                      <li id="atualizacaoDados" class="ico-nuvem">Atualiza&ccedil;ao dos dados</li>
-                     <li>
-                        <div id="div_atualizacao" class="box-atualiza-config">
+                     
+                        <li id="div_atualizacao" class="box-atualiza-config">
                            <p>
                               Clique no bot&atilde;o abaixo para atualizar os dados do aplicativo.
                            </p>
@@ -186,8 +188,8 @@
                               </div>
                            </div>
                            <br />
-                        </div>
-                     </li>
+                        </li>
+                  
                      <li id="termosUso" class="ico-exclamacao"> Termos de uso</li>
                      <li id="div_termosUso" style="display: none" class="overflow-hidden">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique ex vel massa faucibus euismod ligula accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices pos cubilia Curae; Sed ornare, ante lobortis accumsan lacinia, est nisi aliquam libero, vel conse lorem diam sed neque. Nam et fringilla massa, eget volutpat nulla. Vestibulum euismod volutpa Phasellus tincidunt facilisis lectus, nec dapibus sem consequat non. Vestibulum feugiat, risu tincidunt faucibus, orci nulla fringilla felis, et viverra leo quam nec turpis. Mauris lectus ma ullamcorper id faucibus et, pharetra eget ligula. Fusce id urna mauris.</p>

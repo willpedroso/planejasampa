@@ -1,6 +1,6 @@
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\MainActivity.ap_ \
  : C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable\screen.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable\screen.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-hdpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-ldpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\drawable-mdpi\icon.png \
@@ -8,7 +8,6 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\d
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\values\strings.xml \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\res\xml\config.xml \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable\icon.png \
-C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable\screen.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-hdpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-ldpi\icon.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\bin\res\drawable-mdpi\icon.png \
@@ -19,6 +18,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\cordova.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\cordova_plugins.js \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\index.html \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\js \
@@ -40,6 +40,14 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-Medium.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-MediumItalic.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\css\Roboto-Regular.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\LICENSE.txt \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Montserrat-Bold.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Montserrat-Regular.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Montserrat.zip \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\OFL.txt \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Black.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Medium.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Regular.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background2.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\bg_status_ativo.png \
@@ -49,6 +57,7 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\fechar.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\icons \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\img_topo.png \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\Loading_metas.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_2.gif \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\loading_mywalit_3.gif \
