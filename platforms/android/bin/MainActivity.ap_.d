@@ -48,6 +48,8 @@ C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\asset
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Black.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Medium.ttf \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Roboto-Regular.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Shanti-Regular.ttf \
+C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\fonts\Shanti.zip \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\background2.png \
 C:\Users\p051234\Documents\Android\Projetos\planejasampa\platforms\android\assets\www\img\bg_status_ativo.png \

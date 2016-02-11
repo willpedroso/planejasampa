@@ -32,6 +32,7 @@ var UIS = {
     bt_showMetasStatus: null,
     bt_Voltar: null,
     bt_Configure: null,
+    bt_fechaConfig: null,
     atualizacaoDados: null,
     termosUso: null,
     desenvolvimento: null,
@@ -127,6 +128,7 @@ var UIS = {
 	    this.bt_showMetasStatus = $("#bt_showMetasStatus");
 	    this.bt_Voltar = $("#bt_Voltar");
 	    this.bt_Configure = $("#bt_Configure");
+        this.bt_fechaConfig = $("#bt_fechaConfig");
 	    this.atualizacaoDados = $("#atualizacaoDados");
 	    this.termosUso = $("#termosUso");
 	    this.desenvolvimento = $("#desenvolvimento");
@@ -181,7 +183,48 @@ var UIS = {
         this.select_ListaSubprefeituras.bind("change", (function (event) {
             //console.log("subprefeitura: ", this.select_ListaSubprefeituras.attr("value"));
             UIS.subprefSelecionada = $("#selectListaSubprefeituras option:selected").text();
-            
+
+            var txt = UIS.subprefSelecionada;
+            var txtSeparado = txt.split("/");
+            var txtQuebra = "";
+
+            var len = txtSeparado.length;
+
+            //trata o label que aparece na tela
+            if(len <2){
+                txtQuebra += txtSeparado[0];
+            }else{
+
+                if(len <3){
+
+                    for(var i= 0; i<len; i++){
+                        txtQuebra += txtSeparado[i] + "\n\r";
+                    }
+
+                }else{
+                    for(var i= 0; i<len; i++){
+
+                        if(i==0){
+                            txtQuebra += txtSeparado[i] + " \n\r";
+                        }else if(i==1){
+                             txtQuebra += (txtSeparado[i] + " / ");
+                        }
+
+                        else{
+                             txtQuebra += txtSeparado[i]  ;
+                        }
+
+                    }
+                }
+
+            }
+
+
+            $("#recebeSelect").empty();
+            $("#recebeSelect").append("<p>" + txtQuebra + "</p>");
+            $("#recebeSelectListametas").empty();
+            $("#recebeSelectListametas").append("<p>" + txtQuebra + "</p>");
+
 			// Altera o item selecionado na lista de subprefeituras da tela de lista de metas
             $('#listaSubprefeituras_metas option[value="' + $("#selectListaSubprefeituras option:selected").val() + '"]').attr({ selected : "selected"});
 
@@ -193,7 +236,45 @@ var UIS = {
         this.select_ListaSubprefeiturasMetas.bind("change", (function (event) {
             //console.log("subprefeitura: ", this.select_ListaSubprefeiturasMetas.attr("value"));
             UIS.subprefSelecionada = $("#listaSubprefeituras_metas option:selected").text();
-            
+
+            var txt = UIS.subprefSelecionada;
+            var txtSeparado = txt.split("/");
+            var txtQuebra= "";
+            var len = txtSeparado.length;
+            //trata o label que aparece na tela
+            if(len <2){
+                txtQuebra += txtSeparado[0];
+            }else{
+
+                if(len <3){
+
+                    for(var i= 0; i<len; i++){
+                        txtQuebra += txtSeparado[i] + "\n\r";
+                    }
+
+                }else{
+                    for(var i= 0; i<len; i++){
+
+                        if(i==0){
+                            txtQuebra += txtSeparado[i] + " \n\r";
+                        }else if(i==1){
+                             txtQuebra += (txtSeparado[i] + " / ");
+                        }
+
+                        else{
+                             txtQuebra += txtSeparado[i]  ;
+                        }
+
+                    }
+                }
+
+            }
+
+            $("#recebeSelectListametas").empty();
+            $("#recebeSelectListametas").append("<p>" + txtQuebra +"</p>");
+            $("#recebeSelect").empty();
+            $("#recebeSelect").append("<p>" + txtQuebra +"</p>");
+
 			// Altera o item selecionado na lista de subprefeituras da tela de metas por status
             $('#selectListaSubprefeituras option[value="' + $("#listaSubprefeituras_metas option:selected").val() + '"]').attr({ selected : "selected"});
 
@@ -366,6 +447,41 @@ var UIS = {
             }
         }).bind(this));
 
+
+        this.bt_fechaConfig.bind("touchend",(function(){
+            console.log("clicou bt_fechaConfig");
+
+            if(UIS.div_configuracao.hasClass('showme')){
+                 // Esconde div de configuração
+               // UIS.div_configuracao.attr("style", "display: none");
+                //UIS.array_Divs[UIS.array_Divs.length - 1].attr("style", "display: block");
+                // Verifica se houve atualização de dados
+                //anima div configuraçoes
+                hideTela(div_configuracao);
+
+                if (BANCODADOS.bUpdated) {
+                    BANCODADOS.bUpdated = false;
+                    // Houve atualização de dados, volta para a tela de metas por status
+                    UIS.resetDivStack();
+                    showTela(UIS.div_metasStatus);
+                    UIS.showDiv();
+
+
+                    console.log("passou123")
+                }else{
+                    console.log("nao pegou")
+                    return
+                }
+
+            }
+
+        }).bind(this));
+
+
+
+
+        
+
 	    // Área de informações de atualização de dados
 	    this.atualizacaoDados.bind("touchend", (function () {
             if(this.dragging == false) {
@@ -521,7 +637,7 @@ var UIS = {
         // Mostra a tela de aguarde
         this.div_Aguarde.removeClass('dspl-nn');
         var msg = "";
-         msg += "<div class='box_msg z-idx-102'>"+"<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+         msg += "<div class='box_msg z-idx-102'>" + "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
                      msgAguarde +
                  "</h3>" +
                  "<div class='font-br txt-alg-c' id='msgAguarde'>" +
@@ -535,22 +651,21 @@ var UIS = {
         this.div_Aguarde.addClass('dspl-blk');
     },
 
-    showTelaErro: function(msgErro){
+    showTelaAlert: function(msgErro,msgBotao){
         // Mostra a tela de aguarde
-        this.div_Aguarde.removeClass('dspl-nn');
+        //this.div_Aguarde.removeClass('dspl-nn');
         var msg = "";
-         msg += "<div class='box_msg'>"+"<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
+         msg += "<div class='box_msg'>" + "<h3  class='font-br txt-alg-c' id='msgAguarde'>" +
                      msgErro +
                  "</h3>" +
                  "<div class='font-br txt-alg-c' id='msgErro'>" +
-                     "<button onclick=\"hideTelaAguarde('#div_Aguarde');\">" + "Ok" +"</button>" +
+                     "<button class='bt_alert' onclick=\"UIS.hideTelaAguarde('#div_Aguarde');\">" + msgBotao +"</button>" +
                  "</div>" + "</div>";
         
+        
+        this.msg_Aguarde.empty();
         this.msg_Aguarde.append(msg);
         this.div_Aguarde.addClass('dspl-blk');
-
-
-        this.msg_Aguarde.empty();
     },
 
 
@@ -821,7 +936,6 @@ var UIS = {
 	    // Preenche os dados e apresenta
         // Monta lista de subprefeituras
         var listaSub = "";
-       
         for (var i = 0; i < listaSubprefeiturasAtendidas.rows.length; i++) {
             listaSub += listaSubprefeiturasAtendidas.rows.item(i).NAME;
             if ((i + 1) < listaSubprefeiturasAtendidas.rows.length) {
@@ -1236,13 +1350,75 @@ var UIS = {
 	fillDivStatusGoals: function(dados) {
 	    //console.log("fillDivStatusGoals");
 	    var nodes = "";
+        var count = 0;
+        var valorMetas = [];
+        var pctMetas = [];
+        var totalMetas= 0;
+        // lista de fontes disponíveis
+        var listaFontes = ['font4', 'font3', 'font2', 'font1'];
+
 	    for (var i = 0; i < dados.rows.length; i++) {
+            valorMetas[i] = dados.rows.item(i).QTD;
+        }
+
+        for(var i = 0; i < valorMetas.length; i++){
+            totalMetas += valorMetas[i];
+        }
+
+         // carrega array de percentuais
+        for(var i = 0; i < valorMetas.length; i++){
+            pctMetas[i] = Math.ceil((100 * valorMetas[i]) / totalMetas);
+        }
+
+        // ordenar do maior para o menor percentual
+        pctMetas.sort(function (a,b){return b-a});
+
+        // cria a lista de tamanhos de fonte
+        var tamFontes = [];
+        var contadorFontes = 0;
+        for (var i = 0; i < pctMetas.length; i++) {
+            if (i > 0 && tamFontes[i-1] == tamFontes[i]) {
+                // repete o fonte
+                tamFontes[i] = tamFontes[i-1];
+            }
+            else {
+                tamFontes[i] = listaFontes[contadorFontes];
+                if (contadorFontes + 1 < listaFontes.length) {
+                    contadorFontes++;
+                }
+            }
+        }
+
+        for (var i = 0; i < tamFontes.length; i++) {    
+
+            // encontra a quantidade correta para o tamanho do fonte
+            var fonteCorreto = "";
+            for (var j = 0; j < pctMetas.length; j++) {
+                
+                // todo: testes retirar
+                console.log("Calculado = " + Math.ceil(valorMetas[i] / totalMetas * 100) + " - Armazenado = " + pctMetas[j] + "\r\n");
+                var Print = "";
+                // todo: testes retirar
+
+                if (Math.ceil(valorMetas[i] / totalMetas * 100) == pctMetas[j]) {
+                    fonteCorreto = tamFontes[j];
+
+                    // todo: testes retirar
+                    Print += "Percentual: " + pctMetas[j] + " - Fonte correta: " + tamFontes[j] + " - Valor da Meta: " + valorMetas[i] + "\r\n";
+                    console.log(Print);
+                    // todo: testes retirar
+
+                    break;
+                }
+            }
+
+            //monta nodes    
             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
                         "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='descricao_andamento  gray_4'>" +
                         this.txtStatusMetas[dados.rows.item(i).STATUS_META] +
                         "</div>" +
-                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta'>" +
-                        dados.rows.item(i).QTD +
+                        "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta " + fonteCorreto + "'>" +
+                        valorMetas[i] +
                         "</div>" +
                       "</div>";
 	    }
@@ -1250,6 +1426,27 @@ var UIS = {
 	    UIS.ul_ListaMetasStatus.append(nodes);
         UIS.hideTelaAguarde();
 	},
+
+
+    //   // Preenche os dados na div de metas por status
+    // fillDivStatusGoals: function(dados) {
+    //     //console.log("fillDivStatusGoals");
+    //     var nodes = "";
+    //     for (var i = 0; i < dados.rows.length; i++) {
+    //         nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
+    //                     "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='descricao_andamento  gray_4'>" +
+    //                     this.txtStatusMetas[dados.rows.item(i).STATUS_META] +
+    //                     "</div>" +
+    //                     "<div idRegistro='" + dados.rows.item(i).STATUS_META + "' class='valor_andamento cor_valor_meta'>" +
+    //                     dados.rows.item(i).QTD +
+    //                     "</div>" +
+    //                   "</div>";
+    //     }
+    //     UIS.ul_ListaMetasStatus.empty();
+    //     UIS.ul_ListaMetasStatus.append(nodes);
+    //     UIS.hideTelaAguarde();
+    // },
+
 
     // Preenche os dados na div de metas por objetivo
 	fillDivObjectivesGoals: function(dados) {
@@ -1267,19 +1464,42 @@ var UIS = {
 	},
 
     // Preenche a div (combobox) de subprefeituras
-	fillDivPrefectures: function(dados) {
-	    //console.log("fillDivPrefectures");
-        var nodes = "";
-        // Insere opção "São Paulo" (não filtra por subprefeitura)
-        nodes += "<option value='" + "Sao Paulo" + "' selected>" + "São Paulo" + "</option>";
-        UIS.subprefSelecionada = "São Paulo";
-	    for (var i = 0; i < dados.rows.length; i++) {
-	        nodes += "<option value='" + dados.rows.item(i).ID + "'>" + dados.rows.item(i).NAME + "</option>";
-	    }
-	    $("#selectListaSubprefeituras").empty();
-        $("#selectListaSubprefeituras").append(nodes);
-        $("#listaSubprefeituras_metas").empty();
-	    $("#listaSubprefeituras_metas").append(nodes);
+    fillDivPrefectures: function(dados) {
+
+console.log("+++++++++++++++++++++ CARREGA COMBOS +++++++++++++++++++++++")
+
+    	    //console.log("fillDivPrefectures");
+            var nodes = "";
+            // Insere opção "São Paulo" (não filtra por subprefeitura)
+            nodes += "<option value='" + "Sao Paulo" + "' selected>" + "São Paulo" + "</option>";
+            UIS.subprefSelecionada = "São Paulo";
+
+    	    for (var i = 0; i < dados.rows.length; i++) {
+                    var txt = dados.rows.item(i).NAME;
+                    var txtSeparado = txt.split("/");
+                    var txtQuebra= "";
+                
+                   
+                // var txt = dados.rows.item(i).NAME;
+                // var txtSeparado = txt.split("/");
+                // var txtQuebra= "";
+
+                // for(j = 0; j < txtSeparado.length; j++){
+                //     txtQuebra += txtSeparado[j] + "\n\r";
+                //     console.log(txtQuebra + "\n\r");
+                // }
+
+    	        nodes += "<option value='" + dados.rows.item(i).ID + "'>" + txt + "</option>";
+    	    }
+    	    $("#selectListaSubprefeituras").empty();
+            //adiciona itnes nos combos
+            $("#selectListaSubprefeituras").append(nodes);
+            $("#listaSubprefeituras_metas").empty();
+    	    $("#listaSubprefeituras_metas").append(nodes);
+            $("#recebeSelect").empty();
+            $("#recebeSelect").append("<p>" + UIS.subprefSelecionada +"</p>");
+            $("#recebeSelectListametas").empty();
+            $("#recebeSelectListametas").append("<p>" + UIS.subprefSelecionada +"</p>");
 	},
 
     // Controle de divs
@@ -1379,6 +1599,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
             if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {
                 //oculta a tela metas por objetivos transição para lista de metas
                 UIS.div_metasObjetivos.attr("style", "display: none");
+                UIS.div_metasStatus.attr("style", "display: none");
                 //console.log("div_metasObjetivos - none");
             }
 
@@ -1410,7 +1631,7 @@ var transitionsevents = 'webkitTransitionEnd otransitionend oTransitionEnd msTra
 
                }else{
 
-                $(aba).removeClass('bgAlpha');
+                $(tela).removeClass('bgAlpha');
 
                }
             // if (((UIS.array_Divs.length - 1) == 1) && (UIS.array_Divs[0] === UIS.div_metasObjetivos)) {

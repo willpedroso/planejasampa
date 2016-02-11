@@ -101,7 +101,7 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                alert("Houve falha já aplicativo: \r\n " + err + ". Por favor, reinicie o aplicativo.");
+                UIS.showTelaAlert("Houve falha já aplicativo: \r\n " + err + ". Por favor, reinicie o aplicativo.", "Fechar");
             }
             /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
@@ -114,7 +114,7 @@
                 console.log("bt_didUpdate");
                 UIS.hideTelaAguarde();
 
-                alert("Atualização efetuada com sucesso!");
+                UIS.showTelaAlert("Atualização efetuada com sucesso!", "Fechar");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
@@ -125,14 +125,14 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                alert("Houve falha na atualização dos dados.");
+                 UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar");
             }
 
             function automatic_didNotUpdate() {
                 console.log("automatic_didNotUpdate");
                 UIS.hideTelaAguarde();
 
-                alert("Os dados já estão atualizados!");
+               UIS.showTelaAlert("Os dados já estão atualizados!", "Fechar");
                 getGoals();
             }
 
@@ -140,7 +140,7 @@
                 console.log("automatic_didUpdate");
                 UIS.hideTelaAguarde();
 
-                alert("Atualização efetuada com sucesso!");
+                UIS.showTelaAlert("Atualização efetuada com sucesso!", "Fechar");
                 // Atualiza a data da última atualização
                 UIS.saveLastUpdateDate();
             }
@@ -151,7 +151,7 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                alert("Houve falha na atualização dos dados.");
+                UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar");
             }
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
         

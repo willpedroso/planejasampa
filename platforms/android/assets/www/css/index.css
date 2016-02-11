@@ -35,7 +35,7 @@
     src: url("../fonts/Montserrat-Bold.ttf"); /* para IE */
     src: url("../fonts/Montserrat-Bold.ttf");
 }
-Montserrat-Bold.ttf
+
 
 * {
    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -46,6 +46,9 @@ Montserrat-Bold.ttf
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 
+}
+body{
+    font-size: 12px;
 }
 
 body, p{
@@ -82,9 +85,13 @@ body, p{
     padding: 5px;
 }
 #div_metasObjetivos{
+    width: 100%;
     padding: 70px 15px 0 15px;
+    position: absolute;
 }
-
+#div_metasStatus{
+    position: absolute;
+}
 
 #ulListaObjetivos{
     /*width: 100%;
@@ -236,35 +243,53 @@ button{
     text-transform: uppercase;
 }
 
-.distrito{
-    margin:0 auto;
+/*#listaSubprefeituras{
+    z-index: 102;
+    position: absolute;
+}*/
+
+.distrito {
+    z-index: 102;
+    position: absolute;
+    margin:-8px 0 0 144px;
     float: right;
-    width: 65%;
-    height: 45px;
-    padding: 5px 15px 0 0;
+    width: 60%;
+    height:44px;
+    padding: 0px 20px 15px 0;
 }
 
-
 .distrito select {
+    z-index: 102;
+    position: absolute;
     outline-style: none;
-    padding-right: 20px;
     padding-top: 7px;
     text-align: left;
     float: right;
-    color:#212121;
+    color: rgba(0,0,0,0);
     background: transparent;
-    background-image: url(../img/icons/ic_expand_more_black_24dp.png); 
-    background-repeat: no-repeat;
-    background-position: right center;
-    width: 165px;
+    width: 250px;
     font-size: 1em;
     line-height: 1;
     border: 0;
     border-radius: 0;
-    height: 45px;
+    height: 44px;
+    margin-left: -25px;
     -webkit-appearance: none;
- }
+}
 
+.recebeSelect{
+    background-image: url(../img/icons/ic_expand_more_black_24dp.png);
+    background-repeat: no-repeat;
+    background-position: 98% 15px;
+    white-space: pre-wrap;
+    padding: 6% 35px 0 0;
+    text-align: right;
+    line-height: 50%;
+}
+
+.recebeSelect p{
+    margin-bottom: -17px;
+}
 /*fim classes topo fixo*/
 
 /*classes tela 1*/
@@ -285,7 +310,7 @@ button{
     width: 100%;
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
     background-repeat: no-repeat;
-    background-position: 95% center;
+    background-position: 97% center;
     padding: 3px 19px 0 0;
 }
 .padding_t_54{
@@ -305,9 +330,9 @@ button{
 
 
 .descricao_andamento{
-    width: 50%;
+    width: 44%;
     float: left;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     font-size: 1.2em;
     font-weight: 500;
     line-height: 22px;
@@ -318,12 +343,12 @@ button{
 .valor_andamento{
     padding: 0px 15px 0 0;
     text-align: right;
-    width: 50%;
+    width: 55%;
     line-height: 90px;
     float: right;
     clear: right;
-    font-family: 'Roboto condensed', sans-serif;
-    font-size: 7.2em;
+    font-family: 'Roboto-Black', sans-serif;
+    font-size: 6em;
     white-space:normal;
     font-weight: 600;
 }
@@ -344,7 +369,7 @@ button{
 .descricao_beneficiam{
     width: 40%;
     float: left;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
@@ -357,7 +382,7 @@ button{
     line-height: 88px;
     float: right;
     clear: right;
-    font-family: 'Roboto condensed', sans-serif;
+    font-family: 'Roboto-Black', sans-serif;
     font-size: 7.2em;
     white-space:normal;
     font-weight: 600;
@@ -384,7 +409,7 @@ button{
     color: #f55b4f;
     width: 50%;
     float: left;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
@@ -416,7 +441,7 @@ button{
 .descricao_superadas{
     width: 55%;
     float: left;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     font-size: 1.2em;
     font-weight: 500;
     padding-left:5%;
@@ -461,7 +486,7 @@ button{
     background-size: 201%;
     width: 50%;
     height: 100%;
-    font-family: 'Montserrat', 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     float: left;
     font-size: 1.1em;
     font-weight: 500;
@@ -498,7 +523,7 @@ button{
     width: 50%;
     border-left: 2px solid #eee;
     height: 100%;
-    font-family: 'Montserrat', 'Roboto', sans-serif;
+    font-family: 'Roboto-medium', sans-serif;
     float: left;
     font-size: 1.1em;
     font-weight: 500;
@@ -516,7 +541,7 @@ button{
 }*/
 
 .status_tela{
-    font-family: "roboto regular";
+    font-family: "Roboto-medium";
     margin-top: 57px;
     text-align: center;
     float: left;
@@ -569,12 +594,12 @@ button{
 }
 
 .meta_valor h4{
-    font-family: "roboto medium";
+    font-family: "Roboto-medium";
     color: #b71c1c;
     font-size: 16px;
 }
 .meta_valor h1{
-    font-family: "roboto medium";
+    font-family: "Roboto-medium";
     font-size: 1.8rem;
 }
 
@@ -848,7 +873,7 @@ text-align: center;
 /*classes tela 4 (projetos)*/
 
 #ulDetalhesProjeto{
-    font-family: 'roboto';
+    font-family: 'Roboto-medium';
     margin: 0 auto;
     padding: 0;
 }
@@ -927,7 +952,7 @@ ul#ulDetalhesMeta li{
 }
 
 .header-verm{
-    font-family: "roboto medium";
+    font-family: "Roboto-medium";
     color: #b71c1c;
     text-transform: uppercase;
     font-size: 21px;
@@ -1079,7 +1104,7 @@ ul#ulDetalhesMeta li{
 .container-tit-subtit{
     clear: both;
     overflow: hidden;
-    font-family: "roboto regular";
+    font-family: "Roboto-medium";
     color: #3b3b3b;
     text-transform: uppercase;
     margin-top: 54px;
@@ -1140,30 +1165,25 @@ ul#listaProjetosDeMetas li{
 /*SOBREPOSTO*/
 
 .subprefeitura {
-border-bottom: 1px solid #d1d1d1;
-
-float: left;
-height: 52px;
-width: 100%;
+    border-bottom: 1px solid #d1d1d1;
+    padding-bottom: 10px;
+    float: left;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
 }
 
 
 .subpref {
-color: #b71c1c;
-float: left;
-width: 35%;
-padding: 16px 0 10px 16px;
-height: 45px;
-text-transform: uppercase;
+    color: #b71c1c;
+    float: left;
+    width: 35%;
+    padding: 16px 0 10px 16px;
+    height: 45px;
+    text-transform: uppercase;
 }
 
-.distrito {
-margin: 0 auto;
-float: right;
-width: 65%;
-height: 50px;
-padding: 0px 20px 0 0;
-}
+
 
 /****** CONFIG *****/
 
@@ -1323,7 +1343,7 @@ ul.listaDetalheProjeto li{
 .container-tit-subtit2{
     clear: both;
     overflow: hidden;
-    font-family: "roboto regular";
+    font-family: "Roboto-medium";
     color: #3b3b3b;
     text-transform: uppercase;
     margin-top: 54px;
@@ -1503,30 +1523,42 @@ ul.list_interna_proj li{
     background-color: #fff;
     height: auto;
     border-radius: 4px;
-    padding: 10px 0 10px 0;
+    padding: 10px 0 10% 0;
     margin: 103px 0px 0 30px;
 }
 
 .box_msg h3{
     color: #212121;
-    margin: 7px 0 10px 0;
+    margin: 7px 0 12% 0;
 }
 
+.bt_alert{
+   float: right !important;
+    font-family: "Roboto-Black", sans-serif;
+    width: auto;
+    color: #b71c1c;
+    font-size: 1.1em;
+    padding-right: 10px;
+}
 
 /*classe para tamanho da fonte na tela inicial*/
 
 .font1{
-    font-size: 14pt;
+    font-size: 3.5em;
+    color: #D3D3D3;
 }
 
 .font2{
-    font-size: 24pt;
+    font-size: 4.5em;
+    color: #C0C0C0;
 }
 
 .font3{
-    font-size: 32pt;
+    font-size: 5.5em;
+    color: #A9A9A9;
 }
 
 .font4{
-    font-size: 40pt;
+    font-size: 6.5em;
+    color: #808080;
 }

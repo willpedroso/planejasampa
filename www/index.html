@@ -56,10 +56,13 @@
       <!-- fim do topo fixo -->
       <div id="section">
          <!-- inicio da tela 1  -->
-         <div id="div_metasStatus" style="display: initial">
+         <div id="div_metasStatus" class="showme">
             <!-- barra subprefeitura -->
             <div id="bt_Subprefeituras" class="subprefeitura divide_meta">
                <div class="subpref">Subprefeitura</div>
+               <div id="recebeSelect" class="recebeSelect">
+                  
+               </div>
                <div id="listaSubprefeituras" class="distrito">
                   <select id="selectListaSubprefeituras" dir='rtl' name='distritos'>
 
@@ -99,6 +102,9 @@
                <!-- barra subprefeitura -->
                <div class="subprefeitura">
                   <div class="subpref">Subprefeitura</div>
+                  <div id="recebeSelectListametas" class="recebeSelect">
+                  
+               </div>
                   <div class="distrito">
                      <select id="listaSubprefeituras_metas" dir='rtl' name='distritos'>
                      </select>
@@ -162,8 +168,9 @@
             <div class="config_container">
                <div class="barra-config">
                   Configura&ccedil;&otilde;es
-                  <button class="fechar-config" ontouchend="hideTela('#div_configuracao')">
-                  </button>
+                  <!-- <button id="bt_fechaConfig" class="fechar-config" ontouchend="hideTela('#div_configuracao')"> -->
+                  <button id="bt_fechaConfig" class="fechar-config"></button>
+                  
                </div>
                <div class="conteudo-config">
                   <ul class="lista-config">
