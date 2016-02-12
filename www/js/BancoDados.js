@@ -3,10 +3,12 @@
 var BANCODADOS = {
     // Objeto do banco de dados
 	dbObj: null,
+	
+	// Sequência de ações no banco de dados
+	actionsSeqDB: [],
 
-    // todo: revisar - API de metas
-    urlCheckUpdate: "xxxx",
-    urlDoUpdate: "xxxx",
+    // API de metas
+    urlCheckUpdate: "http://hsj2231.prodam/metas/api/mobile/atualizacoes",
 
 /*	// todo: links de desenvolvimento
     urlGoals: "http://dsj2231.prodam/metas/api/mobile/metas",
@@ -36,6 +38,8 @@ var BANCODADOS = {
 
     // Controle de atualização de dados
     bUpdated: false,
+	dbUpdateDates: null,
+	iUpdateDates: null,
 
     // Variáveis auxiliares
     auxVar_1: null,
@@ -63,12 +67,67 @@ var BANCODADOS = {
     idStatus: null,
     idObjective: null,
 
+	// **********************************************************************************************************
+	// Sequência de ações de banco de dados
+	// **********************************************************************************************************
+	initActionsSeqDB: function () {
+		console.log("initActionsSeqDB");
+
+		while (BANCODADOS.actionsSeqDB.length > 0) {
+			BANCODADOS.actionsSeqDB.pop();
+		}
+	},
+	
+	setActionSeqDB: function (newDB, nextFunction) {
+		console.log("setActionSeqDB");
+
+		if (newDB == true) {
+			// Nova base, usa sequência padrão
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetGoals);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetPrefectures);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetProjects);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetMilProjects);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetMonProjects);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.createDB);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.createTables);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.createTablesFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.initInsertData);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoals);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoalsFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoalsSuccess);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefectures);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefecturesFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefecturesSuccess);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjects);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjectsFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjectsSuccess);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjects);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjectsFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjectsSuccess);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjects);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjectsFail);
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjectsSuccess);
+			
+			BANCODADOS.actionsSeqDB.push(BANCODADOS.getStatusGoals);
+		}
+		else {
+			BANCODADOS.actionsSeqDB.push(nextFunction);
+		}
+	},
+	
     // **********************************************************************************************************
     // Busca dados na internet
     // **********************************************************************************************************
     // Informações de Evolução Mensal de Projetos
     igetMonProjects: function () {
-        //console.log("igetMonProjects");
+        console.log("igetMonProjects");
 
 	    $.ajax({
 	        type: "GET",
@@ -77,7 +136,8 @@ var BANCODADOS = {
 	    .done((function (msg) {
 			try {
 				BANCODADOS.msgMonProjects = msg;
-				BANCODADOS.createDB();
+				//BANCODADOS.createDB();
+				(BANCODADOS.actionsSeqDB.shift())();
 			}
 			catch (err) {
 				BANCODADOS.cbFail_f("Erro no parse de metas - msg: " +err);
@@ -89,7 +149,7 @@ var BANCODADOS = {
 
     // Informações de Marcos de Projetos
     igetMilProjects: function () {
-        //console.log("igetMilProjects");
+        console.log("igetMilProjects");
 
 	    $.ajax({
 	        type: "GET",
@@ -98,7 +158,8 @@ var BANCODADOS = {
 	    .done((function (msg) {
 			try {
 				BANCODADOS.msgMilProjects = msg;
-				BANCODADOS.igetMonProjects();
+				//BANCODADOS.igetMonProjects();
+				(BANCODADOS.actionsSeqDB.shift())();
 			}
 			catch (err) {
 				BANCODADOS.cbFail_f("Erro no parse de metas - msg: " +err);
@@ -110,7 +171,7 @@ var BANCODADOS = {
 
     // Informações de Projetos
     igetProjects: function () {
-        //console.log("igetProjects");
+        console.log("igetProjects");
 
 	    $.ajax({
 	        type: "GET",
@@ -119,7 +180,9 @@ var BANCODADOS = {
 	    .done((function (msg) {
 			try {
 				BANCODADOS.msgProjects = msg;
-				BANCODADOS.igetMilProjects();
+				//BANCODADOS.igetMilProjects();
+				(BANCODADOS.actionsSeqDB.shift())();
+
 			}
 			catch (err) {
 				BANCODADOS.cbFail_f("Erro no parse de metas - msg: " +err);
@@ -131,7 +194,7 @@ var BANCODADOS = {
 
     // Lista de Subprefeituras
     igetPrefectures: function () {
-        //console.log("igetPrefectures");
+        console.log("igetPrefectures");
 
 	    $.ajax({
 	        type: "GET",
@@ -140,7 +203,8 @@ var BANCODADOS = {
 	    .done((function (msg) {
 			try {
 				BANCODADOS.msgPrefectures = msg;
-				BANCODADOS.igetProjects();
+				//BANCODADOS.igetProjects();
+				(BANCODADOS.actionsSeqDB.shift())();
 			}
 			catch (err) {
 				BANCODADOS.cbFail_f("Erro no parse de metas - msg: " +err);
@@ -152,7 +216,7 @@ var BANCODADOS = {
 
     // Informações de Metas
     igetGoals: function () {
-		//console.log("igetGoals");
+		console.log("igetGoals");
 		
 	    $.ajax({
 	        type: "GET",
@@ -161,7 +225,8 @@ var BANCODADOS = {
 	    .done((function (msg) {
 			try {
 				BANCODADOS.msgGoals = msg;
-				BANCODADOS.igetPrefectures();
+				//BANCODADOS.igetPrefectures();
+				(BANCODADOS.actionsSeqDB.shift())();
 			}
 			catch (err) {
 				BANCODADOS.cbFail_f("Erro no parse de metas - msg: " +err);
@@ -173,63 +238,65 @@ var BANCODADOS = {
 
     // Verifica se deve efetuar a atualização de dados
     checkUpdate: function () {
-        //console.log("checkUpdate URL = " + BANCODADOS.urlCheckUpdate);
+        console.log("checkUpdate URL = " + BANCODADOS.urlCheckUpdate);
         BANCODADOS.bUpdated = false;
-        // todo: testes - retirar
-        BANCODADOS.doUpdate();
-        //BANCODADOS.cbSuccess_DidNotUpdate();
-        return;
-        // testes - retirar
         $.ajax({
             type: "GET",
             url: BANCODADOS.urlCheckUpdate
         })
         .done((function (msg) {
-            //console.log("checkUpdate = " + msg);
-            // todo: sucesso na requisição, verifica se deve efetuar a atualização dos dados
-            if (msg == "sim") {
-                // 2o passo: atualização necessária
-                BANCODADOS.doUpdate();
-            }
-            else {
-                // os dados já estão atualizados
-                BANCODADOS.cbSuccess_DidNotUpdate();
-            }
+            console.log("checkUpdate = " + msg);
+			var iud = {
+				articulacoes: null,
+				eixos: null,
+				objetivos: null,
+				secretarias: null,
+				metas: null,
+				projetos: null,
+				projetosMarcos: null,
+				projetosMensal: null,
+				prefeituras: null,
+			};
+			for (var i = 0; i < msg.length; i++) {
+				switch (msg[i].informacao) {
+					case "articulacoes":
+						iud.articulacoes = msg[i].atualizacao;
+						break;
+					case "eixos":
+						iud.eixos = msg[i].atualizacao;
+						break;
+					case "objetivos":
+						iud.objetivos = msg[i].atualizacao;
+						break;
+					case "secretarias":
+						iud.secretarias = msg[i].atualizacao;
+						break;
+					case "metas":
+						iud.metas = msg[i].atualizacao;
+						break;
+					case "projetos":
+						iud.projetos = msg[i].atualizacao;
+						break;
+					case "projetosMarcos":
+						iud.projetosMarcos = msg[i].atualizacao;
+						break;
+					case "projetosMensal":
+						iud.projetosMensal = msg[i].atualizacao;
+						break;
+					case "prefeituras":
+						iud.prefeituras = msg[i].atualizacao;
+						break;
+				}
+			}
+			BANCODADOS.iUpdateDates = iud;
+			BANCODADOS.getDateGoals();
         }).bind(this)).fail(function () {
             // falha na requisição
-            //console.log("Falha checkUpdate");
+            console.log("Falha checkUpdate");
             BANCODADOS.cbFail_f("Falha na verificação de necessidade de atualização de dados.");
         });
     },
 
-    // Efetua a atualização de dados
-    doUpdate: function () {
-        //console.log("doUpdate URL = " + BANCODADOS.urlDoUpdate);
-        //UIS.showTelaAguarde("Atualizando os dados...");
-        UIS.showTelaAguarde("Atualizando dados...");
-		
-        // todo: testes - retirar
-        BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
-        BANCODADOS.bUpdated = true;
-        BANCODADOS.igetGoals();
-        return;
-        // testes - retirar
-        $.ajax({
-            type: "GET",
-            url: BANCODADOS.urlDoUpdate
-        })
-        .done((function (msg) {
-            //console.log("doUpdate = " + msg);
-            // todo: sucesso na requisição, processa dados (atualiza metas por status, metas por objetivo e subprefeituras)
-            BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
-            BANCODADOS.bUpdated = true;
-            BANCODADOS.igetGoals();
-        }).bind(this)).fail(function () {
-            // falha na requisição
-            //console.log("Falha doUpdate");
-            BANCODADOS.cbFail_f("Falha na atualização de dados.");
-        });
-    },
     // **********************************************************************************************************
     // Fim - Busca dados na internet
     // **********************************************************************************************************
@@ -238,7 +305,7 @@ var BANCODADOS = {
     // Atualização de dados
     // **********************************************************************************************************
     updateDataGoals: function (sucDidUpdate, sucDidNotUpdate, fail) {
-        //console.log("Iniciando update de dados do sistema...");
+        console.log("Iniciando update de dados do sistema...");
 		
         UIS.showTelaAguarde("Verificando a atualização de dados...");
 		
@@ -250,6 +317,235 @@ var BANCODADOS = {
         // 1o passo: executar método que indica se a atualização é necessária
         this.checkUpdate();
     },
+	
+	// Data mais recente (local)
+	getDateGoals: function () {
+		console.log("getDateGoals");
+		
+        BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_ARTICULACAO) AS articulacao \
+							, MAX(ATUALIZACAO_EXIT) AS eixo \
+							, MAX(ATUALIZACAO_OBJETIVO) as objetivo \
+							, MAX(ATUALIZACAO_SECRETARIA) as secretaria \
+							, MAX(ATUALIZACAO_META) as meta \
+							 FROM GOALS",
+							[],
+							BANCODADOS.getDateGoalsSuccess,
+							BANCODADOS.getDateDataFail);
+	},
+	
+	getDateGoalsSuccess: function (trans, res) {
+		console.log("getDateGoalsSuccess");
+		
+		var dbud = {
+			bUpdateGoals: 0,
+			bUpdateProjects: 0,
+			bUpdateMilProjects: 0,
+			bUpdateMonProjects: 0,
+			bUpdatePrefectures: 0,
+		};
+		BANCODADOS.dbUpdateDates = dbud;
+		
+		if (res.rows.item(0).articulacao < BANCODADOS.iUpdateDates.articulacoes) {
+			// Deve atualizar metas
+			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
+		}
+		else if (res.rows.item(0).eixo < BANCODADOS.iUpdateDates.eixos) {
+			// Deve atualizar eixos
+			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
+		}
+		else if (res.rows.item(0).objetivo < BANCODADOS.iUpdateDates.objetivos) {
+			// Deve atualizar objetivos
+			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
+		}
+		else if (res.rows.item(0).secretaria < BANCODADOS.iUpdateDates.secretarias) {
+			// Deve atualizar secretarias
+			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
+		}
+		else if (res.rows.item(0).meta < BANCODADOS.iUpdateDates.metas) {
+			// Deve atualizar metas
+			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
+		}
+
+        BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO) AS prefeitura \
+							 FROM PREFECTURES",
+							[],
+							BANCODADOS.getDatePrefecturesSuccess,
+							BANCODADOS.getDateDataFail);
+	},
+	
+	getDatePrefecturesSuccess: function (trans, res) {
+		console.log("getDatePrefecturesSuccess");
+		
+		if (res.rows.item(0).prefeitura < BANCODADOS.iUpdateDates.prefeituras) {
+			// Deve atualizar prefeituras
+			BANCODADOS.dbUpdateDates.bUpdatePrefectures = true;
+		}
+		
+        BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_PROJETO) AS projeto \
+							 FROM PROJECTS",
+							[],
+							BANCODADOS.getDateProjectsSuccess,
+							BANCODADOS.getDateDataFail);
+	},
+	
+	getDateProjectsSuccess: function (trans, res) {
+		console.log("getDateProjectsSuccess");
+		
+		if (res.rows.item(0).projeto < BANCODADOS.iUpdateDates.projetos) {
+			// Deve atualizar projetos
+			BANCODADOS.dbUpdateDates.bUpdateProjects = true;
+		}
+		
+        BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_MARCO) AS milprojeto \
+							 FROM MILPROJECTS",
+							[],
+							BANCODADOS.getDateMilProjectsSuccess,
+							BANCODADOS.getDateDataFail);
+	},
+	
+	getDateMilProjectsSuccess: function (trans, res) {
+		console.log("getDateMilProjectsSuccess");
+		
+		if (res.rows.item(0).milprojeto < BANCODADOS.iUpdateDates.projetosMarcos) {
+			// Deve atualizar marcos de projetos
+			BANCODADOS.dbUpdateDates.bUpdateMilProjects = true;
+		}
+		
+        BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_MENSAL) AS monprojeto \
+							 FROM MONPROJECTS",
+							[],
+							BANCODADOS.getDateMonProjectsSuccess,
+							BANCODADOS.getDateDataFail);
+	},
+	
+	getDateMonProjectsSuccess: function (trans, res) {
+		console.log("getDateMonProjectsSuccess");
+		
+		if (res.rows.item(0).monprojeto < BANCODADOS.iUpdateDates.projetosMensal) {
+			// Deve atualizar mensal de projetos
+			BANCODADOS.dbUpdateDates.bUpdateMonProjects = true;
+		}
+		
+        // Avalia necessidade de atualização	
+		if (BANCODADOS.dbUpdateDates.bUpdateGoals == false &&
+		    BANCODADOS.dbUpdateDates.bUpdatePrefectures == false &&
+			BANCODADOS.dbUpdateDates.bUpdateProjects == false &&
+			BANCODADOS.dbUpdateDates.bUpdateMilProjects == false &&
+			BANCODADOS.dbUpdateDates.bUpdateMonProjects == false) {
+			// Os dados já estão atualizados
+			BANCODADOS.cbSuccess_DidNotUpdate();
+		}
+		else {
+			// Deve fazer atualizações
+			// Prepara sequência de ações de banco de dados
+			BANCODADOS.initActionsSeqDB();
+
+			if (BANCODADOS.dbUpdateDates.bUpdateGoals == true) {
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetGoals);
+				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
+				BANCODADOS.setActionSeqDB(false, "GOALS");						// Nome da tabela
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
+																				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoals);		// Insere os dados recebidos no banco
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoalsFail);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoalsSuccess);
+			}
+			if (BANCODADOS.dbUpdateDates.bUpdatePrefectures == true) {
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetPrefectures);
+				if (BANCODADOS.actionsSeqDB.length > 1) {
+					// Ajusta a sequência de ações para a inserção anterior
+					BANCODADOS.setActionSeqDB(false, "");
+					BANCODADOS.setActionSeqDB(false, "");
+				}
+				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
+				BANCODADOS.setActionSeqDB(false, "PREFECTURES");				// Nome da tabela
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
+																				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefectures); // Insere os dados recebidos no banco
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefecturesFail);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefecturesSuccess);
+			}
+			if (BANCODADOS.dbUpdateDates.bUpdateProjects == true) {
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetProjects);
+				if (BANCODADOS.actionsSeqDB.length > 1) {
+					// Ajusta a sequência de ações para a inserção anterior
+					BANCODADOS.setActionSeqDB(false, "");
+					BANCODADOS.setActionSeqDB(false, "");
+				}
+				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
+				BANCODADOS.setActionSeqDB(false, "PROJECTS");					// Nome da tabela
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
+																				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjects);	// Insere os dados recebidos no banco
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjectsFail);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjectsSuccess);
+			}
+			if (BANCODADOS.dbUpdateDates.bUpdateMilProjects == true) {
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetMilProjects);
+				if (BANCODADOS.actionsSeqDB.length > 1) {
+					// Ajusta a sequência de ações para a inserção anterior
+					BANCODADOS.setActionSeqDB(false, "");
+					BANCODADOS.setActionSeqDB(false, "");
+				}
+				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
+				BANCODADOS.setActionSeqDB(false, "MILPROJECTS");				// Nome da tabela
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
+																				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjects);	// Insere os dados recebidos no banco
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjectsFail);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjectsSuccess);
+			}
+			if (BANCODADOS.dbUpdateDates.bUpdateMonProjects == true) {
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetMonProjects);
+				if (BANCODADOS.actionsSeqDB.length > 1) {
+					// Ajusta a sequência de ações para a inserção anterior
+					BANCODADOS.setActionSeqDB(false, "");
+					BANCODADOS.setActionSeqDB(false, "");
+				}
+				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
+				BANCODADOS.setActionSeqDB(false, "MONPROJECTS");				// Nome da tabela
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
+																				
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjects);	// Insere os dados recebidos no banco
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjectsFail);
+				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjectsSuccess);
+			}
+			BANCODADOS.setActionSeqDB(false, BANCODADOS.getStatusGoals);
+			
+			// Inicia atualização
+			UIS.showTelaAguarde("Atualizando os dados...");
+			BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
+			BANCODADOS.bUpdated = true;
+			(BANCODADOS.actionsSeqDB.shift())();
+		}
+	},
+	
+	getDateDataFail: function (err) {
+		console.log("getDateDataFail: " + err);
+		
+        BANCODADOS.cbFail_f("Falha na verificação de necessidade de atualização de dados.");
+	},
+	// Data mais recente
+	
+	purgeTable: function () {
+		console.log("purgeTable");
+		
+        BANCODADOS.sqlCmdDB("DELETE FROM " + BANCODADOS.actionsSeqDB.shift(),
+							[],
+							BANCODADOS.actionsSeqDB.shift(), 
+							BANCODADOS.actionsSeqDB.shift());
+	},
+	
     // **********************************************************************************************************
     // Fim - Atualização de dados
     // **********************************************************************************************************
@@ -258,7 +554,7 @@ var BANCODADOS = {
     // Busca detalhes de um projeto
     // **********************************************************************************************************
     getProjectDetails: function (idProject, cbSuc, cbFail) {
-        //console.log("getProjectDetails");
+        console.log("getProjectDetails");
         BANCODADOS.auxVar_1 = idProject;
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
@@ -280,14 +576,14 @@ var BANCODADOS = {
     },
 
     getProjectDetailsSuccess: function (trans, res) {
-        //console.log("getProjectDetailsSuccess");
+        console.log("getProjectDetailsSuccess");
 
         // Retorna
         BANCODADOS.cbSuccess_f(BANCODADOS.auxVar_2, BANCODADOS.auxVar_3, BANCODADOS.prjFase, res);
     },
 
     getProjectDetailsFail: function (err) {
-        //console.log("getProjectDetailsFail");
+        console.log("getProjectDetailsFail");
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a consulta aos detalhes do projeto - msg: " + err.code);
         }
@@ -297,7 +593,7 @@ var BANCODADOS = {
     },
 
     getProjectDetailsPrefecturesList: function (trans, res) {
-        //console.log("getProjectDetailsPrefecturesList");
+        console.log("getProjectDetailsPrefecturesList");
         // guarda resultado
         BANCODADOS.auxVar_2 = res;
         // seleciona a lista de subprefeituras atendidas pela meta
@@ -309,7 +605,7 @@ var BANCODADOS = {
     },
 	
 	getProjectDetailsAcompanhamento: function (trans, res) {
-		//console.log("getProjectDetailsAcompanhamento");
+		console.log("getProjectDetailsAcompanhamento");
 		// guarda resultado
 		BANCODADOS.auxVar_3 = res;
 		// obtém o acompanhamento do projeto, em função do tipo
@@ -365,7 +661,7 @@ var BANCODADOS = {
     // Busca detalhes de uma meta
     // **********************************************************************************************************
     getGoalDetails: function (idGoal, cbSuc, cbFail) {
-        //console.log("getGoalDetails");
+        console.log("getGoalDetails");
         BANCODADOS.auxVar_1 = BANCODADOS.vIdGoal = idGoal;
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
@@ -387,14 +683,14 @@ var BANCODADOS = {
     },
 
     getGoalDetailsSuccess: function (trans, res) {
-        //console.log("getGoalDetailsSuccess");
+        console.log("getGoalDetailsSuccess");
  
         // Retorna
         BANCODADOS.cbSuccess_f(BANCODADOS.auxVar_2, res);
     },
 
     getGoalDetailsFail: function (err) {
-        //console.log("getGoalDetailsFail - erro: " + err);
+        console.log("getGoalDetailsFail - erro: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a consulta aos detalhes da meta - msg: " + err);
         }
@@ -404,7 +700,7 @@ var BANCODADOS = {
     },
 
     getGoalDetailsTipos_e_Projetos: function (trans, res) {
-        //console.log("getGoalDetailsTipoProjetos");
+        console.log("getGoalDetailsTipoProjetos");
         // guarda resultado
         BANCODADOS.auxVar_2 = res;
         // seleciona a lista de tipos de projeto
@@ -437,7 +733,7 @@ var BANCODADOS = {
     //      Percentual (?)
     //      Nome da meta
     getObjectivesGoalsList: function (idObjective, idPrefecture, cbSuc, cbFail) {
-        //console.log("getObjectivesGoalsList - idObjetive = " + idObjective);
+        console.log("getObjectivesGoalsList - idObjetive = " + idObjective);
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
 
@@ -454,14 +750,14 @@ var BANCODADOS = {
     },
 
     getObjectivesGoalsListSuccess: function (trans, res) {
-        //console.log("getObjectivesGoalsListSuccess");
+        console.log("getObjectivesGoalsListSuccess");
 
         // Retorna
         BANCODADOS.cbSuccess_f(res);
     },
 
     getObjectivesGoalsListFail: function (err) {
-        //console.log("getObjectivesGoalsListFail: " + err);
+        console.log("getObjectivesGoalsListFail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas - msg: " + err);
         }
@@ -484,7 +780,7 @@ var BANCODADOS = {
     //      Percentual (?)
     //      Nome da meta
     getStatusGoalsList: function (idStatus, idPrefecture, cbSuc, cbFail) {
-        //console.log("getStatusGoalsList");
+        console.log("getStatusGoalsList");
         BANCODADOS.cbSuccess_f = cbSuc;
         if (cbFail != null) BANCODADOS.cbFail_f = cbFail;
 
@@ -501,14 +797,14 @@ var BANCODADOS = {
     },
 
     getStatusGoalsListSuccess: function (trans, res) {
-        //console.log("getStatusGoalsListSuccess");
+        console.log("getStatusGoalsListSuccess");
 
         // Retorna
         BANCODADOS.cbSuccess_f(res);
     },
 
     getStatusGoalsListFail: function (err) {
-        //console.log("getStatusGoalsListFail: " + err);
+        console.log("getStatusGoalsListFail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status - msg: " + err);
         }
@@ -524,12 +820,12 @@ var BANCODADOS = {
     // Busca das subprefeituras
     // **********************************************************************************************************
     getPrefectures: function () {
-        //console.log("getPrefectures");
+        console.log("getPrefectures");
         BANCODADOS.sqlCmdDB("SELECT ID, NAME FROM PREFECTURES ORDER BY NAME ASC", [], BANCODADOS.getPrefecturesSuccess, BANCODADOS.getPrefecturesFail);
     },
 
     getPrefecturesSuccess: function (trans, res) {
-        //console.log("getPrefecturesSuccess");
+        console.log("getPrefecturesSuccess");
         UIS.fillDivPrefectures(res);
 
         if (BANCODADOS.cbSuccess_f != null) {
@@ -538,7 +834,7 @@ var BANCODADOS = {
     },
 
     getPrefecturesFail: function (err) {
-        //console.log("getPrefecturesFail");
+        console.log("getPrefecturesFail");
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de subprefeituras - msg: " + err);
         }
@@ -554,12 +850,12 @@ var BANCODADOS = {
     // Busca de metas por objetivo
     // **********************************************************************************************************
     getObjectivesGoals: function () {
-        //console.log("getObjectivesGoals");
+        console.log("getObjectivesGoals");
         BANCODADOS.sqlCmdDB("SELECT NAME_OBJETIVO, COUNT(1) as QTD FROM GOALS GROUP BY NAME_OBJETIVO ORDER BY NAME_OBJETIVO ", [], BANCODADOS.getObjectivesGoalsSuccess, BANCODADOS.getObjectivesGoalsFail);
     },
 
     getObjectivesGoalsSuccess: function (trans, res) {
-        //console.log("getObjectivesGoalsSuccess");
+        console.log("getObjectivesGoalsSuccess");
         // Salva lista de tipos de status
         while (BANCODADOS.tiposObjetivos.length > 0) {
             BANCODADOS.tiposObjetivos.pop();
@@ -573,7 +869,7 @@ var BANCODADOS = {
     },
 
     getObjectivesGoalsFail: function (err) {
-        //console.log("getObjectivesGoalsFail");
+        console.log("getObjectivesGoalsFail");
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por objetivo - msg: " + err);
         }
@@ -589,8 +885,8 @@ var BANCODADOS = {
     // Busca de metas, por subprefeitura (por status e por objetivo)
     // **********************************************************************************************************
     getStatusGoalsPrefecture: function (idPrefecture, blistaMetas) {
-        //console.log("getStatusGoalsPrefecture");
-        //console.log("idPrefecture = " + idPrefecture);
+        console.log("getStatusGoalsPrefecture");
+        console.log("idPrefecture = " + idPrefecture);
         // Retorno de sucesso e falha já foram definidos anteriormente, na abertura da aplicação
         // BANCODADOS.cbSuccess_f = cbSuc;
         // BANCODADOS.cbFail_f = cbFail;
@@ -619,7 +915,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP1Success: function (trans, res) {
-        //console.log("getStatusGoalsPrefectureP1Success");
+        console.log("getStatusGoalsPrefectureP1Success");
         // Monta lista de projetos
         while (BANCODADOS.auxListVar_1.length > 0) {
             BANCODADOS.auxListVar_1.pop();
@@ -638,7 +934,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP2Success: function (trans, res) {
-        ////console.log("getStatusGoalsPrefectureP2Success");
+        //console.log("getStatusGoalsPrefectureP2Success");
         if (res.rows.length > 1 || res.rows.length == 0) {
             // Inconsistência no banco: mais de uma meta por projeto
             if (BANCODADOS.cbFail_f != null) {
@@ -683,7 +979,7 @@ var BANCODADOS = {
     },
         
     getStatusGoalsPrefectureP3Success: function (trans, res) {
-        //console.log("getStatusGoalsPrefectureP3Success");
+        console.log("getStatusGoalsPrefectureP3Success");
         // Salva dados na lista de metas
         BANCODADOS.statusGoalsListPrefecture[BANCODADOS.auxVar_1].NAME_META = res.rows.item(0).NAME_META;
         BANCODADOS.statusGoalsListPrefecture[BANCODADOS.auxVar_1].STATUS_META = res.rows.item(0).STATUS_META;
@@ -703,7 +999,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP3Fail: function (err) {
-        //console.log("getStatusGoalsPrefectureP3Fail: " + err);
+        console.log("getStatusGoalsPrefectureP3Fail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status: informações das metas - msg: " + err);
         }
@@ -713,7 +1009,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP2Fail: function (err) {
-        //console.log("getStatusGoalsPrefectureP2Fail: " + err);
+        console.log("getStatusGoalsPrefectureP2Fail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status: metas na tabela de projetos - msg: " + err);
         }
@@ -723,7 +1019,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureP1Fail: function (err) {
-        //console.log("getStatusGoalsPrefectureP1Fail: " + err);
+        console.log("getStatusGoalsPrefectureP1Fail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status: marcos de projetos por prefeitura - msg: " + err);
         }
@@ -733,7 +1029,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsPrefectureFail: function (err) {
-        //console.log("getStatusGoalsPrefectureFail: " + err);
+        console.log("getStatusGoalsPrefectureFail: " + err);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status - msg: " + err);
         }
@@ -749,7 +1045,7 @@ var BANCODADOS = {
     // Busca de metas por status
     // **********************************************************************************************************
     initGetStatusGoals: function(entrada, idPrefecture, cbSuc, cbFail) {
-        //console.log("initGetStatusGoals");
+        console.log("initGetStatusGoals");
         BANCODADOS.cbSuccess_f = cbSuc;
         BANCODADOS.cbFail_f = cbFail;
         BANCODADOS.getStatusGoals(entrada, idPrefecture);
@@ -757,21 +1053,27 @@ var BANCODADOS = {
 
     getStatusGoals: function (entrada, idPrefecture) {
         var now = new Date();
-        //console.log("getStatusGoals - Datahora: " + now);
+        console.log("getStatusGoals - Datahora: " + now);
         if (entrada == null) {
             entrada = false;
         }
-        //console.log("Busca de metas por status");
+        console.log("Busca de metas por status");
+		// Prepara sequência de ações de banco de dados
+		BANCODADOS.initActionsSeqDB();
+		BANCODADOS.setActionSeqDB(true, null);
+		
         if (idPrefecture == null) {
-            BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS GROUP BY STATUS_META ORDER BY STATUS_META", [], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.igetGoals : BANCODADOS.cbFail_f);
+            //BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS GROUP BY STATUS_META ORDER BY STATUS_META", [], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.igetGoals : BANCODADOS.cbFail_f);
+            BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS GROUP BY STATUS_META ORDER BY STATUS_META", [], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.actionsSeqDB.shift() : BANCODADOS.cbFail_f);
         }
         else {
-            BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS WHERE NAME_SECRETARIA = ? GROUP BY STATUS_META ORDER BY STATUS_META", [idPrefecture], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.igetGoals : BANCODADOS.cbFail_f);
+            //BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS WHERE NAME_SECRETARIA = ? GROUP BY STATUS_META ORDER BY STATUS_META", [idPrefecture], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.igetGoals : BANCODADOS.cbFail_f);
+            BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS WHERE NAME_SECRETARIA = ? GROUP BY STATUS_META ORDER BY STATUS_META", [idPrefecture], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.actionsSeqDB.shift() : BANCODADOS.cbFail_f);
         }
     },
 
     getStatusGoalsSuccess: function (trans, res) {
-        //console.log("getStatusGoalsSuccess");
+        console.log("getStatusGoalsSuccess");
         // Salva lista de tipos de status
         while (BANCODADOS.tiposStatus.length > 0) {
             BANCODADOS.tiposStatus.pop();
@@ -785,7 +1087,7 @@ var BANCODADOS = {
     },
 
     getStatusGoalsFail: function (err) {
-        //console.log("getStatusGoalsFail: " + err.code);
+        console.log("getStatusGoalsFail: " + err.code);
         if (BANCODADOS.cbFail_f != null) {
             BANCODADOS.cbFail_f("Houve falha de acesso ao banco de dados, durante a busca da lista de metas por status - msg: " + err);
         }
@@ -802,21 +1104,21 @@ var BANCODADOS = {
     // **********************************************************************************************************
     // Abre o banco de dados
     openDB: function(cbSuc, cbfail) {
-	    //console.log("openDB");
+	    console.log("openDB");
 	    this.dbObj = window.sqlitePlugin.openDatabase({ name: "metasDB.db", location: 1 }, cbSuc, cbfail);
 	},
 
     // Insere Evolução Mensal de Projetos
     insertMonProjects: function (trans) {
         var now = new Date();
-        //console.log("insertMonProjects - Datahora: " + now);
+        console.log("insertMonProjects - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //INCLUSÃO DE DADOS NA TABELA DE EVOLUÇÃO MENSAL DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        ////console.log("Mensal de Projetos - inserindo " + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMonProjects.length + ")");
+        //console.log("Mensal de Projetos - inserindo " + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMonProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMonProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMonProjects.length + ")");
         Dados = "";
 
         Dados += "INSERT INTO MONPROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
@@ -845,14 +1147,14 @@ var BANCODADOS = {
     // Insere Marcos de Projetos
     insertMilProjects: function (trans) {
         var now = new Date();
-        //console.log("insertMilProjects - Datahora: " + now);
+        console.log("insertMilProjects - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //INCLUSÃO DE DADOS NA TABELA DE MARCOS DE PROJETO
         //**************************************************************************
         //**************************************************************************
-        ////console.log("Marcos de Projetos - inserindo " + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMilProjects.length + ")");
+        //console.log("Marcos de Projetos - inserindo " + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgMilProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgMilProjects.length - BANCODADOS.countReg))) + "/" + BANCODADOS.msgMilProjects.length + ")");
         Dados = "";
         Dados += "INSERT INTO MILPROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
             BANCODADOS.msgMilProjects[BANCODADOS.countReg].id + "' AS 'ID', '" +
@@ -877,14 +1179,14 @@ var BANCODADOS = {
     // Insere Projetos
     insertProjects: function (trans) {
         var now = new Date();
-        //console.log("insertProjects - Datahora: " + now);
+        console.log("insertProjects - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //INCLUSÃO DE DADOS NA TABELA DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        ////console.log("Projetos - inserindo " + ((BANCODADOS.msgProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgProjects.length -BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg: (BANCODADOS.msgProjects.length -BANCODADOS.countReg))) + "/" +BANCODADOS.msgProjects.length + ")");
+        //console.log("Projetos - inserindo " + ((BANCODADOS.msgProjects.length - BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg : (BANCODADOS.msgProjects.length - BANCODADOS.countReg)) + " registros" + " (" + (BANCODADOS.countReg + ((BANCODADOS.msgProjects.length -BANCODADOS.countReg) > BANCODADOS.maxReg ? BANCODADOS.maxReg: (BANCODADOS.msgProjects.length -BANCODADOS.countReg))) + "/" +BANCODADOS.msgProjects.length + ")");
         Dados = "";
         Dados += "INSERT INTO PROJECTS SELECT " + BANCODADOS.countReg + " AS 'iid', '" +
             BANCODADOS.msgProjects[BANCODADOS.countReg].id + "' AS 'ID', '" +
@@ -939,14 +1241,14 @@ var BANCODADOS = {
     // Insere Subprefeituras
     insertPrefectures: function (trans) {
         var now = new Date();
-        //console.log("insertPrefectures - Datahora: " + now);
+        console.log("insertPrefectures - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //INCLUSÃO DE DADOS NA TABELA DE SUBPREFEITURAS
         //**************************************************************************
         //**************************************************************************
-        ////console.log("Subprefeituras - inserindo " + BANCODADOS.msgPrefectures.length + " registros");
+        //console.log("Subprefeituras - inserindo " + BANCODADOS.msgPrefectures.length + " registros");
         Dados = "";
         Dados += "INSERT INTO PREFECTURES SELECT 1 AS 'iid', '" +
             BANCODADOS.msgPrefectures[0].id + "' AS 'ID', '" +
@@ -970,14 +1272,14 @@ var BANCODADOS = {
     // Insere Metas
     insertGoals: function (trans) {
         var now = new Date();
-        //console.log("insertGoals - Datahora: " + now);
+        console.log("insertGoals - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //INCLUSÃO DE DADOS NA TABELA DE INFORMAÇÕES DAS METAS
         //**************************************************************************
         //**************************************************************************
-        ////console.log("Metas - inserindo " + BANCODADOS.msgGoals.length + " registros");
+        //console.log("Metas - inserindo " + BANCODADOS.msgGoals.length + " registros");
         Dados = "";
         Dados += "INSERT INTO GOALS SELECT 1 AS 'iid', '" +
             BANCODADOS.msgGoals[0].id + "' AS 'ID_META', '" +
@@ -1028,22 +1330,20 @@ var BANCODADOS = {
             BANCODADOS.msgGoals[i].sup + "'";
         }
         trans.executeSql(Dados, [], null, null);
-
     },
 
     // Cria as tabelas
     createTables: function (trans) {
         var now = new Date();
-        //console.log("createPopulateTables - Datahora: " + now);
+        console.log("createPopulateTables - Datahora: " + now);
 
         //*************************************************************************
         //**************************************************************************
         //CRIAÇÃO DA TABELA DE INFORMAÇÕES DAS METAS
         //**************************************************************************
         //**************************************************************************
-        //console.log("Criando tabela de Metas");
+        console.log("Criando tabela de Metas");
         trans.executeSql("DROP TABLE IF EXISTS GOALS", [], null, null);
-        //trans.executeSql("CREATE TABLE GOALS (iid INTEGER PRIMARY KEY, \
         trans.executeSql("CREATE TABLE GOALS (iid INTEGER, \
                             ID_META TEXT, \
                             NAME_META TEXT, \
@@ -1068,7 +1368,7 @@ var BANCODADOS = {
                             ATUALIZACAO_SECRETARIA TEXT \
                             )", [], null, null);
 
-        //console.log("Criando tabela Objectives");
+        console.log("Criando tabela Objectives");
         trans.executeSql("DROP TABLE IF EXISTS Objectives", [], null, null);
         trans.executeSql("CREATE TABLE Objectives (id INTEGER PRIMARY KEY, idText TEXT, name TEXT, description TEXT, created_at TEXT, updated_at TEXT)", [], null, null);
 
@@ -1077,9 +1377,8 @@ var BANCODADOS = {
         //CRIAÇÃO DA TABELA DE LISTA DE SUBPREFEITURAS
         //**************************************************************************
         //**************************************************************************
-        //console.log("Criando tabela de subprefeituras");
+        console.log("Criando tabela de subprefeituras");
         trans.executeSql("DROP TABLE IF EXISTS PREFECTURES", [], null, null);
-        //trans.executeSql("CREATE TABLE PREFECTURES (iid INTEGER PRIMARY KEY, \
         trans.executeSql("CREATE TABLE PREFECTURES (iid INTEGER, \
                             ID TEXT, \
                             NAME TEXT, \
@@ -1094,9 +1393,8 @@ var BANCODADOS = {
         //CRIAÇÃO DA TABELA DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        //console.log("Criando tabela Projetos");
+        console.log("Criando tabela Projetos");
         trans.executeSql("DROP TABLE IF EXISTS PROJECTS", [], null, null);
-        //trans.executeSql("CREATE TABLE PROJECTS (iid INTEGER PRIMARY KEY, \
         trans.executeSql("CREATE TABLE PROJECTS (iid INTEGER, \
                             ID TEXT, \
                             NAME_PROJETO TEXT, \
@@ -1126,9 +1424,8 @@ var BANCODADOS = {
         //CRIAÇÃO DA TABELA DE MARCOS DE PROJETO
         //**************************************************************************
         //**************************************************************************
-        //console.log("Criando tabela de marcos de projeto");
+        console.log("Criando tabela de marcos de projeto");
         trans.executeSql("DROP TABLE IF EXISTS MILPROJECTS", [], null, null);
-        //trans.executeSql("CREATE TABLE MILPROJECTS (iid INTEGER PRIMARY KEY, \
         trans.executeSql("CREATE TABLE MILPROJECTS (iid INTEGER, \
                             ID TEXT, \
                             PROJETO_ID TEXT, \
@@ -1143,7 +1440,7 @@ var BANCODADOS = {
         //CRIAÇÃO DA TABELA DE EVOLUÇÃO MENSAL DE PROJETOS
         //**************************************************************************
         //**************************************************************************
-        //console.log("Criando tabela de evolução mensal de projeto");
+        console.log("Criando tabela de evolução mensal de projeto");
         trans.executeSql("DROP TABLE IF EXISTS MONPROJECTS", [], null, null);
         trans.executeSql("CREATE TABLE MONPROJECTS (iid INTEGER PRIMARY KEY, \
                             ID TEXT, \
@@ -1157,15 +1454,16 @@ var BANCODADOS = {
     },
 
     insertMonProjectsFail: function (err) {
-        //console.log("insertMonProjectsFail - msg: " + err);
+        console.log("insertMonProjectsFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na inclusão de Evolução Mensal de Projetos - msg: " + err);
     },
 
     insertMonProjectsSuccess: function () {
-        //console.log("insertMonProjectsSuccess");
+        console.log("insertMonProjectsSuccess");
         if (BANCODADOS.countReg == BANCODADOS.msgMonProjects.length) {
             // não há mais registros a serem inseridos
-            BANCODADOS.getStatusGoals();
+            //BANCODADOS.getStatusGoals();
+            (BANCODADOS.actionsSeqDB.shift())();
         }
         else {
             // ainda há registros a serem inseridos
@@ -1174,17 +1472,18 @@ var BANCODADOS = {
     },
 
     insertMilProjectsFail: function (err) {
-        //console.log("insertMilProjectsFail - msg: " + err);
+        console.log("insertMilProjectsFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na inclusão de Marcos de Projetos - msg: " + err);
     },
 
     insertMilProjectsSuccess: function () {
-        //console.log("insertMilProjectsSuccess");
+        console.log("insertMilProjectsSuccess");
         if (BANCODADOS.countReg == BANCODADOS.msgMilProjects.length) {
             // não há mais registros a serem inseridos
             BANCODADOS.countReg = 0;
             BANCODADOS.maxReg = 100;    // Número de registros por comando para evolução mensal de projetos
-            BANCODADOS.dbObj.transaction(BANCODADOS.insertMonProjects, BANCODADOS.insertMonProjectsFail, BANCODADOS.insertMonProjectsSuccess);
+            //BANCODADOS.dbObj.transaction(BANCODADOS.insertMonProjects, BANCODADOS.insertMonProjectsFail, BANCODADOS.insertMonProjectsSuccess);
+            BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
         }
         else {
             // ainda há registros a serem inseridos
@@ -1193,17 +1492,18 @@ var BANCODADOS = {
     },
 
     insertProjectsFail: function (err) {
-        //console.log("insertProjectsFail - msg: " + err);
+        console.log("insertProjectsFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na inclusão de dados de Projetos - msg: " + err);
     },
 
     insertProjectsSuccess: function () {
-        //console.log("insertProjectsSuccess");
+        console.log("insertProjectsSuccess");
         if (BANCODADOS.countReg == BANCODADOS.msgProjects.length) {
             // não há mais registros a serem inseridos
             BANCODADOS.countReg = 0;
             BANCODADOS.maxReg = 100;    // Número de registro por comando para marcos de projetos
-            BANCODADOS.dbObj.transaction(BANCODADOS.insertMilProjects, BANCODADOS.insertMilProjectsFail, BANCODADOS.insertMilProjectsSuccess);
+            //BANCODADOS.dbObj.transaction(BANCODADOS.insertMilProjects, BANCODADOS.insertMilProjectsFail, BANCODADOS.insertMilProjectsSuccess);
+            BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
         }
         else {
             // ainda há registros a serem inseridos
@@ -1212,56 +1512,61 @@ var BANCODADOS = {
     },
 
     insertPrefecturesFail: function (err) {
-        //console.log("insertPrefecturesFail - msg: " + err);
+        console.log("insertPrefecturesFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na inclusão de dados de Subprefeituras - msg: " + err);
     },
 
     insertPrefecturesSuccess: function () {
-        //console.log("insertPrefecturesSuccess");
+        console.log("insertPrefecturesSuccess");
         BANCODADOS.countReg = 0;
         BANCODADOS.maxReg = 100;        // Número de registros por comando para projetos
-        BANCODADOS.dbObj.transaction(BANCODADOS.insertProjects, BANCODADOS.insertPrefecturesFail, BANCODADOS.insertProjectsSuccess);
+        //BANCODADOS.dbObj.transaction(BANCODADOS.insertProjects, BANCODADOS.insertPrefecturesFail, BANCODADOS.insertProjectsSuccess);
+        BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
     },
 
     insertGoalsFail: function (err) {
-        //console.log("insertGoalsFail - msg: " + err);
+        console.log("insertGoalsFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na inclusão de dados de Metas - msg: " + err);
     },
 
     insertGoalsSuccess: function () {
-        //console.log("insertGoalsSuccess");
+        console.log("insertGoalsSuccess");
         BANCODADOS.countReg = 0;
         BANCODADOS.maxReg = 100;
-        BANCODADOS.dbObj.transaction(BANCODADOS.insertPrefectures, BANCODADOS.insertGoalsFail, BANCODADOS.insertPrefecturesSuccess);
+        //BANCODADOS.dbObj.transaction(BANCODADOS.insertPrefectures, BANCODADOS.insertGoalsFail, BANCODADOS.insertPrefecturesSuccess);
+        BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
     },
 
     createTablesFail: function (err) {
-        //console.log("createTablesFail - msg: " + err);
+        console.log("createTablesFail - msg: " + err);
         BANCODADOS.cbFail_f("Erro na criação das tabelas do banco de dados - msg: " + err);
     },
 
-    createTablesSuccess: function () {
-        //console.log("createTablesSuccess");
+    initInsertData: function () {
+        console.log("initInsertData");
         BANCODADOS.countReg = 0;
         BANCODADOS.maxReg = 100;
-        BANCODADOS.dbObj.transaction(BANCODADOS.insertGoals, BANCODADOS.createTablesFail, BANCODADOS.insertGoalsSuccess);
+        //BANCODADOS.dbObj.transaction(BANCODADOS.insertGoals, BANCODADOS.createTablesFail, BANCODADOS.insertGoalsSuccess);
+        BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
     },
 
     // Cria banco e insere os dados
 	createDB: function () {
-	    //console.log("createDB - falha: " + BANCODADOS.cbFail_f);
+	    console.log("createDB");
 	    try {
-	        this.dbObj.transaction(BANCODADOS.createTables, BANCODADOS.cbFail_f, BANCODADOS.createTablesSuccess);
+	        //this.dbObj.transaction(BANCODADOS.createTables, BANCODADOS.cbFail_f, BANCODADOS.initInsertData);
+	        BANCODADOS.dbObj.transaction(BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift(), BANCODADOS.actionsSeqDB.shift());
         }
 	    catch (err) {
 	        UIS.showTelaAlert("createDB() exception: " + err.msg, "Fechar");
+			BANCODADOS.cbFail_f();
 	    }
 	},
 
     // Executa comando SQL
 	sqlCmdDB: function (sqlCmd, arg, suc, fail) {
-	    //console.log("sqlCmdDB");
-	    //console.log("sqlCmd = " + sqlCmd + "\nArgumentos = " + arg);
+	    console.log("sqlCmdDB");
+	    console.log("sqlCmd = " + sqlCmd + "\nArgumentos = " + arg);
 	    // Executa o comando SQL no banco de dados
 	    this.dbObj.transaction(function (t) {
             t.executeSql(sqlCmd, arg, suc, fail);

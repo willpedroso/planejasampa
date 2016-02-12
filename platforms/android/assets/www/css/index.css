@@ -267,7 +267,7 @@ button{
     float: right;
     color: rgba(0,0,0,0);
     background: transparent;
-    width: 250px;
+    width: 240px;
     font-size: 1em;
     line-height: 1;
     border: 0;
@@ -1528,6 +1528,7 @@ ul.list_interna_proj li{
 }
 
 .box_msg h3{
+    padding: 0 10px;
     color: #212121;
     margin: 7px 0 12% 0;
 }

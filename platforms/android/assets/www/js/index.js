@@ -107,7 +107,11 @@
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
             function bt_didNotUpdate() {
                 console.log("bt_didNotUpdate");
-                //alert("Os dados já estão atualizados.");
+                UIS.hideTelaAguarde();
+
+               	UIS.showTelaAlert("Os dados já estão atualizados!", "Fechar");
+                // Atualiza a data da última atualização
+                UIS.saveLastUpdateDate();
             }
 
             function bt_didUpdate() {
@@ -125,14 +129,14 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                 UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar");
+                UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar");
             }
 
             function automatic_didNotUpdate() {
                 console.log("automatic_didNotUpdate");
                 UIS.hideTelaAguarde();
 
-               UIS.showTelaAlert("Os dados já estão atualizados!", "Fechar");
+                UIS.showTelaAlert("Os dados já estão atualizados!", "Fechar");
                 getGoals();
             }
 
