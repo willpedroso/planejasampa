@@ -1282,8 +1282,8 @@ var UIS = {
         }
         */
         // calcula alturas
-        var TamTotal = 395;
-        var TamMinimo = 55;
+        var TamTotal = 365;
+        var TamMinimo = 44;
 
         var linhas = [];//[63, 10, 26, 36];
         var count = 0;
@@ -1311,6 +1311,7 @@ var UIS = {
         }
         totalSalvo = total;
         
+        var totalSemLinhasMinimas;
         // separa as linhas que são proporcionalmente menores que o mínimo
         for (var i = 0; i < linhas.length; i++) {
             if (linhas[i] / total * TamTotal <= TamMinimo) {
@@ -1319,6 +1320,7 @@ var UIS = {
                 total -= linhas[i];             // retira do total
             }
         }
+        totalSemLinhasMinimas = total;
         
         // calcula a altura de cada linha, exceto aquelas que já possuem altura mínima
         for (var i = 0; i < linhas.length; i++) {
@@ -1338,7 +1340,7 @@ var UIS = {
         Print += "Resultados:\r\n";
         total = 0;
         for (var i = 0; i < alturas.length; i++) {
-            Print += "\tAltura " + (i+1) + ": " + alturas[i] +  " (" + (alturas[i] / TamTotal * 100) + "%)\r\n";
+            Print += "\tAltura " + (i+1) + ": " + alturas[i] +  " (" + (alturas[i] / TamRestante * 100) + "%)\r\n";
             total += alturas[i];
         }
         Print += "\tTOTAL DE ALTURAS = " + total + "\r\n";
@@ -1349,7 +1351,7 @@ var UIS = {
                 "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='descricao_andamento  gray_4'>" +
                 this.txtStatusMetas[listaStatus[i]] +
                 "</div>" +
-                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta' style='height:" + alturas[i] + "px'>" +
+                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta' style='height:" + alturas[i] + "px; box-sizing: border-box;'>" +
                 linhas[i] +
                 "</div>" +
               "</div>";
