@@ -1372,6 +1372,7 @@ var UIS = {
 
         // ordenar do maior para o menor percentual
         pctMetas.sort(function (a,b){return b-a});
+        console.log("@@@@@ pct metas " + i);
 
         // cria a lista de tamanhos de fonte
         var tamFontes = [];
