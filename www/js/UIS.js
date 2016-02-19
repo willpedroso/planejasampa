@@ -72,11 +72,11 @@ var UIS = {
         
     configListeners: function () {
         // Texto para status de metas
-        this.txtStatusMetas[1] = "Metas não iniciadas";
-        this.txtStatusMetas[2] = "Metas em andamento";
-        this.txtStatusMetas[3] = "Metas em andamento com benefícios à população";
-        this.txtStatusMetas[4] = "Metas concluídas";
-        this.txtStatusMetas[5] = "Metas superadas";
+        this.txtStatusMetas[1] = "Não iniciadas";
+        this.txtStatusMetas[2] = "Em andamento";
+        this.txtStatusMetas[3] = "Com benefícios à população";
+        this.txtStatusMetas[4] = "Concluídas";
+        this.txtStatusMetas[5] = "Superadas";
 
         // Texto para tipos de projeto
         this.txtTipoProjeto[0] = "Tipo 0";
@@ -1192,6 +1192,7 @@ var UIS = {
         //console.log("fillDivGoalsPrefecture");
         var nodes = "";
         // Atualização de metas por status
+        /*
         var count = 0;
         var valorMetas = [];
         var pctMetas = [];
@@ -1279,6 +1280,82 @@ var UIS = {
                         "</div>" +
                       "</div>";
         }
+        */
+        // calcula alturas
+        var TamTotal = 395;
+        var TamMinimo = 55;
+
+        var linhas = [];//[63, 10, 26, 36];
+        var count = 0;
+        for (var i = 0; i < listaStatus.length; i++) {
+            count = 0;
+            for (var j = 0; j < dados.length; j++) {
+                if (dados[j].STATUS_META == listaStatus[i]) {
+                    count++;
+                }
+            }
+
+            linhas[i] = count;
+        }
+
+        var percents = [];
+        var alturas = [];
+        var total = 0;
+        var totalSalvo = 0;
+        var TamRestante = TamTotal;
+        
+        // calcula a quantidade total e inicializa alturas
+        for (var i = 0; i < linhas.length; i++) {
+            total += linhas[i];
+            alturas.push(0);
+        }
+        totalSalvo = total;
+        
+        // separa as linhas que são proporcionalmente menores que o mínimo
+        for (var i = 0; i < linhas.length; i++) {
+            if (linhas[i] / total * TamTotal <= TamMinimo) {
+                alturas[i] = TamMinimo;
+                TamRestante -= TamMinimo;
+                total -= linhas[i];             // retira do total
+            }
+        }
+        
+        // calcula a altura de cada linha, exceto aquelas que já possuem altura mínima
+        for (var i = 0; i < linhas.length; i++) {
+            if (alturas[i] != 0) {
+                continue;
+            }
+            alturas[i] = linhas[i] / total  * TamRestante;
+        }
+        
+        var Print = "Condições: \r\n\tTamanho Total = [" + TamTotal + "];\r\n\tTamanho Mínimo = [" + TamMinimo + "];\r\n";
+        total = 0;
+        for (var i = 0; i < linhas.length; i++) {
+            Print += "\tLinha " + (i+1) + ": " + linhas[i] +  " (" + (linhas[i] / totalSalvo * 100) + "%)\r\n";
+            total += linhas[i];
+        }
+        Print += "\tTOTAL DE LINHAS = " + total + "\r\n";
+        Print += "Resultados:\r\n";
+        total = 0;
+        for (var i = 0; i < alturas.length; i++) {
+            Print += "\tAltura " + (i+1) + ": " + alturas[i] +  " (" + (alturas[i] / TamTotal * 100) + "%)\r\n";
+            total += alturas[i];
+        }
+        Print += "\tTOTAL DE ALTURAS = " + total + "\r\n";
+        console.log(Print);
+        // calcula alturas
+        for (var i = 0; i < listaStatus.length; i++) {
+             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
+                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='descricao_andamento  gray_4'>" +
+                this.txtStatusMetas[listaStatus[i]] +
+                "</div>" +
+                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta' style='height:" + alturas[i] + "px'>" +
+                linhas[i] +
+                "</div>" +
+              "</div>";
+        }
+        console.log(nodes)
+        alert("x");
 
         UIS.ul_ListaMetasStatus.empty();
         UIS.ul_ListaMetasStatus.append(nodes);
@@ -1300,6 +1377,7 @@ var UIS = {
                          "</div>";
              }
         }
+
         UIS.ul_listaObjetivos.empty();
         UIS.ul_listaObjetivos.append(nodes);
 
