@@ -1192,7 +1192,7 @@ var UIS = {
         //console.log("fillDivGoalsPrefecture");
         var nodes = "";
         // Atualização de metas por status
-        /*
+       
         var count = 0;
         var valorMetas = [];
         var pctMetas = [];
@@ -1223,7 +1223,7 @@ var UIS = {
         // ordenar do maior para o menor percentual
         pctMetas.sort(function (a,b){return b-a});
 
-        // cria a lista de tamanhos de fonte
+        // cria a lista de tamanhos de fonte com base na lista de fontes disponível
         var tamFontes = [];
         var contadorFontes = 0;
         for (var i = 0; i < pctMetas.length; i++) {
@@ -1247,13 +1247,14 @@ var UIS = {
         console.log(Print);
         Print = "";
         // testes retirar
-
-        for (var i = 0; i < tamFontes.length; i++) {    
+        var fonteCorreto = "";
+        /*
+        for (var i = 0; i < tamFontes.length; i++) {
 
             // encontra a quantidade correta para o tamanho do fonte
-            var fonteCorreto = "";
+            fonteCorreto = "";
             for (var j = 0; j < pctMetas.length; j++) {
-                
+
                 // todo: testes retirar
                 console.log("Calculado = " + Math.ceil(valorMetas[i] / totalMetas * 100) + " - Armazenado = " + pctMetas[j] + "\r\n");
                 // todo: testes retirar
@@ -1269,7 +1270,7 @@ var UIS = {
                     break;
                 }
             }
-
+            
             // Monta nodes
              nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
                         "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + valorMetas[i] + "' class='descricao_andamento  gray_4'>" +
@@ -1281,9 +1282,10 @@ var UIS = {
                       "</div>";
         }
         */
+
         // calcula alturas
         var TamTotal = 365;
-        var TamMinimo = 44;
+        var TamMinimo = 70;
 
         var linhas = [];//[63, 10, 26, 36];
         var count = 0;
@@ -1312,6 +1314,8 @@ var UIS = {
         totalSalvo = total;
         
         var totalSemLinhasMinimas;
+// ******************** A ***************************************************************
+        /*
         // separa as linhas que são proporcionalmente menores que o mínimo
         for (var i = 0; i < linhas.length; i++) {
             if (linhas[i] / total * TamTotal <= TamMinimo) {
@@ -1329,6 +1333,43 @@ var UIS = {
             }
             alturas[i] = linhas[i] / total  * TamRestante;
         }
+        */
+// ******************** A ***************************************************************
+// ******************** B ***************************************************************
+        /*
+        // separa as linhas que são proporcionalmente menores que o mínimo
+        for (var i = 0; i < linhas.length; i++) {
+            alturas[i] = TamMinimo;
+            TamRestante -= TamMinimo;
+            if (linhas[i] / total * TamTotal <= TamMinimo) {
+                total -= linhas[i];             // retira do total
+            }
+        }
+        totalSemLinhasMinimas = total;
+        
+        // calcula a altura de cada linha, exceto aquelas que já possuem altura mínima
+        for (var i = 0; i < linhas.length; i++) {
+            if (linhas[i] / total * TamTotal > TamMinimo) {
+                alturas[i] += linhas[i] / total  * TamRestante;
+            }
+        }
+        */
+// ******************** B ***************************************************************
+// ******************** C ***************************************************************
+        
+        // separa as linhas que são proporcionalmente menores que o mínimo
+        for (var i = 0; i < linhas.length; i++) {
+                alturas[i] = TamMinimo;
+                TamRestante -= TamMinimo;
+        }
+        totalSemLinhasMinimas = total;
+        
+        // calcula a altura de cada linha, exceto aquelas que já possuem altura mínima
+        for (var i = 0; i < linhas.length; i++) {
+            alturas[i] += linhas[i] / total  * TamRestante;
+        }
+        
+// ******************** C ***************************************************************
         
         var Print = "Condições: \r\n\tTamanho Total = [" + TamTotal + "];\r\n\tTamanho Mínimo = [" + TamMinimo + "];\r\n";
         total = 0;
@@ -1346,18 +1387,33 @@ var UIS = {
         Print += "\tTOTAL DE ALTURAS = " + total + "\r\n";
         console.log(Print);
         // calcula alturas
+
+        // ordena linhas
+        var linhasOrdenadas = [];
+        for (var i = 0; i < linhas.length; i++) {
+            linhasOrdenadas.push(linhas[i]);
+        }
+        linhasOrdenadas.sort(function (a,b){return b-a});
+
         for (var i = 0; i < listaStatus.length; i++) {
+
+            // obtém o fonte correto a partir de tamFonte[], que contém os fontes ordenados do maior para o menor
+            for (j = 0; j < linhasOrdenadas.length; j++) {
+                if (linhasOrdenadas[j] == linhas[i]) {
+                    fonteCorreto = tamFontes[j];
+                }
+            }
+
              nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
                 "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='descricao_andamento  gray_4'>" +
                 this.txtStatusMetas[listaStatus[i]] +
                 "</div>" +
-                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta' style='height:" + alturas[i] + "px; box-sizing: border-box;'>" +
+                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta " + fonteCorreto + "' style='height:" + alturas[i] + "px; box-sizing: border-box;'>" +
                 linhas[i] +
                 "</div>" +
               "</div>";
         }
         console.log(nodes)
-        alert("x");
 
         UIS.ul_ListaMetasStatus.empty();
         UIS.ul_ListaMetasStatus.append(nodes);
