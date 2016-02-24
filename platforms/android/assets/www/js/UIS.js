@@ -73,10 +73,10 @@ var UIS = {
     configListeners: function () {
         // Texto para status de metas
         this.txtStatusMetas[1] = "Não iniciadas";
-        this.txtStatusMetas[2] = "Em andamento";
-        this.txtStatusMetas[3] = "Com benefícios à população";
-        this.txtStatusMetas[4] = "Concluídas";
-        this.txtStatusMetas[5] = "Superadas";
+        this.txtStatusMetas[2] = "Metas em andamento";
+        this.txtStatusMetas[3] = "Benefícios à população";
+        this.txtStatusMetas[4] = "Metas concluídas";
+        this.txtStatusMetas[5] = "Metas superadas";
 
         // Texto para tipos de projeto
         this.txtTipoProjeto[0] = "Tipo 0";
@@ -193,8 +193,13 @@ var UIS = {
             //trata o label que aparece na tela
             if(len <2){
                 txtQuebra += txtSeparado[0];
+                $("#recebeSelect").removeClass('padd-t-4pct');
+                $("#recebeSelect").addClass('padd-t-6pct');
+
             }else{
 
+                $("#recebeSelect").addClass('padd-t-4pct');
+                $("#recebeSelect").removeClass('padd-t-6pct');
                 if(len <3){
 
                     for(var i= 0; i<len; i++){
@@ -244,7 +249,13 @@ var UIS = {
             //trata o label que aparece na tela
             if(len <2){
                 txtQuebra += txtSeparado[0];
+                $("#recebeSelectListametas").removeClass('padd-t-4pct');
+                $("#recebeSelectListametas").addClass('padd-t-6pct');
+
             }else{
+
+                $("#recebeSelectListametas").addClass('padd-t-4pct');
+                $("#recebeSelectListametas").removeClass('padd-t-6pct');
 
                 if(len <3){
 
@@ -1284,8 +1295,9 @@ var UIS = {
         */
 
         // calcula alturas
-        var TamTotal = 365;
-        var TamMinimo = 70;
+        var TamTela = window.innerHeight - 175;
+        var TamTotal = TamTela;
+        var TamMinimo = 75;
 
         var linhas = [];//[63, 10, 26, 36];
         var count = 0;
@@ -1404,11 +1416,11 @@ var UIS = {
                 }
             }
 
-             nodes += "<div idRegistro='' class='metas_andamento divide_meta'>" +
+             nodes += "<div idRegistro='' class='metas_andamento divide_meta'" + "style='height:" + alturas[i] + "px; box-sizing: border-box;'>" +
                 "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='descricao_andamento  gray_4'>" +
                 this.txtStatusMetas[listaStatus[i]] +
                 "</div>" +
-                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta " + fonteCorreto + "' style='height:" + alturas[i] + "px; box-sizing: border-box;'>" +
+                "<div idRegistro='" + listaStatus[i] + "' countRegistro='" + linhas[i] + "' class='valor_andamento cor_valor_meta " + fonteCorreto + "'>" +
                 linhas[i] +
                 "</div>" +
               "</div>";

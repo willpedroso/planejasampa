@@ -90,7 +90,7 @@ body, p{
     position: absolute;
 }
 #div_metasStatus{
-    position: absolute;
+    position: relative;
 }
 
 #ulListaObjetivos{
@@ -251,11 +251,15 @@ button{
 .distrito {
     z-index: 102;
     position: absolute;
-    margin:-8px 0 0 144px;
+    margin:-54px 0 0 144px;
     float: right;
     width: 60%;
     height:44px;
     padding: 0px 20px 15px 0;
+}
+
+#lista_metas_select{
+    color: black;
 }
 
 .distrito select {
@@ -267,8 +271,7 @@ button{
     float: right;
     color: rgba(0,0,0,0);
     background: transparent;
-    width: 240px;
-    font-size: 1em;
+    width: 240px;54    font-size: 1em;
     line-height: 1;
     border: 0;
     border-radius: 0;
@@ -280,11 +283,12 @@ button{
 .recebeSelect{
     background-image: url(../img/icons/ic_expand_more_black_24dp.png);
     background-repeat: no-repeat;
-    background-position: 98% 15px;
+    background-position: 98% 14px;
     white-space: pre-wrap;
-    padding: 6% 35px 0 0;
+    padding: 4% 35px 8% 0;
     text-align: right;
     line-height: 50%;
+    height: 55px;
 }
 
 .recebeSelect p{
@@ -306,7 +310,7 @@ button{
     color: #b71c1c;
 }
 .metas_andamento{
-    /*float: left;*/
+    float: left;
     width: 100%;
     background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
     background-repeat: no-repeat;
@@ -314,7 +318,9 @@ button{
     padding: 3px 19px 0 0;
     height: auto;
     overflow: hidden;
+    position: relative;
 }
+
 .padding_t_54{
     padding-top: 54px;
 }
@@ -327,32 +333,42 @@ button{
     font-weight: 500;
     padding-left:5%;
     line-height: 19px;
- 
 }
 
 
 .descricao_andamento{
-    width: 44%;
     float: left;
     font-family: 'Roboto-medium', sans-serif;
     font-size: 22px;
     font-weight: 500;
-    line-height: 22px;
-    padding: 8px 0 8px 15px;
- 
+
+/*centralizando vertical*/
+
+    position: absolute;
+    bottom: 45%;
+    left: 15px;
+    width: 44%;
+    height: 30%;
+    margin: auto;
 }
 
 .valor_andamento{
     padding: 0px 15px 0 0;
     text-align: right;
     width: 55%;
-   /*k*/
     float: right;
     clear: right;
     font-family: 'Roboto-Black', sans-serif;
-    font-size: 6em;
-    white-space:normal;
+    white-space: normal;
     font-weight: 600;
+    position: absolute;
+    /*top: 0;*/
+    /*bottom: 45%;*/
+    /* left: 0; */
+    right: 30px;
+    width: 50%;
+    height: 30%;
+    margin: auto;
 }
 
 .divide_meta{
@@ -1168,11 +1184,11 @@ ul#listaProjetosDeMetas li{
 
 .subprefeitura {
     border-bottom: 1px solid #d1d1d1;
-    padding-bottom: 10px;
     float: left;
     height: auto;
     width: 100%;
     overflow: hidden;
+    height: 55px;
 }
 
 
@@ -1542,6 +1558,14 @@ ul.list_interna_proj li{
     color: #b71c1c;
     font-size: 1.1em;
     padding-right: 10px;
+}
+
+.padd-t-4pct{
+    padding-top: 4% !important;
+}
+
+.padd-t-6pct{
+    padding-top: 6% !important;
 }
 
 /*classe para tamanho da fonte na tela inicial*/
