@@ -155,7 +155,6 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar");
+                UIS.showTelaAlert("Houve falha na atualização dos dados.", "Fechar", "getGoals();");
             }
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
-        

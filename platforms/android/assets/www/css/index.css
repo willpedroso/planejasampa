@@ -1,1591 +1,1603 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-
-@font-face {
-    font-family: "Roboto-Black";
-    src: url("../fonts/Roboto-Black.ttf"); /* para IE */
-    src: url("../fonts/Roboto-Black.ttf");
-}
-
-@font-face {
-    font-family: "Roboto-medium";
-    src: url("../fonts/Roboto-medium.ttf"); /* para IE */
-    src: url("../fonts/Roboto-medium.ttf");
-}
-
-@font-face {
-    font-family: "Montserrat-Bold";
-    src: url("../fonts/Montserrat-Bold.ttf"); /* para IE */
-    src: url("../fonts/Montserrat-Bold.ttf");
-}
-
-
-* {
-   -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-}
-
-
- * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-
-}
-body{
-    font-size: 12px;
-}
-
-body, p{
-         -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    margin: 0 auto;
-    padding: 0;
-    /*font-family:'Roboto', 'Arial', san serif;*/
-    font-size: 1em;
-
-}
-
-
-
-
- #header {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    height: 55px;
-    background-color: #fff;
-    text-align: center;
-    box-shadow:         0px 3px 7px 0px rgba(109, 109, 109, 0.50);
-    webkit-box-shadow: 0px 3px 7px 0px rgba(109, 109, 109, 0.50);
-    -moz-box-shadow:    0px 3px 7px 0px rgba(109, 109, 109, 0.50);
-}
-
-#nav {
-    line-height: 30px;
-    height: 470px;
-    width: 40px;
-    float: left;
-    padding: 5px;
-}
-#div_metasObjetivos{
-    width: 100%;
-    padding: 70px 15px 0 15px;
-    position: absolute;
-}
-#div_metasStatus{
-    position: relative;
-}
-
-#ulListaObjetivos{
-    /*width: 100%;
-    float: left;
-    padding: 61px 0 0 0;*/
-    margin: 0;
-    padding: 0;
-}
-
-#ulListaObjetivos ul li{
-    width: 100%;
-}
-
-#section {
-    width: 100%;
-    float: left;
-         
-}
-.height_50px{
-     height: 50px;
-}
-.titulo_objetivo{
-    padding: 10px 0 0 0;
-    height: 50px;
-}
-.titulo_objetivo h2{
-    padding: 0;
-    margin: 0;
-
-}
-.item_objetivo{
-    height: 55px;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 99% center;
-}
-
-.desc_objetivo{
-    padding-top: 15px;
-    float: left;
-    font-family: "roboto";
-    font-size: 1.1rem;
-    color: #515151;
-  
-}
-
-.valor_objetivo{
-    font-family: "roboto";
-    float: right;
-    font-size: 1.5rem;
-    color: #a1a1a1;
-    padding: 14px 40px 0 0;
-
-}
-
-.tela_show{
-    display: block;
-}
-.tela_hide{
-    display:none;
-}
-
-
-/*classes topo fixo*/
-
-button{
-    border: none;
-    background: none;
-    display: block;
-    float:left;
-    outline: none;
-}
-
-
-.bt_voltar{
-    margin-top: 10px;
-    border: 0;
-    background: none;
-    display: block;
-    float:left;
-    width: 15%;
-    padding-top: 15px;
-    height: 40px;
-    background-image:  url('../img/icons/ic_arrow_back_black_36dp.png');
-    background-size: 24px 24px;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-}
-
-.bt_voltar_none{
-    margin-top: 10px;
-    border: 0;
-    background: none;
-    display: block;
-    float:left;
-    width: 15%;
-    padding-top: 15px;
-    height: 40px;
-    /*background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');*/
-    background-size: 24px 24px;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-}
-.logo{
-    float: left;
-    width: 70%;
-    padding: 8px 0;
-}
-.logo p{
-    font-family: 'Montserrat', 'Roboto', sans-serif;
-    font-size: 0.8em;
-    margin: 3px 0 0 0;
-    font-weight: 600; 
-
-}
-
-.logo img{
-    width: 65px;
-    margin: 0;
-
-}
-.bt_Configure{
-    border: 0;
-    background: none;
-    display: block;
-    float:left;
-    padding-top: 15px;
-}
-
-#bt_Subprefeituras{
-    margin-top: 63px;
-}
-
-.subprefeitura{
-    border-bottom: 2px solid #f5f5f5;
-    float: left;
-    height: 45px;
-    width: 100%;
-}
-
-.subpref{
-    color: #b71c1c;
-    float: left;
-    width:35%;
-    padding: 10px 0 10px 6%;
-    height: 45px;
-    text-transform: uppercase;
-}
-
-/*#listaSubprefeituras{
-    z-index: 102;
-    position: absolute;
-}*/
-
-.distrito {
-    z-index: 102;
-    position: absolute;
-    margin:-54px 0 0 144px;
-    float: right;
-    width: 60%;
-    height:44px;
-    padding: 0px 20px 15px 0;
-}
-
-#lista_metas_select{
-    color: black;
-}
-
-.distrito select {
-    z-index: 102;
-    position: absolute;
-    outline-style: none;
-    padding-top: 7px;
-    text-align: left;
-    float: right;
-    color: rgba(0,0,0,0);
-    background: transparent;
-    width: 240px;54    font-size: 1em;
-    line-height: 1;
-    border: 0;
-    border-radius: 0;
-    height: 44px;
-    margin-left: -25px;
-    -webkit-appearance: none;
-}
-
-.recebeSelect{
-    background-image: url(../img/icons/ic_expand_more_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 98% 14px;
-    white-space: pre-wrap;
-    padding: 4% 35px 8% 0;
-    text-align: right;
-    line-height: 50%;
-    height: 55px;
-}
-
-.recebeSelect p{
-    margin-bottom: -17px;
-}
-/*fim classes topo fixo*/
-
-/*classes tela 1*/
-
-.cor_metas1{
-    color: #333;    
-}
-
-.cor_valor_meta{
-   color:#d5d5d5;
-}
-
-.cor_3_red{
-    color: #b71c1c;
-}
-.metas_andamento{
-    float: left;
-    width: 100%;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 97% center;
-    padding: 3px 19px 0 0;
-    height: auto;
-    overflow: hidden;
-    position: relative;
-}
-
-.padding_t_54{
-    padding-top: 54px;
-}
-
-
-.li_metas{
-    float: left;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;
-    font-weight: 500;
-    padding-left:5%;
-    line-height: 19px;
-}
-
-
-.descricao_andamento{
-    float: left;
-    font-family: 'Roboto-medium', sans-serif;
-    font-size: 22px;
-    font-weight: 500;
-
-/*centralizando vertical*/
-
-    position: absolute;
-    bottom: 45%;
-    left: 15px;
-    width: 44%;
-    height: 30%;
-    margin: auto;
-}
-
-.valor_andamento{
-    padding: 0px 15px 0 0;
-    text-align: right;
-    width: 55%;
-    float: right;
-    clear: right;
-    font-family: 'Roboto-Black', sans-serif;
-    white-space: normal;
-    font-weight: 600;
-    position: absolute;
-    /*top: 0;*/
-    /*bottom: 45%;*/
-    /* left: 0; */
-    right: 30px;
-    width: 50%;
-    height: 30%;
-    margin: auto;
-}
-
-.divide_meta{
-    border-bottom: 2px solid #f5f5f5;
-}
-
-.metas_beneficiam{
-    float: left;
-    width: 100%;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 95% center;
-    padding: 0 19px 0 0;
-}
-
-.descricao_beneficiam{
-    width: 40%;
-    float: left;
-    font-family: 'Roboto-medium', sans-serif;
-    font-size: 1.2em;
-    font-weight: 500;
-    padding-left:5%;
-    line-height: 22px;
-    padding-top: 10px;
-}
-
-.valor_beneficiam{
-    width: 44%;
-    line-height: 88px;
-    float: right;
-    clear: right;
-    font-family: 'Roboto-Black', sans-serif;
-    font-size: 7.2em;
-    white-space:normal;
-    font-weight: 600;
-}
-
-.metas{
-    color: #000;
-}
-
-.line-height_22px{
-     line-height: 22px;
-}
-
-.metas_concluidas{
-    float: left;
-    width: 100%;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 95% center;
-    padding: 0 19px 0 0;
-}
-
-.descricao_concluidas{
-    color: #f55b4f;
-    width: 50%;
-    float: left;
-    font-family: 'Roboto-medium', sans-serif;
-    font-size: 1.2em;
-    font-weight: 500;
-    padding-left:5%;
-    line-height: 22px;
-    padding-top: 29px;
-}
-
-.valor_concluidas{
-    color: #f8d5d3;
-    width: 30%;
-    line-height: 67px;
-    float: right;
-    clear: right;
-    font-family: 'Roboto condensed', sans-serif;
-    font-size: 5.2rem;
-    white-space:normal;
-    font-weight: 600;
-}
-
-.metas_superadas{
-    float: left;
-    width: 100%;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-repeat: no-repeat;
-    background-position: 95% center;
-    padding: 0 19px 0 0;
-}
-
-.descricao_superadas{
-    width: 55%;
-    float: left;
-    font-family: 'Roboto-medium', sans-serif;
-    font-size: 1.2em;
-    font-weight: 500;
-    padding-left:5%;
-    line-height: 22px;
-    padding-top: 23px;
-}
-
-.valor_superadas{
-    width: 18%;
-    line-height: 66px;
-    float: right;
-    clear: right;
-    font-family: 'Roboto condensed', sans-serif;
-    font-size: 4.6rem;
-    white-space:normal;
-    font-weight: 600;
-}
-
-
-.rodape_botoes{
-    background-color: #444343;
-    background-image: url(../img/background.png);
-    background-repeat: no-repeat;
-    background-position: 0 45px;
-    background-size: 201%;
-    float: left;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 55px;
-    box-shadow:        0px -3px 7px 0px rgba(109, 109, 109, 0.50);
-    webkit-box-shadow: 0px -3px 7px 0px rgba(109, 109, 109, 0.50);
-    -moz-box-shadow:   0px -3px 7px 0px rgba(109, 109, 109, 0.50);
-}
-
-/*classes tela 2*/
-
-.status_metas {
-    background-image: url(../img/background.png);
-    background-repeat: no-repeat;
-    background-position: 4% -8px;
-    background-size: 201%;
-    width: 50%;
-    height: 100%;
-    font-family: 'Roboto-medium', sans-serif;
-    float: left;
-    font-size: 1.1em;
-    font-weight: 500;
-    padding: 0 0 0 3%;
-    line-height: 15px;
-    text-align: left;
-    padding: 10px 10px 6px 70px;
-}
-
-/*.status_metas img{
-    float: left;
-    padding: 5px 0 0px 5%;
-    text-align: center;
-    margin-right: 15px;
-}*/
-
-.bt_border_ativo{
-    background-color: #b71c1c;
-    
-   /*background-image: url(../img/bg_status_ativo.png);
-   background-position: bottom;
-   background-repeat: repeat-x;*/
-}
-.height_70_pct{
-    height: 70%;
-}
-
-.Objetivos_metas{
-    background-image: url(../img/background.png);
-    background-repeat: no-repeat;
-    background-position: 100% -8px;
-    background-size: 201%;
-    float: right;
-    width: 50%;
-    border-left: 2px solid #eee;
-    height: 100%;
-    font-family: 'Roboto-medium', sans-serif;
-    float: left;
-    font-size: 1.1em;
-    font-weight: 500;
-    padding: 0 0 0 2%;
-    text-align: left;
-    line-height: 15px;
-    padding: 10px 10px 6px 70px;
-}
-
-/*.Objetivos_metas img{
-    float: left;
-    padding: 3px 0 0px 5%;
-    text-align: center;
-    margin-right: 15px;
-}*/
-
-.status_tela{
-    font-family: "Roboto-medium";
-    margin-top: 57px;
-    text-align: center;
-    float: left;
-    min-height: 37px;
-    width: 100%;
-    background-color: #eeeeee;
-    font-size: 1em;
-    text-transform: uppercase;
-    line-height: 2.4;
-    border-bottom: 1px solid #d1d1d1;
-}
-
-.num_meta{
-    overflow: auto;
-    width: 100%;
-    height: auto;
-  
-
-}
-.num_meta h1, h2, h3, h4, h5, h6{
-    padding: 0 auto;
-    margin: 0 auto;
-}
-
-.num_meta ul{
-    margin: 0 auto;
-    padding: 0;
-}
-
-.num_meta ul li {
-    float: left;
-    width: 100%;
-    height: auto;
+  /*
+   * Licensed to the Apache Software Foundation (ASF) under one
+   * or more contributor license agreements.  See the NOTICE file
+   * distributed with this work for additional information
+   * regarding copyright ownership.  The ASF licenses this file
+   * to you under the Apache License, Version 2.0 (the
+   * "License"); you may not use this file except in compliance
+   * with the License.  You may obtain a copy of the License at
+   *
+   * http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing,
+   * software distributed under the License is distributed on an
+   * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   * KIND, either express or implied.  See the License for the
+   * specific language governing permissions and limitations
+   * under the License.
+   */
+
+
+  @font-face {
+      font-family: "Roboto-Black";
+      src: url("../fonts/Roboto-Black.ttf"); /* para IE */
+      src: url("../fonts/Roboto-Black.ttf");
+  }
+
+  @font-face {
+      font-family: "Roboto-medium";
+      src: url("../fonts/Roboto-medium.ttf"); /* para IE */
+      src: url("../fonts/Roboto-medium.ttf");
+  }
+
+  @font-face {
+      font-family: "Montserrat-Bold";
+      src: url("../fonts/Montserrat-Bold.ttf"); /* para IE */
+      src: url("../fonts/Montserrat-Bold.ttf");
+  }
+
+
+  * {
+     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  }
+
+
+   * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+  }
+  body{
+      font-size: 12px;
+  }
+
+  body, p{
+           -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+      -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+      -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+      margin: 0 auto;
+      padding: 0;
+      /*font-family:'Roboto', 'Arial', san serif;*/
+      font-size: 1em;
+
+  }
+
+
+
+
+   #header {
+      position: fixed;
+      z-index: 100;
+      width: 100%;
+      height: 55px;
+      background-color: #fff;
+      text-align: center;
+      box-shadow:         0px 3px 7px 0px rgba(109, 109, 109, 0.50);
+      webkit-box-shadow: 0px 3px 7px 0px rgba(109, 109, 109, 0.50);
+      -moz-box-shadow:    0px 3px 7px 0px rgba(109, 109, 109, 0.50);
+  }
+
+  #nav {
+      line-height: 30px;
+      height: 470px;
+      width: 40px;
+      float: left;
+      padding: 5px;
+  }
+  #div_metasObjetivos{
+      width: 100%;
+      padding: 70px 15px 0 15px;
+      position: absolute;
+  }
+  #div_metasStatus{
+      position: relative;
+  }
+
+  #ulListaObjetivos{
+      /*width: 100%;
+      float: left;
+      padding: 61px 0 0 0;*/
+      margin: 0;
+      padding: 0;
+  }
+
+  #ulListaObjetivos ul li{
+      width: 100%;
+  }
+
+  #section {
+      width: 100%;
+      float: left;
+
+  }
+  .height_50px{
+       height: 50px;
+  }
+  .titulo_objetivo{
+      padding: 10px 0 0 0;
+      height: 50px;
+  }
+  .titulo_objetivo h2{
+      padding: 0;
+      margin: 0;
+
+  }
+  .item_objetivo{
+      height: 55px;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 99% center;
+  }
+
+  .desc_objetivo{
+      padding-top: 15px;
+      float: left;
+      font-family: "roboto";
+      font-size: 1.1rem;
+      color: #515151;
+
+  }
+
+  .valor_objetivo{
+      font-family: "roboto";
+      float: right;
+      font-size: 1.5rem;
+      color: #a1a1a1;
+      padding: 14px 40px 0 0;
+
+  }
+
+  .tela_show{
+      display: block;
+  }
+  .tela_hide{
+      display:none;
+  }
+
+
+  /*classes topo fixo*/
+
+  button{
+      border: none;
+      background: none;
+      display: block;
+      float:left;
+      outline: none;
+  }
+
+
+  .bt_voltar{
+      margin-top: 10px;
+      border: 0;
+      background: none;
+      display: block;
+      float:left;
+      width: 15%;
+      padding-top: 15px;
+      height: 40px;
+      background-image:  url('../img/icons/ic_arrow_back_black_36dp.png');
+      background-size: 24px 24px;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+  }
+
+  .bt_voltar_none{
+      margin-top: 10px;
+      border: 0;
+      background: none;
+      display: block;
+      float:left;
+      width: 15%;
+      padding-top: 15px;
+      height: 40px;
+      /*background-image:  url('../img/icons/ic_chevron_left_black_48dp.png');*/
+      background-size: 24px 24px;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+  }
+  .logo{
+      float: left;
+      width: 70%;
+      padding: 7px 0;
+  }
+  .logo p{
+      font-family: 'Montserrat', 'Roboto', sans-serif;
+      font-size: 0.8em;
+      margin: 3px 0 0 0;
+      font-weight: 600;
+
+  }
+
+  .logo img{
+      width: 65px;
+      margin: 0;
+
+  }
+  .bt_Configure{
+      border: 0;
+      background: none;
+      display: block;
+      float:left;
+      padding-top: 15px;
+  }
+
+  #bt_Subprefeituras{
+      margin-top: 63px;
+  }
+
+  /*.subprefeitura{
+      border-bottom: 2px solid #f5f5f5;
+      float: left;
+      height: 45px;
+      width: 100%;
+  }*/
+
+  .subpref{
+      color: #b71c1c;
+      float: left;
+      width:35%;
+      padding: 10px 0 10px 6%;
+      height: 45px;
+      text-transform: uppercase;
+  }
+
+  /*#listaSubprefeituras{
+      z-index: 102;
+      position: absolute;
+  }*/
+
+  .distrito {
+      z-index: 102;
+      position: absolute;
+      margin:-54px 0 0 144px;
+      float: right;
+      width: 60%;
+      height:44px;
+      padding: 0px 20px 15px 0;
+  }
+
+  #lista_metas_select{
+      /*color: black;*/
+  }
+
+  .distrito select {
+      z-index: 102;
+      position: absolute;
+      outline-style: none;
+      padding-top: 7px;
+      text-align: left;
+      float: right;
+      color: rgba(0,0,0,0);
+      background: transparent;
+      width: 240px;54    font-size: 1em;
+      line-height: 1;
+      border: 0;
+      border-radius: 0;
+      height: 44px;
+      margin-left: -25px;
+      -webkit-appearance: none;
+  }
+
+  .recebeSelect{
+      background-image: url(../img/icons/ic_expand_more_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 98% 14px;
+      white-space: pre-wrap;
+      padding: 4% 35px 8% 0;
+      text-align: right;
+      line-height: 50%;
+      height: 55px;
+  }
+
+  .recebeSelect p{
+      margin-bottom: -17px;
+  }
+  /*fim classes topo fixo*/
+
+  /*classes tela 1*/
+
+  .cor_metas1{
+      color: #333;
+  }
+
+  .cor_valor_meta{
+     color:#d5d5d5;
+  }
+
+  .cor_3_red{
+      color: #b71c1c;
+  }
+  .metas_andamento{
+      float: left;
+      width: 100%;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 97% center;
+      padding: 3px 19px 0 0;
+      height: auto;
+      overflow: hidden;
+      position: relative;
+  }
+
+  .padding_t_54{
+      padding-top: 54px;
+  }
+
+
+  .li_metas{
+      float: left;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      padding-left:5%;
+      line-height: 19px;
+  }
+
+
+  .descricao_andamento{
+      float: left;
+      font-family: 'Roboto-medium', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      position: absolute;
+      bottom: 45%;
+      left: 15px;
+      width: 44%;
+      height: 30%;
+      margin: auto;
+      line-height: 20px;
+  }
+
+  .valor_andamento{
+      padding: 0px 15px 0 0;
+      text-align: right;
+      width: 55%;
+      float: right;
+      clear: right;
+      font-family: 'Roboto-Black', sans-serif;
+      white-space: normal;
+      font-weight: 600;
+      position: absolute;
+      /*top: 0;*/
+      /*bottom: 45%;*/
+      /* left: 0; */
+      right: 30px;
+      width: 50%;
+      height: 30%;
+      margin: auto;
+  }
+
+  .divide_meta{
+      border-bottom: 2px solid #f5f5f5;
+  }
+
+  .metas_beneficiam{
+      float: left;
+      width: 100%;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 95% center;
+      padding: 0 19px 0 0;
+  }
+
+  .descricao_beneficiam{
+      width: 40%;
+      float: left;
+      font-family: 'Roboto-medium', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      padding-left:5%;
+      line-height: 22px;
+      padding-top: 10px;
+  }
+
+  .valor_beneficiam{
+      width: 44%;
+      line-height: 88px;
+      float: right;
+      clear: right;
+      font-family: 'Roboto-Black', sans-serif;
+      font-size: 7.2em;
+      white-space:normal;
+      font-weight: 600;
+  }
+
+  .metas{
+      color: #000;
+  }
+
+  .line-height_22px{
+       line-height: 22px;
+  }
+
+  .metas_concluidas{
+      float: left;
+      width: 100%;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 95% center;
+      padding: 0 19px 0 0;
+  }
+
+  .descricao_concluidas{
+      color: #f55b4f;
+      width: 50%;
+      float: left;
+      font-family: 'Roboto-medium', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      padding-left:5%;
+      line-height: 22px;
+      padding-top: 29px;
+  }
+
+  .valor_concluidas{
+      color: #f8d5d3;
+      width: 30%;
+      line-height: 67px;
+      float: right;
+      clear: right;
+      font-family: 'Roboto condensed', sans-serif;
+      font-size: 5.2rem;
+      white-space:normal;
+      font-weight: 600;
+  }
+
+  .metas_superadas{
+      float: left;
+      width: 100%;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: 95% center;
+      padding: 0 19px 0 0;
+  }
+
+  .descricao_superadas{
+      width: 55%;
+      float: left;
+      font-family: 'Roboto-medium', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      padding-left:5%;
+      line-height: 22px;
+      padding-top: 23px;
+  }
+
+  .valor_superadas{
+      width: 18%;
+      line-height: 66px;
+      float: right;
+      clear: right;
+      font-family: 'Roboto condensed', sans-serif;
+      font-size: 4.6rem;
+      white-space:normal;
+      font-weight: 600;
+  }
+
+
+  .rodape_botoes{
+      background-color: #444343;
+      background-image: url(../img/background.png);
+      background-repeat: no-repeat;
+      background-position: 0 45px;
+      background-size: 201%;
+      float: left;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 55px;
+      box-shadow:        0px -3px 7px 0px rgba(109, 109, 109, 0.50);
+      webkit-box-shadow: 0px -3px 7px 0px rgba(109, 109, 109, 0.50);
+      -moz-box-shadow:   0px -3px 7px 0px rgba(109, 109, 109, 0.50);
+  }
+
+  /*classes tela 2*/
+
+  .status_metas {
+      background-image: url(../img/background.png);
+      background-repeat: no-repeat;
+      background-position: 4% -8px;
+      background-size: 201%;
+      width: 50%;
+      height: 100%;
+      font-family: 'Roboto-medium', sans-serif;
+      float: left;
+      font-size: 1.1em;
+      font-weight: 500;
+      padding: 0 0 0 3%;
+      line-height: 15px;
+      text-align: left;
+      padding: 10px 10px 6px 70px;
+  }
+
+  /*.status_metas img{
+      float: left;
+      padding: 5px 0 0px 5%;
+      text-align: center;
+      margin-right: 15px;
+  }*/
+
+  .bt_border_ativo{
+      background-color: #b71c1c;
+
+     /*background-image: url(../img/bg_status_ativo.png);
+     background-position: bottom;
+     background-repeat: repeat-x;*/
+  }
+  .height_70_pct{
+      height: 70%;
+  }
+
+  .Objetivos_metas{
+      background-image: url(../img/background.png);
+      background-repeat: no-repeat;
+      background-position: 100% -8px;
+      background-size: 201%;
+      float: right;
+      width: 50%;
+      border-left: 2px solid #eee;
+      height: 100%;
+      font-family: 'Roboto-medium', sans-serif;
+      float: left;
+      font-size: 1.1em;
+      font-weight: 500;
+      padding: 0 0 0 2%;
+      text-align: left;
+      line-height: 15px;
+      padding: 10px 10px 6px 70px;
+  }
+
+  /*.Objetivos_metas img{
+      float: left;
+      padding: 3px 0 0px 5%;
+      text-align: center;
+      margin-right: 15px;
+  }*/
+
+  .status_tela{
+      font-family: "Roboto-medium";
+      margin-top: 57px;
+      text-align: center;
+      float: left;
+      min-height: 37px;
+      width: 100%;
+      background-color: #eeeeee;
+      font-size: 1em;
+      text-transform: uppercase;
+      line-height: 2.4;
+      border-bottom: 1px solid #d1d1d1;
+  }
+
+  .num_meta{
+      overflow: auto;
+      width: 100%;
+      height: auto;
+
+
+  }
+  .num_meta h1, h2, h3, h4, h5, h6{
+      padding: 0 auto;
+      margin: 0 auto;
+  }
+
+  .num_meta ul{
+      margin: 0 auto;
+      padding: 0;
+  }
+
+  .num_meta ul li {
+      float: left;
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid #ccc;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-position: 95% center;
+      background-repeat: no-repeat;
+      text-decoration: none;
+      list-style: none;
+      margin: 0 auto;
+      padding: 20px 16px 20px 16px;
+  }
+
+  .meta_valor{
+      /*margin-top: 10px;*/
+      float: left;
+      text-align: center;
+      width: 34%;
+      padding-right: 16px;
+  }
+
+  .meta_valor h4{
+      font-family: "Roboto-medium";
+      color: #b71c1c;
+      font-size: 16px;
+  }
+  .meta_valor h1{
+      font-family: "Roboto-medium";
+      font-size: 1.8rem;
+  }
+
+  .meta_valor p{
+      color: #a1a1a1;
+      font-size: 0.9rem;
+      margin: 0 auto;
+      padding: 10px 0px;
+      text-align: center;
+  }
+
+  .meta_discricao{
+      float: left;
+      width: 65%;
+      height: auto;
+      padding: 0 23px 0 13px;
+      line-height: 22px;
+      min-height: 96px;
+      border-left: 1px solid #ccc;
+  }
+
+
+  .meta_discricao p{
+      font-size: 0.9em;
+      color: #a1a1a1
+
+  }
+
+  /*classes tela 3*/
+
+  .status_tela div{
+      padding: 5px 10px;
+      margin: 0 auto;
+  }
+
+
+
+  .margin-top-45px{
+      margin-top: 45px;
+  }
+
+  .list-style{
+      list-style-type: none;
+
+  }
+
+  .list-style h1, h2, h3, h4, h5, h6{
+      margin: 0 auto;
+  }
+
+  .list-style ul{
+      margin: 0 auto;
+      padding: 0;
+  }
+  .list-style ul li {
+      overflow: auto;
+      width: 100%;
+      height: auto;
+      text-decoration: none;
+      list-style: none;
+      padding: 5px 0;
+      margin: 0 auto;
+      text-align: left;
+  }
+
+  .meta_valor_tela3{
+      margin-top: 10px;
+      float: left;
+      width: 30%;
+   }
+
+  .meta_valor_tela3 p{
+      font-size: 0.83em;
+      margin: 0 auto;
+  }
+
+  .meta_discricao_tela3{
+      float: left;
+      text-align: left;
+      width: 70%;
+      height: 100%;
+  }
+
+  .meta_discricao_tela3 h1{
+      float: right;
+      padding: 5px 0 0 0;
+
+  }
+  .desc_meta_tela3 ul li p{
+      width: 85%;
+      margin: 0 auto;
+      padding: 5px 0
+  }
+
+  .bg_gray p{
+      font-size: 0.9em;
+  }
+
+  .bg_gray{
+      overflow: hidden;
+      width: 100%;
+      float left;
+      margin: 3px;
+      padding: 5px;
+      background-color: #DBDBDB;
+  }
+
+  .box_info p{
+      font-size: 0.9em;
+  }
+  .box_info p strong{
+      color: #3e3e3e;
+  }
+
+
+
+  .box_info{
+      overflow: hidden;
+      width: 100%;
+      float left;
+      margin: 3px;
+      padding: 5px;
+  }
+
+  .bg_gray2{
+      margin: 3px;
+      padding: 5px;
+      float: left;
+      width: 47%;
+      background-color:#888787;
+  }
+
+  .border_bottom_gray{
+      border-bottom: 1px solid #ccc;
+
+  }
+
+  .list_projetos p{
+      width: auto;
+      font-size: 1.16em;
+      padding: 10px 0 10px 10px;
+  }
+
+  .list_projetos{
+      border-bottom: 1px solid #ccc;
+      background-image:url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-position: center right;
+      background-repeat: no-repeat;
+  }
+
+  .link_style{
+      color: #000;
+      display: block;
+      text-decoration: none;
+  }
+
+  /*classes tela 4*/
+
+  .list_objetivos {
+      margin-top: 45px;
+      padding: 10px 0;
+      float: left;
+      width: 100%;
+  }
+
+  .list_objetivos_itens{
+      padding: 10px 0;
+      float: left;
+      width: 100%;
+  }
+
+
+
+  .border_rigth{
+      width: 170px;
+      float: left;
+      padding-right: 10px;
+  }
+
+  .padding-right_20px{
+      padding-right: 20px;
+  }
+
+  .font_size_20pt{
+      font-size: 1.6em;
+  }
+
+  .padding_t_10{
+      padding: 10px 0 0 0;
+  }
+
+  .padding_t_80{
+      padding: 80px 0 0 0;
+  }
+
+  .padding_10{
+      padding: 10px;
+  }
+
+  .pad_b_10px{
+      padding-bottom: 10px;
+  }
+
+  .float_left{
+      float: left;
+  }
+
+  .float_right{
+      float: right;
+  }
+  .text_center{
+  text-align: center;
+  }
+
+  .margin_10_0{
+      margin: 10px 0;
+  }
+
+  /*classe tela6*/
+
+  .menu_config{
+      width: 80%
+
+  }
+
+  .menu_config ul li{
+      background-image: url(../img/icons/ic_expand_more_black_24dp.png);
+      background-repeat: no-repeat;
+      background-position: right 15px;
+
+  }
+
+  #p1{
+      background-image: url(../img/icons/ic_system_update_alt_black_24dp.png);
+      text-align: center;
+      background-repeat: no-repeat;
+      background-position: left center;
+  }
+
+
+
+  #p2{
+      height: auto;
+      background-image: url(../img/icons/ic_info_outline_black_24dp.png);
+      text-align: center;
+      background-repeat: no-repeat;
+      background-position: left center;
+  }
+
+  #p2 p{
+      overflow: auto;
+  }
+  #p3{
+      background-image: url(../img/icons/ic_build_black_24dp.png);
+      text-align: center;
+      background-repeat: no-repeat;
+      background-position: left center;
+  }
+  .content_p1 p{
+    margin: 15px 0 5px 0;
+  }
+
+  .content_p1 button{
+      padding-left: 30px;
+      background-image: url(../img/icons/ic_autorenew_black_24dp.png);
+      text-align: center;
+      background-repeat: no-repeat;
+      background-position: left center;
+  }
+
+  /*classes tela 4 (projetos)*/
+
+  #ulDetalhesProjeto{
+      font-family: 'Roboto-medium';
+      margin: 0 auto;
+      padding: 0;
+  }
+
+  .titulo_projeto{
     border-bottom: 1px solid #ccc;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-position: 95% center;
-    background-repeat: no-repeat;
-    text-decoration: none;
-    list-style: none;
-    margin: 0 auto;
-    padding: 20px 16px 20px 16px;
-}
-
-.meta_valor{
-    /*margin-top: 10px;*/
-    float: left;
-    text-align: center;
-    width: 34%;
-    padding-right: 16px;
-}
-
-.meta_valor h4{
-    font-family: "Roboto-medium";
-    color: #b71c1c;
-    font-size: 16px;
-}
-.meta_valor h1{
-    font-family: "Roboto-medium";
-    font-size: 1.8rem;
-}
-
-.meta_valor p{
-    color: #a1a1a1;
-    font-size: 0.9rem;
-    margin: 0 auto;
-    padding: 10px 0px;
-    text-align: center;
-}
-
-.meta_discricao{
-    float: left;
-    width: 65%;
-    height: auto;
-    padding: 0 23px 0 13px;
-    line-height: 22px;
-    min-height: 96px;
-    border-left: 1px solid #ccc; 
-}
-
-
-.meta_discricao p{
-    font-size: 0.9em;
-    color: #a1a1a1
-    
-}
-
-/*classes tela 3*/
-
-.status_tela div{
-    padding: 5px 10px;
-    margin: 0 auto;
-}
-
-
-
-.margin-top-45px{
-    margin-top: 45px;
-}
-
-.list-style{
-    list-style-type: none;
-
-}
-
-.list-style h1, h2, h3, h4, h5, h6{
-    margin: 0 auto;
-}
-
-.list-style ul{
-    margin: 0 auto;
-    padding: 0;
-}
-.list-style ul li {
-    overflow: auto;
-    width: 100%;
-    height: auto;
-    text-decoration: none;
-    list-style: none;
-    padding: 5px 0;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.meta_valor_tela3{
-    margin-top: 10px;
-    float: left;
-    width: 30%;
- }
-
-.meta_valor_tela3 p{
-    font-size: 0.83em;
-    margin: 0 auto;
-}
-
-.meta_discricao_tela3{
-    float: left;
-    text-align: left;
-    width: 70%;
-    height: 100%;
-}
-
-.meta_discricao_tela3 h1{
-    float: right;
-    padding: 5px 0 0 0;
-    
-}
-.desc_meta_tela3 ul li p{
-    width: 85%;
-    margin: 0 auto;
-    padding: 5px 0
-}
-
-.bg_gray p{
-    font-size: 0.9em;
-}
-
-.bg_gray{
-    overflow: hidden;
-    width: 100%;
-    float left;
-    margin: 3px;
-    padding: 5px;
-    background-color: #DBDBDB;
-}
-
-.box_info p{
-    font-size: 0.9em;
-}
-.box_info p strong{
-    color: #3e3e3e; 
-}
-
-
-
-.box_info{
-    overflow: hidden;
-    width: 100%;
-    float left;
-    margin: 3px;
-    padding: 5px;
-}
-
-.bg_gray2{
-    margin: 3px;
-    padding: 5px;
-    float: left;
-    width: 47%;
-    background-color:#888787;
-}
-
-.border_bottom_gray{
-    border-bottom: 1px solid #ccc;
-
-}
-
-.list_projetos p{
-    width: auto;
-    font-size: 1.16em;
-    padding: 10px 0 10px 10px;    
-}
-
-.list_projetos{
-    border-bottom: 1px solid #ccc;
-    background-image:url(../img/icons/ic_chevron_right_black_24dp.png); 
-    background-position: center right;
-    background-repeat: no-repeat;
-}
-
-.link_style{
-    color: #000;
-    display: block;
-    text-decoration: none;
-}
-
-/*classes tela 4*/
-
-.list_objetivos {
-    margin-top: 45px;
-    padding: 10px 0;
-    float: left;
-    width: 100%;
-}
-
-.list_objetivos_itens{
-    padding: 10px 0;
-    float: left;
-    width: 100%;
-}
-
-
-
-.border_rigth{
-    width: 170px;
-    float: left;
-    padding-right: 10px;
-}
-
-.padding-right_20px{
-    padding-right: 20px;    
-}
-
-.font_size_20pt{
-    font-size: 1.6em;
-}
-
-.padding_t_10{
-    padding: 10px 0 0 0;
-}
-
-.padding_t_80{
-    padding: 80px 0 0 0;
-}
-
-.padding_10{
-    padding: 10px;
-}
-
-.pad_b_10px{
-    padding-bottom: 10px;
-}
-
-.float_left{
-    float: left;
-} 
-
-.float_right{
-    float: right;
-} 
-.text_center{
-text-align: center;
-}
-
-.margin_10_0{
-    margin: 10px 0;
-}
-
-/*classe tela6*/
-
-.menu_config{
-    width: 80%
-    
-}
-
-.menu_config ul li{
-    background-image: url(../img/icons/ic_expand_more_black_24dp.png); 
-    background-repeat: no-repeat;
-    background-position: right 15px;
-
-}
-
-#p1{
-    background-image: url(../img/icons/ic_system_update_alt_black_24dp.png);
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: left center;
-}
-
-
-
-#p2{
-    height: auto;
-    background-image: url(../img/icons/ic_info_outline_black_24dp.png);
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: left center;
-}
-
-#p2 p{
-    overflow: auto;
-}
-#p3{
-    background-image: url(../img/icons/ic_build_black_24dp.png);
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: left center;
-}
-.content_p1 p{
-  margin: 15px 0 5px 0;
-}
-
-.content_p1 button{
-    padding-left: 30px;
-    background-image: url(../img/icons/ic_autorenew_black_24dp.png);
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: left center;
-}
-
-/*classes tela 4 (projetos)*/
-
-#ulDetalhesProjeto{
-    font-family: 'Roboto-medium';
-    margin: 0 auto;
-    padding: 0;
-}
-
-.titulo_projetos h3{
-    text-transform: uppercase;
-    text-align: left;
-    margin: 0;
-}
-
-.titulo_projetos p{
-    text-align: left;
-    font-size: 1rem;
-    color: #212121;
-    margin: 0;
-}
-
-.dropbox_status{
-    text-transform: uppercase;
-    background-color: #f5f5f5;
-}
-.dropbox_status p{
-
-    padding: 6px 0;
-    margin: 0;
-}
-.pct_projeto{
-    text-align: center; 
-    font-size: 3.8rem;
-    color: #3e3e3e;
-}
-/*cor da fontes*/
-
-.gray_1{
-    color: #d8d8d8;
-}
-.gray_2{
-    color: #c6c6c6;
-}
-.gray_3{
-     color: #878787;
-}
-.gray_4{
-     color: #3c3c3c;
-}
-
-.font_12pt{
-    font-size: 0.8rem
-}
-.bg_gray_2{
-    background-color: #eeeeee
-}
-.uppercase{
-    text-transform: uppercase;
-}
-
-
-
-
-
-
-/*CLASSES METAS EM ANDAMENTO*/
-
-ul#ulDetalhesMeta {
-    margin:0;
-    padding: 0;
-    list-style-type: none;
-}
-
-
-ul#ulDetalhesMeta li{
-    color:#949494;
-    padding: 16px;
-    border-bottom: 1px solid #ccc;
-    line-height: 1.6;
-}
-
-.header-verm{
-    font-family: "Roboto-medium";
-    color: #b71c1c;
-    text-transform: uppercase;
-    font-size: 21px;
-    font-weight: bold;
-
-}
-
-.font-15{
-    font-size: 15px;
-}
-
-.font-1_1-em{
-    font-size: 1.1em;
-}
-
-.font-1_2-em{
-    font-size: 1.2em;
-}
-
-.font-1_8-em{
-    font-size: 1.8em;
-}
-
-.font-2-em{
-    font-size: 2em;
-}
-
-.font-3-em{
-    font-size: 3em;
-}
-
-.font-4-em{
-    font-size: 4em;
-}
-
-.font-b{
-    font-weight: bold;
-}
-
-.lettr-spacing-tit-pct{
-    line-height: 1;
-    letter-spacing: -3px;
-
-}
-
-.cor_cz87{
-    color: #878787;
-}
-
-.cor_cz40{
-    color:#404040;
-}
-.cor_cz3e{
-    color:#3e3e3e;
-}
-.bg-cor_czf5{
-    background-color:#f5f5f5;
-}
-
-
-.txt-upper{
-     text-transform: uppercase;
-}
-
-.col-50-l{
-    float: left;
-    width: 48%;
-    height: auto;
-    margin-right:4px;
-    
-    
-}
-.valor_perc{
-    text-align: center;
-    float: right;
-    width: 100%;
-    height: auto;
-    margin-left:4px;
-} 
-
-.col-50-r{
-    float: right;
-    width: 48%;
-    height: auto;
-    margin-left:4px;
-
-}
-
-.txt-algn-c{
-     text-align: center;
-}
-.overfl-hdd{
-    overflow: hidden;
-} 
-.line-cz{
-    border-bottom: 1px solid #878787;
-}
-
-.border-t{
-    border-top: 1px solid #d3d3d3;
-}
-
-.clear-bth{
-    clear:both;
-}
-
-.padd-10{
-    padding: 10px;
-}
-
-.padd-l-16{
-    padding-left: 16px;
-}
-
-.marg-t-16{
-    margin-top: 16px !important;    
-}
-.marg-b-16{
-    margin-bottom: 16px !important;    
-}
-.marg-l-16{
-    margin-left: 16px !important;    
-}
-.marg-r-16{
-    margin-right: 16px !important;    
-}
-.txt-b{
-    font-weight: bold;
-}
-
-.hspacer-line{
-    clear:both;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height:1px;
-    border: 0;
-    border-bottom: 1px solid #d1d1d1;
-
-}
-
-.line-cz{
- border-bottom: 1px solid #d1d1d1;
-}
-
-
-
-
-.container-tit-subtit{
+  }
+
+  .titulo_projetos h3{
+      text-transform: uppercase;
+      text-align: left;
+      margin: 0;
+
+  }
+
+  .titulo_projetos p{
+      text-align: left;
+      font-size: 1rem;
+      color: #212121;
+      margin: 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+  }
+
+  .dropbox_status{
+      text-transform: uppercase;
+      background-color: #f5f5f5;
+  }
+  .dropbox_status p{
+
+      padding: 6px 0;
+      margin: 0;
+  }
+  .pct_projeto{
+      text-align: center;
+      font-size: 3.8rem;
+      color: #3e3e3e;
+  }
+  /*cor da fontes*/
+
+  .gray_1{
+      color: #d8d8d8;
+  }
+  .gray_2{
+      color: #c6c6c6;
+  }
+  .gray_3{
+       color: #878787;
+  }
+  .gray_4{
+       color: #212121;
+  }
+
+  .font_12pt{
+      font-size: 0.8rem
+  }
+  .bg_gray_2{
+      background-color: #eeeeee
+  }
+  .uppercase{
+      text-transform: uppercase;
+  }
+
+
+
+
+
+
+  /*CLASSES METAS EM ANDAMENTO*/
+
+  ul#ulDetalhesMeta {
+      margin:0;
+      padding: 0;
+      list-style-type: none;
+  }
+
+
+  ul#ulDetalhesMeta li{
+      color:#949494;
+      padding: 16px;
+      border-bottom: 1px solid #ccc;
+      line-height: 1.6;
+  }
+
+  .header-verm{
+      font-family: "Roboto-medium";
+      color: #b71c1c;
+      text-transform: uppercase;
+      font-size: 21px;
+      font-weight: bold;
+
+  }
+
+  .font-15{
+      font-size: 15px;
+  }
+
+  .font-1_1-em{
+      font-size: 1.1em;
+  }
+
+  .font-1_2-em{
+      font-size: 1.2em;
+  }
+
+  .font-1_8-em{
+      font-size: 1.8em;
+  }
+
+  .font-2-em{
+      font-size: 2em;
+  }
+
+  .font-3-em{
+      font-size: 3em;
+  }
+
+  .font-4-em{
+      font-size: 3.7em;
+  }
+
+  .font-b{
+      font-weight: bold;
+  }
+
+  .lettr-spacing-tit-pct{
+      line-height: 1;
+      letter-spacing: -3px;
+
+  }
+
+  .cor_cz87{
+      color: #878787;
+  }
+
+  .cor_cz40{
+      color:#404040;
+  }
+  .cor_cz3e{
+      color:#3e3e3e;
+  }
+  .bg-cor_czf5{
+      background-color:#f5f5f5;
+  }
+
+
+  .txt-upper{
+       text-transform: uppercase;
+  }
+
+  .col-50-l{
+      float: left;
+      width: 48%;
+      height: auto;
+      margin-right:4px;
+
+
+  }
+  .metaSelecionada{
+    line-height: 20px;
+    width: 35% !important;
+    padding-bottom: 15px;
+  }
+  .valor_perc{
+      text-align: center;
+      float: right;
+      width: 62%;
+      height: auto;
+      margin-left:4px;
+  }
+
+  .col-50-r{
+      float: right;
+      width: 48%;
+      height: auto;
+      margin-left:4px;
+
+  }
+
+  .txt-algn-c{
+       text-align: center;
+  }
+  .overfl-hdd{
+      overflow: hidden;
+  }
+  .line-cz{
+      border-bottom: 1px solid #878787;
+  }
+
+  .border-t{
+      border-top: 1px solid #d3d3d3;
+  }
+
+  .clear-bth{
+      clear:both;
+  }
+
+  .padd-10{
+      padding: 10px;
+  }
+
+  .padd-l-16{
+      padding-left: 16px;
+  }
+
+  .marg-t-16{
+      margin-top: 16px !important;
+  }
+  .marg-b-16{
+      margin-bottom: 16px !important;
+  }
+  .marg-l-16{
+      margin-left: 16px !important;
+  }
+  .marg-r-16{
+      margin-right: 16px !important;
+  }
+  .txt-b{
+      font-weight: bold;
+  }
+
+  .hspacer-line{
+      clear:both;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height:1px;
+      border: 0;
+      border-bottom: 1px solid #d1d1d1;
+
+  }
+
+  .line-cz{
+   border-bottom: 1px solid #d1d1d1;
+  }
+
+
+
+
+  .container-tit-subtit{
+      clear: both;
+      overflow: hidden;
+      font-family: "Roboto-medium";
+      color: #3b3b3b;
+      text-transform: uppercase;
+      margin-top: 54px;
+      padding: 0;
+      text-align: center;
+      float: left;
+      min-height: 45px;
+      width: 100%;
+      background-color: #eee;
+      font-size: 1em;
+  }
+
+  .box-titulo{
+      background-color: #f5f5f5;
+      height: 44px;
+      line-height: 1.0;
+      margin: 12px 16px 0 16px;
+
+  }
+  .box-subtitulo{
+      background-color: #eeeeee;
+      height:38px;
+      line-height: 2.4;
+  }
+
+
+  /*cons de fundo dos titulos e subtitulos*/
+  .cor-cz-1{
+      background-color: #f5f5f5;
+  }
+
+  .cor-cz-2{
+      background-color: #eeeeee;
+  }
+
+  .w-100-pct{
+      width:100% !important;
+  }
+
+
+  ul#listaProjetosDeMetas{
+      margin:12px 0 0 0;
+      padding: 15px;
+      list-style-type: none;
+  }
+
+  ul#listaProjetosDeMetas li{
+      width: 100%;
+      height: auto;
+      background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
+      background-position: center right;
+      background-repeat: no-repeat;
+      list-style: none;
+      margin: 0 ;
+      padding:16px  16px 16px 0;
+  }
+
+  /*SOBREPOSTO*/
+
+  .subprefeitura {
+      border-bottom: 1px solid #d1d1d1;
+      float: left;
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+      height: 55px;
+  }
+
+
+  .subpref {
+      color: #b71c1c;
+      float: left;
+      width: 35%;
+      padding: 16px 0 10px 16px;
+      height: 45px;
+      text-transform: uppercase;
+  }
+
+
+
+  /****** CONFIG *****/
+
+  .bgAlpha{
+      background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  #div_configuracao{
+      width: 100%;
+      position: fixed;
+      height: 100%;
+  }
+
+  .config_container{
+      width: 85%;
+      background-color: #eeeeee;
+      border: 1px;
+      padding-bottom: 42%;
+      float: right;
+      min-height: 100%;
+  }
+
+  .config_container p{
+      margin: 16px 0 16px 0;
+      line-height: 1.6;
+
+  }
+
+
+  .barra-config{
+      width: 100%;
+      height: 57px;
+      color:#FFFFFF;
+      background-color:#b71c1c;
+      line-height: 3.6;
+      padding-left: 16px;
+  }
+
+  .fechar-config{
+      width: 44px;
+      height: 44px;
+      background: url('../img/fechar.png') no-repeat left center ;
+      background-size: 25px 25px;
+      float:right;
+          margin-top: 6px;
+
+  }
+
+  .ico-nuvem{
+      background: url('../img/config-nuvem.png') no-repeat 25px center ;
+      background-size: 25px 25px;
+      height: 44px;
+      line-height: 2.6;
+
+  }
+
+  .ico-exclamacao{
+      background: url('../img/config-exclamacao.png') no-repeat 25px center;
+       background-size: 25px 25px;
+      height: 44px;
+      line-height: 2.6;
+
+  }
+
+  .ico-chave{
+      background: url('../img/chave.png') no-repeat 25px center;
+       background-size: 25px 25px;
+      height: 44px;
+      line-height: 2.6;
+
+  }
+  .overflow-hidden{
+      height: 318px;
+      overflow: auto;
+  }
+
+  ul.lista-config{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  }
+
+  ul.lista-config li{
+      margin: 0 ;
+      font-size: 16px;
+      font-weight: bold;
+      color: #212121;
+      display: block;
+      padding-left: 67px;
+      border-bottom: 1px solid  #d7d7d7;
+  }
+
+  .bt-atualizar-dados{
+      float:none;
+      width: 200px;
+      min-height: 44px;
+      color: #FFFFFF;
+      background: url('../img/sync.png') no-repeat 16px center;
+      background-size: 26px 26px;
+      background-color:#b71c1c;
+      border: 0;
+      border-radius: 3px;
+      text-align: right;
+      padding-right: 16px;
+      box-shadow: 2px 2px 3px #888888;
+
+  }
+
+
+  .dataconfig{
+      color: #f44336;
+  }
+  .box-atualiza-config{
+      background-color: #eeeeee;
+      font-weight: normal;
+      font-size: 12px;
+
+
+  }
+
+  .box-input-config{
+      float: left;
+      width: 70%;
+      margin-left: 8px;
+  }
+
+  .clearfix:after{
+      content: "";
+    display: table;
     clear: both;
-    overflow: hidden;
-    font-family: "Roboto-medium";
-    color: #3b3b3b;
-    text-transform: uppercase;
-    margin-top: 54px;
-    padding: 0;
-    text-align: center;
-    float: left;
-    min-height: 45px;
-    width: 100%;
-    background-color: #eee;
-    font-size: 1em;
-}
-
-.box-titulo{
-    background-color: #f5f5f5;
-    height: 44px;
-    line-height: 1.0;
-    margin: 12px 16px 0 16px;
-
-}
-.box-subtitulo{
-    background-color: #eeeeee;
-    height:38px;
-    line-height: 2.4;
-}
-
-
-/*cons de fundo dos titulos e subtitulos*/
-.cor-cz-1{
-    background-color: #f5f5f5;
-}
-
-.cor-cz-2{
-    background-color: #eeeeee;
-}
-
-.w-100-pct{
-    width:100% !important;
-}
-
-
-ul#listaProjetosDeMetas{
-    margin:12px 0 0 0;
-    padding: 15px;
-    list-style-type: none;
-}
-
-ul#listaProjetosDeMetas li{
-    width: 100%;
-    height: auto;
-    background-image: url(../img/icons/ic_chevron_right_black_24dp.png);
-    background-position: center right;
-    background-repeat: no-repeat;
-    list-style: none;
-    margin: 0 ;
-    padding:16px  16px 16px 0;
-}
-
-/*SOBREPOSTO*/
-
-.subprefeitura {
-    border-bottom: 1px solid #d1d1d1;
-    float: left;
-    height: auto;
-    width: 100%;
-    overflow: hidden;
-    height: 55px;
-}
-
-
-.subpref {
-    color: #b71c1c;
-    float: left;
-    width: 35%;
-    padding: 16px 0 10px 16px;
-    height: 45px;
-    text-transform: uppercase;
-}
-
-
-
-/****** CONFIG *****/
-
-.bgAlpha{
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-#div_configuracao{
-    width: 100%;
-    position: fixed;
-    height: 100%;
-}
-
-.config_container{
-    width: 85%;
-    background-color: #eeeeee;
-    border: 1px;
-    padding-bottom: 42%;
-    float: right;
-    min-height: 100%;
-}
-
-.config_container p{
-    margin: 16px 0 16px 0;
-    line-height: 1.6;
-
-}
-
-
-.barra-config{
-    width: 100%;
-    height: 57px;
-    color:#FFFFFF;
-    background-color:#b71c1c; 
-    line-height: 3.6;
-    padding-left: 16px;
-}
-
-.fechar-config{
-    width: 44px;
-    height: 44px;
-    background: url('../img/fechar.png') no-repeat left center ;
-    background-size: 25px 25px;
-    float:right;
-        margin-top: 6px;
-
-}
-
-.ico-nuvem{
-    background: url('../img/config-nuvem.png') no-repeat 25px center ;
-    background-size: 25px 25px;
-    height: 44px;
-    line-height: 2.6;
-    
-}
-
-.ico-exclamacao{
-    background: url('../img/config-exclamacao.png') no-repeat 25px center;
-     background-size: 25px 25px;
-    height: 44px;
-    line-height: 2.6;
-    
-}
-
-.ico-chave{
-    background: url('../img/chave.png') no-repeat 25px center;
-     background-size: 25px 25px;
-    height: 44px;
-    line-height: 2.6;
-    
-}
-.overflow-hidden{
-    height: 318px;
-    overflow: auto;
-}
-
-ul.lista-config{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-ul.lista-config li{
-    margin: 0 ;
-    font-size: 16px;
-    font-weight: bold;
-    color: #212121;
-    display: block;
-    padding-left: 67px;
-    border-bottom: 1px solid  #d7d7d7;
-}
-
-.bt-atualizar-dados{
-    float:none;
-    width: 200px;
-    min-height: 44px;
-    color: #FFFFFF;
-    background: url('../img/sync.png') no-repeat 16px center;
-    background-size: 26px 26px;
-    background-color:#b71c1c; 
-    border: 0;
-    border-radius: 3px;
-    text-align: right;
-    padding-right: 16px;
-    box-shadow: 2px 2px 3px #888888;
-
-}
-
-
-.dataconfig{
-    color: #f44336;
-}
-.box-atualiza-config{
-    
-    font-weight: normal;
-    font-size: 12px;
-
-    
-}
-
-.box-input-config{
-    float: left;
-    width: 70%;
-    margin-left: 8px;
-}
-
-.clearfix:after{
-    content: "";
-  display: table;
-  clear: both;
-}
-
-/*
-COISAS DO WILL
-
- */
-
-ul.listaDetalheProjeto {
-     margin:0;
-    padding: 0;
-    list-style-type: none;
-}
-
-ul.listaDetalheProjeto li{
-    color:#949494;
-    padding: 16px;
-    border-bottom: 1px solid #ccc;
-    line-height: 1.6;
-}
-.reset-marg{
-    margin: 0 !important;
-}
-.reset-padd{
-    padding: 0 !important;
-}
-
-.container-tit-subtit2{
-    clear: both;
-    overflow: hidden;
-    font-family: "Roboto-medium";
-    color: #3b3b3b;
-    text-transform: uppercase;
-    margin-top: 54px;
-    padding: 0;
-    text-align: center;
-    float: left;
-    min-height: 45px;
-    width: 100%;
-    /*background-color: #eee;*/
-    font-size: 1em;
-}
-
-ul.list_interna_proj{
-    margin-top: 16px;
-
-}
-
-ul.list_interna_proj li{
-    color:#949494;
-    line-height: 1.6;
-    margin: 0;
-    padding: 12px 0;
-    border-top: 1px solid #ccc;
-    border-bottom:0;
-}
-
-
-/*classes animações*/
-
-
-#div_listaMetas{
-    background-color: #fff;
-    position: absolute;
-    top:0;
-    z-index: 1;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100%;
-
-
-}
-
-#div_detalhesMeta{
-    background-color: #fff;
-    position: absolute;
-    top:0;
-    z-index: 2;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100%;
-
-}
-
-#div_detalhesProjeto{
-    background-color: #fff;
-    position: absolute;
-    top:0;
-    z-index: 3;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100%;
-
-}
-
-
-.box-ativo{
-    overflow: auto;
-    width: 100%;
-    height:auto;
-
-}
-
-.box-escondido{
-    overflow: hidden;
-    width: 100%;
-    height:0 !important;
-    top:0 !important;
-    
-    margin-left: 3000px;
-}
-
-.hideme{
-    /*posicoes devem ser valores em px e nao em porcentagem*/
-    margin-left: 2500px;
-    -webkit-transition: margin-left 1s; /* For Safari 3.1 to 6.0 */
-    transition: margin-left 1s;
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
-.showme{
-    /*posicoes devem ser valores em px e nao em porcentagem*/
-    margin-left: 0;
-    -webkit-transition: margin-left 1s; /* For Safari 3.1 to 6.0 */
-    transition: margin-left 1s;
-    -webkit-transform: translate3d(0, 0, 0);
-}
-
-#container_relativo{
-    /*position: absolute;*/
-    width: 100%;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    z-index: 0;
-
-     
-
-
-}
-
-#div_desenvolvimento{
-    padding-left: 29px !important;
-}
-
-#div_desenvolvimento p{
-    padding-left: 15px;
-}
-.logo_prodam_des{
-    padding: 10px 0 10px 0;
-}
-
-/*Classes da tela aguarde*/
-
-.bg-blk-transp-7{
-    background-color: rgba(0,0,0,0.7);
-}
-
-.z-idx-102{
-    z-index: 102;
-}
-
-.z-idx-101{
-    z-index: 101;
-}
-
-.z-idx-100{
-    z-index: 100;
-}
-
-.dspl-nn{
-    display: none;
-}
-
-.dspl-blk{
-    display: block;
-}
-
-#telaAguarde{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-}
-
-#cont_telaAguarde{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 300px;
-    width: 300px;
-    
-    margin: -150px 0 0 -150px;
-
-}
-
-.font-br{
-    color:#FFFFFF;
-}
-
-.txt-alg-c{
-    text-align: center;
-}
-
-/*classe para box de alerta e mensagens*/
-
-.box_msg{
-    width: 240px;
-    background-color: #fff;
-    height: auto;
-    border-radius: 4px;
-    padding: 10px 0 10% 0;
-    margin: 103px 0px 0 30px;
-}
-
-.box_msg h3{
-    padding: 0 10px;
-    color: #212121;
-    margin: 7px 0 12% 0;
-}
-
-.bt_alert{
-   float: right !important;
-    font-family: "Roboto-Black", sans-serif;
-    width: auto;
-    color: #b71c1c;
-    font-size: 1.1em;
-    padding-right: 10px;
-}
-
-.padd-t-4pct{
-    padding-top: 4% !important;
-}
-
-.padd-t-6pct{
-    padding-top: 6% !important;
-}
-
-/*classe para tamanho da fonte na tela inicial*/
-
-.font1{
-    font-size: 3.5em;
-    color: #D3D3D3;
-}
-
-.font2{
-    font-size: 4.5em;
-    color: #C0C0C0;
-}
-
-.font3{
-    font-size: 5.5em;
-    color: #A9A9A9;
-}
-
-.font4{
-    font-size: 6.5em;
-    color: #808080;
-}
+  }
+
+  /*
+  COISAS DO WILL
+
+   */
+
+  ul.listaDetalheProjeto {
+       margin:0;
+      padding: 0;
+      list-style-type: none;
+  }
+
+  ul.listaDetalheProjeto li{
+      color:#949494;
+      padding: 16px;
+      border-bottom: 1px solid #ccc;
+      line-height: 1.6;
+  }
+  .reset-marg{
+      margin: 0 !important;
+  }
+  .reset-padd{
+      padding: 0 !important;
+  }
+
+  .container-tit-subtit2{
+      clear: both;
+      overflow: hidden;
+      font-family: "Roboto-medium";
+      color: #3b3b3b;
+      text-transform: uppercase;
+      margin-top: 54px;
+      padding: 0;
+      text-align: center;
+      float: left;
+      min-height: 45px;
+      width: 100%;
+      /*background-color: #eee;*/
+      font-size: 1em;
+  }
+
+  ul.list_interna_proj{
+      margin-top: 16px;
+
+  }
+
+  ul.list_interna_proj li{
+      color:#949494;
+      line-height: 1.6;
+      margin: 0;
+      padding: 12px 0;
+      border-top: 1px solid #ccc;
+      border-bottom:0;
+  }
+
+
+  /*classes animações*/
+
+
+  #div_listaMetas{
+      background-color: #fff;
+      position: absolute;
+      top:0;
+      z-index: 1;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      height: 100%;
+
+
+  }
+
+  #div_detalhesMeta{
+      background-color: #fff;
+      position: absolute;
+      top:0;
+      z-index: 2;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      height: 100%;
+
+  }
+
+  #div_detalhesProjeto{
+      background-color: #fff;
+      position: absolute;
+      top:0;
+      z-index: 3;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      height: 100%;
+
+  }
+
+
+  .box-ativo{
+      overflow: auto;
+      width: 100%;
+      height:auto;
+
+  }
+
+  .box-escondido{
+      overflow: hidden;
+      width: 100%;
+      height:0 !important;
+      top:0 !important;
+
+      margin-left: 3000px;
+  }
+
+  .hideme{
+      /*posicoes devem ser valores em px e nao em porcentagem*/
+      margin-left: 2500px;
+      -webkit-transition: margin-left 1s; /* For Safari 3.1 to 6.0 */
+      transition: margin-left 1s;
+      -webkit-transform: translate3d(0, 0, 0);
+  }
+
+  .showme{
+      /*posicoes devem ser valores em px e nao em porcentagem*/
+      margin-left: 0;
+      -webkit-transition: margin-left 1s; /* For Safari 3.1 to 6.0 */
+      transition: margin-left 1s;
+      -webkit-transform: translate3d(0, 0, 0);
+  }
+
+  #container_relativo{
+      /*position: absolute;*/
+      width: 100%;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      z-index: 0;
+
+
+
+
+  }
+
+  #div_desenvolvimento{
+      padding-left: 29px !important;
+  }
+
+  #div_desenvolvimento p{
+      padding-left: 15px;
+  }
+  .logo_prodam_des{
+      padding: 10px 0 10px 0;
+  }
+
+  /*Classes da tela aguarde*/
+
+  .bg-blk-transp-7{
+      background-color: rgba(0,0,0,0.7);
+  }
+
+  .z-idx-102{
+      z-index: 102;
+  }
+
+  .z-idx-101{
+      z-index: 101;
+  }
+
+  .z-idx-100{
+      z-index: 100;
+  }
+
+  .dspl-nn{
+      display: none;
+  }
+
+  .dspl-blk{
+      display: block;
+  }
+
+  #telaAguarde{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+  }
+
+  #cont_telaAguarde{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 300px;
+      width: 300px;
+
+      margin: -150px 0 0 -150px;
+
+  }
+
+  .font-br{
+      color:#FFFFFF;
+  }
+
+  .txt-alg-c{
+      text-align: center;
+  }
+
+  /*classe para box de alerta e mensagens*/
+
+  .box_msg{
+      width: 240px;
+      background-color: #fff;
+      height: auto;
+      border-radius: 4px;
+      padding: 10px 0 10% 0;
+      margin: 103px 0px 0 30px;
+  }
+
+  .box_msg h3{
+      padding: 0 10px;
+      color: #212121;
+      margin: 7px 0 12% 0;
+  }
+
+  .bt_alert{
+     float: right !important;
+      font-family: "Roboto-Black", sans-serif;
+      width: auto;
+      color: #b71c1c;
+      font-size: 1.1em;
+      padding-right: 10px;
+  }
+
+  .padd-t-4pct{
+      padding-top: 4% !important;
+  }
+
+  .padd-t-6pct{
+      padding-top: 6% !important;
+  }
+
+  /*classe para tamanho da fonte na tela inicial*/
+
+  .font1{
+      padding-top: 6px;
+      font-size: 3em;
+      color: #D3D3D3;
+  }
+
+  .font2{
+      font-size: 4em;
+      color: #C0C0C0;
+  }
+
+  .font3{
+      font-size: 5em;
+      color: #A9A9A9;
+  }
+
+  .font4{
+      letter-spacing: -7px;
+      font-size: 7em;
+      color: #808080;
+  }

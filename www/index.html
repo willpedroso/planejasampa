@@ -7,9 +7,9 @@
    to you under the Apache License, Version 2.0 (the
    "License"); you may not use this file except in compliance
    with the License.  You may obtain a copy of the License at
-   
+
    http://www.apache.org/licenses/LICENSE-2.0
-   
+
    Unless required by applicable law or agreed to in writing,
    software distributed under the License is distributed on an
    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,8 +18,9 @@
    under the License.
    -->
 <html>
-   <head>
-      <!--
+
+<head>
+  <!--
          Customize this policy to fit your own app's needs. For more guidance, see:
              https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
          Some notes:
@@ -28,61 +29,62 @@
              * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                  * Enable inline JS: add 'unsafe-inline' to default-src
          -->
-      <!-- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> -->
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' *; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-      <meta name="format-detection" content="telephone=no">
-      <meta name="msapplication-tap-highlight" content="no">
-      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-      <link rel="stylesheet" type="text/css" href="css/index.css">
-      <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
-      <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
-      <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-      <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
-      <title>Planeja Sampa</title>
-   </head>
-   <body>
-      <!-- topo fixo -->
-      <div id="header">
-         <button id="bt_Voltar" class="bt_voltar_none">
-         </button>
-         <div class="logo">
-            <img src="img/logo_prodam_metas-01.png" alt="">
-            <p>PROGRAMA DE METAS 2013-2016</p>
-         </div>
-         <button id="bt_Configure" class="bt_Configure"><img src="img/icons/bt_config.png" alt="menu" width="24px" heigth="24px"></button>
-      </div>
-      <!-- fim do topo fixo -->
-      <div id="section">
-         <!-- inicio da tela 1  -->
-         <div id="div_metasStatus" class="showme">
-            <!-- barra subprefeitura -->
-            <div id="bt_Subprefeituras" class="subprefeitura divide_meta">
-               <div class="subpref">Subprefeitura</div>
-               <div id="recebeSelect" class="recebeSelect">
-                  
-               </div>
-               <div id="listaSubprefeituras" class="distrito">
-                  <select id="selectListaSubprefeituras" dir='rtl' name='distritos'>
+  <!-- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' *; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+  <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+  <title>Planeja Sampa</title>
+</head>
 
-                  </select>
-               </div>
-            </div>
-            <!-- fim da barra subprefeitura -->
-            <!--lista de metas por status -->
-            <div id="listaMetasStatus">
-               <div id="ulListaMetasStatus" >
-                  <!-- carrega dados do banco -->
-               </div>
-            </div>
-         </div>
-         <!-- fim da tela meta por status -->
-         <!-- iniico da tela metasObjetivos -->
-         <div id="div_metasObjetivos" style="display: none">
-            <!-- bloco links projetos -->
-            <div class="titulo_objetivo border_bottom_gray cor_3_red">
-               <h2>
+<body>
+  <!-- topo fixo -->
+  <div id="header">
+    <button id="bt_Voltar" class="bt_voltar_none">
+    </button>
+    <div class="logo">
+      <img src="img/logo_prodam_metas-01.png" alt="">
+      <p>PROGRAMA DE METAS 2013-2016</p>
+    </div>
+    <button id="bt_Configure" class="bt_Configure"><img src="img/icons/bt_config.png" alt="menu" width="24px" heigth="24px"></button>
+  </div>
+  <!-- fim do topo fixo -->
+  <div id="section">
+    <!-- inicio da tela 1  -->
+    <div id="div_metasStatus" class="showme">
+      <!-- barra subprefeitura -->
+      <div id="bt_Subprefeituras" class="subprefeitura divide_meta">
+        <div class="subpref">Subprefeitura</div>
+        <div id="recebeSelect" class="recebeSelect padd-t-6pct">
+
+        </div>
+        <div id="listaSubprefeituras" class="distrito">
+          <select id="selectListaSubprefeituras" dir='rtl' name='distritos'>
+
+          </select>
+        </div>
+      </div>
+      <!-- fim da barra subprefeitura -->
+      <!--lista de metas por status -->
+      <div id="listaMetasStatus">
+        <div id="ulListaMetasStatus">
+          <!-- carrega dados do banco -->
+        </div>
+      </div>
+    </div>
+    <!-- fim da tela meta por status -->
+    <!-- iniico da tela metasObjetivos -->
+    <div id="div_metasObjetivos" style="display: none">
+      <!-- bloco links projetos -->
+      <div class="titulo_objetivo border_bottom_gray cor_3_red">
+        <h2>
                OBJETIVOS
                <h2>
             </div>
@@ -91,9 +93,9 @@
          </div>
          <!-- fim da lista de objetivos -->
          <!-- fim da tela metasObjetivos -->
-         
+
          <!-- inicio tela2 -->
-        
+
          <div id="container_relativo">
             <div id="div_listaMetas"  class="box-escondido hideme">
                <div id="listaMetas" class="status_tela gray_4">
@@ -102,8 +104,8 @@
                <!-- barra subprefeitura -->
                <div class="subprefeitura">
                   <div class="subpref">Subprefeitura</div>
-                  <div id="recebeSelectListametas" class="recebeSelect">
-                  
+                  <div id="recebeSelectListametas" class="recebeSelect padd-t-6pct">
+
                </div>
                   <div class="distrito">
                      <select id="listaSubprefeituras_metas" dir='rtl' name='distritos'>
@@ -133,6 +135,9 @@
                   <div class="subpref">
                      Metas
                   </div>
+                  <div id="recebeSelectMeta" class="recebeSelect padd-t-6pct">
+
+                  </div>
                   <div class="distrito">
                      <select id="lista_metas_select" dir='rtl' name='distritos'>
                      </select>
@@ -148,7 +153,7 @@
                   <ul id="listaProjetosDeMetas">
                   </ul>
                </div>
-            
+
             <!-- fim da tela 3 -->
             <!-- inicio tela 4 -->
             <div id="div_detalhesProjeto" class="box-escondido hideme">
@@ -170,12 +175,12 @@
                   Configura&ccedil;&otilde;es
                   <!-- <button id="bt_fechaConfig" class="fechar-config" ontouchend="hideTela('#div_configuracao')"> -->
                   <button id="bt_fechaConfig" class="fechar-config"></button>
-                  
+
                </div>
                <div class="conteudo-config">
                   <ul class="lista-config">
-                     <li id="atualizacaoDados" class="ico-nuvem">Atualiza&ccedil;ao dos dados</li>
-                     
+                     <li id="atualizacaoDados" class="ico-nuvem">Atualiza&ccedil;ão dos dados</li>
+
                         <li id="div_atualizacao" class="box-atualiza-config">
                            <p>
                               Clique no bot&atilde;o abaixo para atualizar os dados do aplicativo.
@@ -189,14 +194,14 @@
                               </button>
                            </p>
                            <div style="overflow:hidden">
-                              <input type="checkbox" checked="" id="atualizacao_Automatica" style="float:left"> 
+                              <input type="checkbox" checked="" id="atualizacao_Automatica" style="float:left">
                               <div class="box-input-config">
                                  Desejo receber atualiza&ccedil;&otilde;es autom&aacute;ticas do aplicativo.
                               </div>
                            </div>
                            <br />
                         </li>
-                  
+
                      <li id="termosUso" class="ico-exclamacao"> Termos de uso</li>
                      <li id="div_termosUso" style="display: none" class="overflow-hidden">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique ex vel massa faucibus euismod ligula accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices pos cubilia Curae; Sed ornare, ante lobortis accumsan lacinia, est nisi aliquam libero, vel conse lorem diam sed neque. Nam et fringilla massa, eget volutpat nulla. Vestibulum euismod volutpa Phasellus tincidunt facilisis lectus, nec dapibus sem consequat non. Vestibulum feugiat, risu tincidunt faucibus, orci nulla fringilla felis, et viverra leo quam nec turpis. Mauris lectus ma ullamcorper id faucibus et, pharetra eget ligula. Fusce id urna mauris.</p>
@@ -220,7 +225,7 @@
          objetivos das metas
          </button>
       </div>
-      <!-- Tela aguarde -->    
+      <!-- Tela aguarde -->
        <div id="telaAguarde" class="w-100-pct h-100-pct pos-fix bg-blk-transp-7 z-idx-102 dspl-blk">
          <div id="cont_telaAguarde">
             <h3  class="font-br txt-alg-c" id="msgAguarde">
@@ -229,7 +234,7 @@
          </div>
        </div>
 
-      <!-- fim dos botoes do rodape -->        
+      <!-- fim dos botoes do rodape -->
       <script type="text/javascript" src="cordova.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
       <script type="text/javascript" src="js/BancoDados.js"></script>

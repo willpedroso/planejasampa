@@ -3,7 +3,7 @@
 var BANCODADOS = {
     // Objeto do banco de dados
 	dbObj: null,
-	
+
 	// Sequência de ações no banco de dados
 	actionsSeqDB: [],
 
@@ -77,7 +77,7 @@ var BANCODADOS = {
 			BANCODADOS.actionsSeqDB.pop();
 		}
 	},
-	
+
 	setActionSeqDB: function (newDB, nextFunction) {
 		console.log("setActionSeqDB");
 
@@ -88,40 +88,40 @@ var BANCODADOS = {
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetProjects);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetMilProjects);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.igetMonProjects);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.createDB);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.createTables);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.createTablesFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.initInsertData);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoals);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoalsFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertGoalsSuccess);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefectures);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefecturesFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertPrefecturesSuccess);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjects);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjectsFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertProjectsSuccess);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjects);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjectsFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMilProjectsSuccess);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjects);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjectsFail);
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.insertMonProjectsSuccess);
-			
+
 			BANCODADOS.actionsSeqDB.push(BANCODADOS.getStatusGoals);
 		}
 		else {
 			BANCODADOS.actionsSeqDB.push(nextFunction);
 		}
 	},
-	
+
     // **********************************************************************************************************
     // Busca dados na internet
     // **********************************************************************************************************
@@ -144,7 +144,7 @@ var BANCODADOS = {
 			}
         }).bind(this)).fail(function(){
 			BANCODADOS.cbFail_f("Houve falha de acesso à internet.");
-        });		
+        });
     },
 
     // Informações de Marcos de Projetos
@@ -166,7 +166,7 @@ var BANCODADOS = {
 			}
         }).bind(this)).fail(function(){
 			BANCODADOS.cbFail_f("Houve falha de acesso à internet.");
-        });		
+        });
     },
 
     // Informações de Projetos
@@ -189,7 +189,7 @@ var BANCODADOS = {
 			}
         }).bind(this)).fail(function(){
 			BANCODADOS.cbFail_f("Houve falha de acesso à internet.");
-        });		
+        });
     },
 
     // Lista de Subprefeituras
@@ -211,13 +211,13 @@ var BANCODADOS = {
 			}
         }).bind(this)).fail(function(){
 			BANCODADOS.cbFail_f("Houve falha de acesso à internet.");
-        });		
+        });
     },
 
     // Informações de Metas
     igetGoals: function () {
 		console.log("igetGoals");
-		
+
 	    $.ajax({
 	        type: "GET",
 	        url: BANCODADOS.urlGoals
@@ -233,7 +233,7 @@ var BANCODADOS = {
 			}
         }).bind(this)).fail(function(){
 			BANCODADOS.cbFail_f("Houve falha de acesso à internet.");
-        });		
+        });
     },
 
     // Verifica se deve efetuar a atualização de dados
@@ -306,22 +306,23 @@ var BANCODADOS = {
     // **********************************************************************************************************
     updateDataGoals: function (sucDidUpdate, sucDidNotUpdate, fail) {
         console.log("Iniciando update de dados do sistema...");
-		
+
         UIS.showTelaAguarde("Verificando a atualização de dados...");
-		
+
         this.cbFail_f = fail;
 
         this.cbSuccess_DidNotUpdate = sucDidNotUpdate;
         this.cbSuccess_DidUpdate = sucDidUpdate;
 
         // 1o passo: executar método que indica se a atualização é necessária
-        this.checkUpdate();
+        //this.checkUpdate();
+				window.setTimeout(function () {BANCODADOS.checkUpdate();}, 2000);
     },
-	
+
 	// Data mais recente (local)
 	getDateGoals: function () {
 		console.log("getDateGoals");
-		
+
         BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_ARTICULACAO) AS articulacao \
 							, MAX(ATUALIZACAO_EXIT) AS eixo \
 							, MAX(ATUALIZACAO_OBJETIVO) as objetivo \
@@ -332,10 +333,10 @@ var BANCODADOS = {
 							BANCODADOS.getDateGoalsSuccess,
 							BANCODADOS.getDateDataFail);
 	},
-	
+
 	getDateGoalsSuccess: function (trans, res) {
 		console.log("getDateGoalsSuccess");
-		
+
 		var dbud = {
 			bUpdateGoals: 0,
 			bUpdateProjects: 0,
@@ -344,7 +345,7 @@ var BANCODADOS = {
 			bUpdatePrefectures: 0,
 		};
 		BANCODADOS.dbUpdateDates = dbud;
-		
+
 		if (res.rows.item(0).articulacao < BANCODADOS.iUpdateDates.articulacoes) {
 			// Deve atualizar metas
 			BANCODADOS.dbUpdateDates.bUpdateGoals = true;
@@ -372,61 +373,61 @@ var BANCODADOS = {
 							BANCODADOS.getDatePrefecturesSuccess,
 							BANCODADOS.getDateDataFail);
 	},
-	
+
 	getDatePrefecturesSuccess: function (trans, res) {
 		console.log("getDatePrefecturesSuccess");
-		
+
 		if (res.rows.item(0).prefeitura < BANCODADOS.iUpdateDates.prefeituras) {
 			// Deve atualizar prefeituras
 			BANCODADOS.dbUpdateDates.bUpdatePrefectures = true;
 		}
-		
+
         BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_PROJETO) AS projeto \
 							 FROM PROJECTS",
 							[],
 							BANCODADOS.getDateProjectsSuccess,
 							BANCODADOS.getDateDataFail);
 	},
-	
+
 	getDateProjectsSuccess: function (trans, res) {
 		console.log("getDateProjectsSuccess");
-		
+
 		if (res.rows.item(0).projeto < BANCODADOS.iUpdateDates.projetos) {
 			// Deve atualizar projetos
 			BANCODADOS.dbUpdateDates.bUpdateProjects = true;
 		}
-		
+
         BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_MARCO) AS milprojeto \
 							 FROM MILPROJECTS",
 							[],
 							BANCODADOS.getDateMilProjectsSuccess,
 							BANCODADOS.getDateDataFail);
 	},
-	
+
 	getDateMilProjectsSuccess: function (trans, res) {
 		console.log("getDateMilProjectsSuccess");
-		
+
 		if (res.rows.item(0).milprojeto < BANCODADOS.iUpdateDates.projetosMarcos) {
 			// Deve atualizar marcos de projetos
 			BANCODADOS.dbUpdateDates.bUpdateMilProjects = true;
 		}
-		
+
         BANCODADOS.sqlCmdDB("SELECT MAX(ATUALIZACAO_MENSAL) AS monprojeto \
 							 FROM MONPROJECTS",
 							[],
 							BANCODADOS.getDateMonProjectsSuccess,
 							BANCODADOS.getDateDataFail);
 	},
-	
+
 	getDateMonProjectsSuccess: function (trans, res) {
 		console.log("getDateMonProjectsSuccess");
-		
+
 		if (res.rows.item(0).monprojeto < BANCODADOS.iUpdateDates.projetosMensal) {
 			// Deve atualizar mensal de projetos
 			BANCODADOS.dbUpdateDates.bUpdateMonProjects = true;
 		}
-		
-        // Avalia necessidade de atualização	
+
+        // Avalia necessidade de atualização
 		if (BANCODADOS.dbUpdateDates.bUpdateGoals == false &&
 		    BANCODADOS.dbUpdateDates.bUpdatePrefectures == false &&
 			BANCODADOS.dbUpdateDates.bUpdateProjects == false &&
@@ -442,12 +443,12 @@ var BANCODADOS = {
 
 			if (BANCODADOS.dbUpdateDates.bUpdateGoals == true) {
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.igetGoals);
-				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
 				BANCODADOS.setActionSeqDB(false, "GOALS");						// Nome da tabela
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
-																				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoals);		// Insere os dados recebidos no banco
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoalsFail);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertGoalsSuccess);
@@ -459,12 +460,12 @@ var BANCODADOS = {
 					BANCODADOS.setActionSeqDB(false, "");
 					BANCODADOS.setActionSeqDB(false, "");
 				}
-				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
 				BANCODADOS.setActionSeqDB(false, "PREFECTURES");				// Nome da tabela
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
-																				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefectures); // Insere os dados recebidos no banco
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefecturesFail);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertPrefecturesSuccess);
@@ -476,12 +477,12 @@ var BANCODADOS = {
 					BANCODADOS.setActionSeqDB(false, "");
 					BANCODADOS.setActionSeqDB(false, "");
 				}
-				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
 				BANCODADOS.setActionSeqDB(false, "PROJECTS");					// Nome da tabela
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
-																				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjects);	// Insere os dados recebidos no banco
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjectsFail);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertProjectsSuccess);
@@ -493,12 +494,12 @@ var BANCODADOS = {
 					BANCODADOS.setActionSeqDB(false, "");
 					BANCODADOS.setActionSeqDB(false, "");
 				}
-				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
 				BANCODADOS.setActionSeqDB(false, "MILPROJECTS");				// Nome da tabela
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
-																				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjects);	// Insere os dados recebidos no banco
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjectsFail);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMilProjectsSuccess);
@@ -510,18 +511,18 @@ var BANCODADOS = {
 					BANCODADOS.setActionSeqDB(false, "");
 					BANCODADOS.setActionSeqDB(false, "");
 				}
-				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.purgeTable);		// Limpar tabela
 				BANCODADOS.setActionSeqDB(false, "MONPROJECTS");				// Nome da tabela
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.initInsertData);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.cbFail_f);			// Retorno de erro no purgeTable
-																				
+
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjects);	// Insere os dados recebidos no banco
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjectsFail);
 				BANCODADOS.setActionSeqDB(false, BANCODADOS.insertMonProjectsSuccess);
 			}
 			BANCODADOS.setActionSeqDB(false, BANCODADOS.getStatusGoals);
-			
+
 			// Inicia atualização
 			UIS.showTelaAguarde("Atualizando os dados...");
 			BANCODADOS.cbSuccess_f = BANCODADOS.cbSuccess_DidUpdate;
@@ -529,23 +530,23 @@ var BANCODADOS = {
 			(BANCODADOS.actionsSeqDB.shift())();
 		}
 	},
-	
+
 	getDateDataFail: function (err) {
 		console.log("getDateDataFail: " + err);
-		
+
         BANCODADOS.cbFail_f("Falha na verificação de necessidade de atualização de dados.");
 	},
 	// Data mais recente
-	
+
 	purgeTable: function () {
 		console.log("purgeTable");
-		
+
         BANCODADOS.sqlCmdDB("DELETE FROM " + BANCODADOS.actionsSeqDB.shift(),
 							[],
-							BANCODADOS.actionsSeqDB.shift(), 
+							BANCODADOS.actionsSeqDB.shift(),
 							BANCODADOS.actionsSeqDB.shift());
 	},
-	
+
     // **********************************************************************************************************
     // Fim - Atualização de dados
     // **********************************************************************************************************
@@ -603,7 +604,7 @@ var BANCODADOS = {
                         INNER JOIN PROJECTS as p ON p.ID = pm.PROJETO_ID \
                         WHERE p.META_ID = ?", [BANCODADOS.vIdGoal], BANCODADOS.getProjectDetailsAcompanhamento, BANCODADOS.getProjectDetailsFail);
     },
-	
+
 	getProjectDetailsAcompanhamento: function (trans, res) {
 		console.log("getProjectDetailsAcompanhamento");
 		// guarda resultado
@@ -622,7 +623,7 @@ var BANCODADOS = {
 			//		6 ==> "Obras - Fase 1 (20%)"
 			//		7 ==> "Obras - Fase 2 (35%)"
 			//		8 ==> "Estruturação para o funcionamento (5%)"
-			//		
+			//
 			// Situação da fase (json = "st" / banco = "STATUS_MARCO"):
 			//		= 0 ==> "NÃO INICIADA"
 			//		> 0 e < 100 ==> "EM ANDAMENTO"
@@ -684,7 +685,7 @@ var BANCODADOS = {
 
     getGoalDetailsSuccess: function (trans, res) {
         console.log("getGoalDetailsSuccess");
- 
+
         // Retorna
         BANCODADOS.cbSuccess_f(BANCODADOS.auxVar_2, res);
     },
@@ -830,7 +831,7 @@ var BANCODADOS = {
 
         if (BANCODADOS.cbSuccess_f != null) {
             BANCODADOS.cbSuccess_f();
-        } 
+        }
     },
 
     getPrefecturesFail: function (err) {
@@ -900,15 +901,15 @@ var BANCODADOS = {
             // Obtém os projetos associados a prefeitura selecionada
 			if (blistaMetas == true && idPrefecture == "Sao Paulo") {
 				// Desconsidera a subprefeitura, mas precisa das informações detalhadas, pois a tela de lista de metas é a tela atual
-				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS" + 
+				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS" +
 									" UNION " +
-									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS", 
+									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS",
 									[], BANCODADOS.getStatusGoalsPrefectureP1Success, BANCODADOS.getStatusGoalsPrefectureP1Fail);
 			}
 			else {
-				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS WHERE PREFEITURA_ID = ?" + 
+				BANCODADOS.sqlCmdDB("SELECT DISTINCT PROJETO_ID FROM MILPROJECTS WHERE PREFEITURA_ID = ?" +
 									" UNION " +
-									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS WHERE PREFEITURA_ID = ?", 
+									"SELECT DISTINCT PROJETO_ID FROM MONPROJECTS WHERE PREFEITURA_ID = ?",
 									[idPrefecture, idPrefecture], BANCODADOS.getStatusGoalsPrefectureP1Success, BANCODADOS.getStatusGoalsPrefectureP1Fail);
 			}
         }
@@ -977,7 +978,7 @@ var BANCODADOS = {
                                 BANCODADOS.getStatusGoalsPrefectureP3Fail);
         }
     },
-        
+
     getStatusGoalsPrefectureP3Success: function (trans, res) {
         console.log("getStatusGoalsPrefectureP3Success");
         // Salva dados na lista de metas
@@ -1061,7 +1062,7 @@ var BANCODADOS = {
 		// Prepara sequência de ações de banco de dados
 		BANCODADOS.initActionsSeqDB();
 		BANCODADOS.setActionSeqDB(true, null);
-		
+
         if (idPrefecture == null) {
             //BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS GROUP BY STATUS_META ORDER BY STATUS_META", [], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.igetGoals : BANCODADOS.cbFail_f);
             BANCODADOS.sqlCmdDB("SELECT STATUS_META, COUNT(1) AS QTD FROM GOALS GROUP BY STATUS_META ORDER BY STATUS_META", [], BANCODADOS.getStatusGoalsSuccess, entrada ? BANCODADOS.actionsSeqDB.shift() : BANCODADOS.cbFail_f);
