@@ -101,7 +101,7 @@
 
                 // Libera uso do click
                 UIS.aguardaTransicaoTela = false;
-                UIS.showTelaAlert("Houve falha já aplicativo: \r\n " + err + ". Por favor, reinicie o aplicativo.", "Fechar");
+                UIS.showTelaAlert(err + "\r\nPor favor, reinicie o aplicativo.", "Fechar");
             }
             /********************* INICIALIZAÇÃO DAS METAS POR STATUS/OBJETIVO*************/
             /********************* RETORNO DE ATUALIZAÇÃO (AUTOMÁTICA E MANUAL)************/
